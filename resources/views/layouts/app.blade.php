@@ -53,6 +53,26 @@
         @yield('content')
         
     </main>
+    <footer class="bg-black text-light">
+        <div class="d-flex flex-row justify-content-evenly">
+            <div class="d-flex flex-column align-items-center">
+                <i class="bi bi-calendar-date"></i>
+                Reserva
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <i class="bi bi-geo-alt"></i>
+                Info
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <i class="bi bi-image"></i>
+                Galería
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <i class="bi bi-star"></i>
+                Reseñas
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
