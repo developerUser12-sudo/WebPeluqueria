@@ -1,0 +1,9 @@
+@import "bootstrap-icons/font/bootstrap-icons.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.main {
+    background-image: url('/storage/app/public/photo-1493256338651-d82f7acb2b38.avif');
+    background-size: cover;     
+    height: 80vh;         
+}
