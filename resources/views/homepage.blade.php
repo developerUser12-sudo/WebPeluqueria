@@ -13,12 +13,12 @@
     <div class="bg-black d-flex align-items-center" style="height:30vh">
 
         <div class="d-flex flex-row justify-content-evenly w-100">
-            <div class="d-flex flex-row gap-3">
+            <div class="d-flex flex-row gap-5">
                 <div>
-                    <a href="" class="text-decoration-none text-light"><img src="" alt="Instagram"></a>
+                    <a href="https://www.instagram.com/lmbarberestudio/" class="text-decoration-none text-light"><i class="bi bi-instagram fs-2"></i></a>
                 </div>
                 <div>
-                    <a href="" class="text-decoration-none text-light"><img src="" alt="WhatsApp"></a>
+                    <a href="https://wa.link/gcqpdd" class="text-decoration-none text-light fs-2"><i class="bi bi-whatsapp"></i></a>
 
                 </div>
             </div>

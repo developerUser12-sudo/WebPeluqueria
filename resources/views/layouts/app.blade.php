@@ -21,29 +21,17 @@
         <nav class="navbar bg-black">
             <div class="container-xl p-3">
                 <div>
-                    <img class="text-light" src="" alt="Logo">
+                    <a href="{{ url('/') }}">
+                        <img class="text-light w-75" src="{{ asset('storage/logo.webp') }}" alt="Logo">
+                    </a>
                 </div>
                 <div>
-                    @guest
+                   
                         <a class="nav-link text-light" href="{{ route('login') }}">
                             <i class="bi bi-door-closed"></i> Identificarse
                         </a>
-                    @else
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="userDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-people-fill me-2"></i>{{ Auth::user()->name }}
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                                <li>
-                                    <a href="{{ config('app.url') }}/cuenta" class="dropdown-item">Mi cuenta</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('reservas') }}" class="dropdown-item">Mis reservas</a>
-                                </li>
-                            </ul>
-                        </div>
-                    @endguest
+                    
+                      
 
                 </div>
             </div>
@@ -51,16 +39,18 @@
     </header>
     <main>
         @yield('content')
-        
+
     </main>
-    <footer class="bg-black text-light">
+    <footer class="bg-black text-light p-3">
         <div class="d-flex flex-row justify-content-evenly">
             <div class="d-flex flex-column align-items-center">
                 <i class="bi bi-calendar-date"></i>
                 Reserva
             </div>
             <div class="d-flex flex-column align-items-center">
-                <i class="bi bi-geo-alt"></i>
+                <a href="https://maps.app.goo.gl/Cy26WeuxhQJhYfpS7" class="text-decoration-none text-light">
+                    <i class="bi bi-geo-alt"></i>
+                </a>
                 Info
             </div>
             <div class="d-flex flex-column align-items-center">
