@@ -14,6 +14,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
@@ -48,7 +49,7 @@
                 Reserva
             </div>
             <div class="d-flex flex-column align-items-center">
-                <a href="https://maps.app.goo.gl/Cy26WeuxhQJhYfpS7" class="text-decoration-none text-light">
+                <a href="https://maps.app.goo.gl/Cy26WeuxhQJhYfpS7" target="blank" class="text-decoration-none text-light">
                     <i class="bi bi-geo-alt"></i>
                 </a>
                 Info
@@ -63,6 +64,8 @@
             </div>
         </div>
     </footer>
+    @livewireStyles
+    @livewireScripts
 </body>
 
 </html>

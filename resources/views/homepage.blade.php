@@ -7,7 +7,7 @@
             <h1>LM Barber</h1>
             <p class="text-center fs-5"><b>Estudio especializado en peluquería masculina y asesoramiento de imagen
                     profesional con tijera</b></p>
-            <button class="btn btn-secondary" style="border-radius: 12px;background-color:#222322">Reservar</button>
+            <a class="btn btn-secondary" type="button" href="{{ route('reservar') }}"  style="border-radius: 12px;background-color:#222322">Reservar</a>
         </div>
     </div>
     <div class="bg-black d-flex align-items-center" style="height:30vh">
