@@ -4,15 +4,18 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Admin\LoginAdminController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\BloqueosHorariosController;
 use App\Http\Controllers\ReservarCita;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
+
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
@@ -57,5 +60,25 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
-    Route::get('reservar',[ReservarCita::class,'show'])->name('reservar');
+    Route::get('reservar', [ReservarCita::class, 'show'])->name('reservar');
+});
+Route::middleware('guest:admin')->group(function () {
+    Route::get('login-admin', [LoginAdminController::class, 'create'])
+        ->name('admin.loginadmin');
+
+    Route::post('login-admin', [LoginAdminController::class, 'store'])
+        ->name('admin.loginadmin.submit');
+});
+Route::middleware('auth:admin')->group(function () {
+
+    Route::get('admin', function () {
+        return view('admin.adminpage');
+    });
+
+    Route::post('logout-admin', [LoginAdminController::class, 'destroy'])
+        ->name('admin.logout');
+
+    Route::post('bloqueos', [BloqueosHorariosController::class, 'store'])
+        ->name('bloqueos.store');
+
 });

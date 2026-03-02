@@ -14,7 +14,7 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @livewireStyles
+
 </head>
 
 <body class="font-sans antialiased">
@@ -27,12 +27,31 @@
                     </a>
                 </div>
                 <div>
-                   
+                    @guest
                         <a class="nav-link text-light" href="{{ route('login') }}">
                             <i class="bi bi-door-closed"></i> Identificarse
                         </a>
-                    
-                      
+                    @else
+                        <div class="dropdown">
+                            <button class="text-light dropdown-toggle" type="button" id="userDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-people-fill me-2"></i>{{ Auth::user()->name }}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li>
+                                    <a href="{{ config('app.url') }}/cuenta" class="dropdown-item bg-light text-black">Mi cuenta</a>
+                                </li>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                     @csrf
+                                        <button type="submit" class="dropdown-item bg-light text-black">{{ __('Cerrar sesión') }}</button>
+                                    </form>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    @endguest
+
 
                 </div>
             </div>
@@ -49,7 +68,8 @@
                 Reserva
             </div>
             <div class="d-flex flex-column align-items-center">
-                <a href="https://maps.app.goo.gl/Cy26WeuxhQJhYfpS7" target="blank" class="text-decoration-none text-light">
+                <a href="https://maps.app.goo.gl/Cy26WeuxhQJhYfpS7" target="blank"
+                    class="text-decoration-none text-light">
                     <i class="bi bi-geo-alt"></i>
                 </a>
                 Info
@@ -64,8 +84,7 @@
             </div>
         </div>
     </footer>
-    @livewireStyles
-    @livewireScripts
+
 </body>
 
 </html>
