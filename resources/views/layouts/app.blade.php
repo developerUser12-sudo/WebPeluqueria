@@ -11,7 +11,11 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <!-- CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -39,15 +43,17 @@
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="userDropdown">
                                 <li>
-                                    <a href="{{ config('app.url') }}/cuenta" class="dropdown-item bg-light text-black">Mi cuenta</a>
+                                    <a href="{{ config('app.url') }}/cuenta" class="dropdown-item bg-light text-black">Mi
+                                        cuenta</a>
                                 </li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
-                                     @csrf
-                                        <button type="submit" class="dropdown-item bg-light text-black">{{ __('Cerrar sesión') }}</button>
+                                        @csrf
+                                        <button type="submit"
+                                            class="dropdown-item bg-light text-black">{{ __('Cerrar sesión') }}</button>
                                     </form>
                                 </li>
-                                
+
                             </ul>
                         </div>
                     @endguest

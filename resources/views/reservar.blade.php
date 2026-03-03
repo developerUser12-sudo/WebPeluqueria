@@ -39,7 +39,10 @@
                 <button type="button" id="continuar" class="btn btn-primary mt-3">Continuar</button>
             </div>
             <div id="phase2" style="display:none;">
-                
+                <div class="form-group">
+                    <label class="text-light" for="dia">Selecciona un día</label>
+                    <input type="text" id="fecha" name="fecha" class="form-control" placeholder="Selecciona un día">
+                </div>
                 <button type="button" id="atras" class="btn btn-primary mt-3">Atrás</button>
                 <button type="submit" class="btn btn-primary mt-3">Reservar</button>
             </div>
@@ -73,5 +76,26 @@
             fase2.style.display = 'none'
 
         })
+    </script>
+    <script>
+        const diasBloqueados = @json($diasBloqueados);
+    </script>
+    <script>
+        flatpickr("#fecha", {
+            dateFormat: "Y-m-d",
+            locale: "es",
+             minDate: "today",
+            disable: [
+                function (date) {
+                    const yyyy = date.getFullYear();
+                    const mm = String(date.getMonth() + 1).padStart(2, '0');
+                    const dd = String(date.getDate()).padStart(2, '0');
+                    const fechaLocal = `${yyyy}-${mm}-${dd}`;
+
+                    return date.getDay() === 0 || diasBloqueados.includes(fechaLocal);
+                }
+            ]
+        });
+
     </script>
 @endsection

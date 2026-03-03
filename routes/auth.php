@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
-    Route::get('reservar', [ReservarCita::class, 'show'])->name('reservar');
+    Route::get('reservar', [BloqueosHorariosController::class, 'create'])->name('reservar');
 });
 Route::middleware('guest:admin')->group(function () {
     Route::get('login-admin', [LoginAdminController::class, 'create'])
