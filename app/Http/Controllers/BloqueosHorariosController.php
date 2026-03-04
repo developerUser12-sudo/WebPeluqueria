@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\BloqueosHorarios;
 use Illuminate\Http\Request;
+use function _PHPStan_781aefaf6\React\Promise\all;
 
 class BloqueosHorariosController extends Controller
 {
@@ -44,12 +45,14 @@ class BloqueosHorariosController extends Controller
 
     public function create()
     {
+        $horasBloqueadas = BloqueosHorarios::where('tipo', 'franja_horaria')
+            ->get(['fecha_inicio', 'fecha_fin']);
         $diasBloqueados = BloqueosHorarios::where('tipo', 'dia_entero')
             ->get()
             ->map(function ($bloqueo) {
                 return Carbon::parse($bloqueo->fecha_inicio)->format('Y-m-d');
             });
 
-        return view('reservar', compact('diasBloqueados'));
+        return view('reservar', compact('diasBloqueados', 'horasBloqueadas'));
     }
 }
