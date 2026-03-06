@@ -11,7 +11,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BloqueosHorariosController;
-use App\Http\Controllers\ReservarCita;
+use App\Http\Controllers\ReservarCitaController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -60,7 +60,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
-    Route::get('reservar', [BloqueosHorariosController::class, 'create'])->name('reservar');
+    Route::get('reservar', [ReservarCitaController::class, 'create'])->name('reservar');
+    Route::post('reservar', [ReservarCitaController::class, 'reservar'])->name('reservar');
 });
 Route::middleware('guest:admin')->group(function () {
     Route::get('login-admin', [LoginAdminController::class, 'create'])
@@ -71,9 +72,7 @@ Route::middleware('guest:admin')->group(function () {
 });
 Route::middleware('auth:admin')->group(function () {
 
-    Route::get('admin', function () {
-        return view('admin.adminpage');
-    });
+    Route::get('admin', [ReservarCitaController::class, 'show']);
 
     Route::post('logout-admin', [LoginAdminController::class, 'destroy'])
         ->name('admin.logout');

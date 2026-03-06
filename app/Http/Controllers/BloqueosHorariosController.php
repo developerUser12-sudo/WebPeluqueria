@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Carbon\Carbon;
+
 
 use App\Http\Controllers\Controller;
 use App\Models\BloqueosHorarios;
@@ -40,19 +40,8 @@ class BloqueosHorariosController extends Controller
             'fecha_fin' => $fin,
         ]);
 
-        return back();
+        return back()->with('success', 'Cita reservada correctamente');
     }
 
-    public function create()
-    {
-        $horasBloqueadas = BloqueosHorarios::where('tipo', 'franja_horaria')
-            ->get(['fecha_inicio', 'fecha_fin']);
-        $diasBloqueados = BloqueosHorarios::where('tipo', 'dia_entero')
-            ->get()
-            ->map(function ($bloqueo) {
-                return Carbon::parse($bloqueo->fecha_inicio)->format('Y-m-d');
-            });
-
-        return view('reservar', compact('diasBloqueados', 'horasBloqueadas'));
-    }
+    
 }

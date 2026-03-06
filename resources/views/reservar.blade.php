@@ -3,9 +3,7 @@
 @section('content')
     <div class="bg-secondary d-flex justify-content-center align-items-center" style="height:85vh">
         <div class="bg-black p-5 rounded-4 " style="width:450px">
-            <form action="">
-
-
+            <form method="POST" action="{{ route('reservar') }}">
                 @csrf
                 <div id="phase1">
                     <div class="form-group">
@@ -118,6 +116,15 @@
             } else {
                 horas = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30'];
 
+            }
+            if (horasBloqueadas.length == 0) {
+                for (let i = 0; i < horas.length; i++) {
+                    let opt = document.createElement('option');
+                    opt.value = horas[i];
+                    opt.innerHTML = horas[i];
+                    document.getElementById('hora').appendChild(opt);
+                }
+                return;
             }
             for (let index = 0; index < horasBloqueadas.length; index++) {
                 if (horasBloqueadas[index].fecha_inicio.split('T')[0] == params) {
