@@ -28,13 +28,14 @@ class ReservarCitaController extends Controller
             'dia' => 'required',
             'hora' => 'required',
         ]);
-        Citas::create([
+        $cita = Citas::create([
+            'id_usuario' => auth()->id(),
             'servicio' => $request->servicio,
             'peluquero' => $request->peluquero,
             'dia' => $request->dia,
             'hora' => $request->hora,
         ]);
-        return redirect('/');
+        return redirect()->route('cita-confirmada', $cita->id);
     }
     public function show()
     {
@@ -48,6 +49,15 @@ class ReservarCitaController extends Controller
             ->orderBy('hora', 'desc')
             ->paginate(10);
 
-        return view('admin.adminpage', compact('citasFuturas','citasPasadas'));
+        return view('admin.adminpage', compact('citasFuturas', 'citasPasadas'));
+    }
+    public function confirmada($id)
+    {
+        $cita = Citas::find($id);
+        if ($cita->id_usuario !== auth()->id()) {
+            return redirect('/');
+        }
+
+        return view('citaConfirmada', compact('cita'));
     }
 }

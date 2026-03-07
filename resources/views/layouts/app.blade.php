@@ -70,7 +70,10 @@
     <footer class="bg-black text-light p-3">
         <div class="d-flex flex-row justify-content-evenly">
             <div class="d-flex flex-column align-items-center">
-                <i class="bi bi-calendar-date"></i>
+                <a href="{{ route('reservar') }}" class="text-decoration-none text-light">
+
+                    <i class="bi bi-calendar-date"></i>
+                </a>
                 Reserva
             </div>
             <div class="d-flex flex-column align-items-center">
