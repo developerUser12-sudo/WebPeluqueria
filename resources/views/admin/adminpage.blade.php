@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="bg-secondary d-flex flex-column justify-content-center align-items-center ">
-        <div class="bg-black p-5 rounded-4 d-flex flex-column gap-5">
+        <div class="bg-black p-5 rounded-4 d-flex flex-column gap-5 mt-5 mb-5">
             <div>
                 <h5 class="text-light">Citas futuras</h5>
                 <table class="table">
@@ -29,7 +29,7 @@
                     {{ $citasFuturas->links() }}
                 </div>
                 <h5 class="text-light">Citas pasadas</h5>
-
+              
                 <table class="table">
                     <thead>
                         <tr>
@@ -59,7 +59,7 @@
                 <form method="POST" action="{{ route('bloqueos.store') }}">
                     @csrf
                     <div class="form-group mt-3 ">
-                        <select name="tipo" id="tipo" class="mb-3">
+                        <select name="tipo" id="tipo" class="mb-3 form-select">
                             <option value="dia_entero">Día completo</option>
                             <option value="franja_horaria">Franja horaria</option>
                         </select>
@@ -70,11 +70,17 @@
                             <input class="form-control" name="fecha_fin" id="fin" type="datetime-local">
                         </div>
                         <div id="diaEntero">
-                            <input type="date" name="dia" class="mt-2">
+                            <input class="form-control" type="date" name="dia" class="mt-2">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary mt-4">Crear bloqueo de horario</button>
                 </form>
+            </div>
+            <div>
+                <h4 class="text-light">Estadisticas diarias</h4>
+                <p class="text-light">Citas de hoy: {{ count($citasHoy) }}</p>
+                <p class="text-light">Total de precios de hoy: {{ $totalHoy }}€</p>
+
             </div>
             <div>
                 <form method="POST" action="{{ route('admin.logout') }}">
@@ -83,11 +89,8 @@
                 </form>
             </div>
         </div>
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+        
+
 
     </div>
     <script>

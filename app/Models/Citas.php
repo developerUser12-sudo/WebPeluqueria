@@ -13,6 +13,7 @@ class Citas extends Model
         'peluquero',
         'dia',
         'hora',
+        'precio',
     ];
     public function user()
     {

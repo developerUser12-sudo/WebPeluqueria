@@ -63,6 +63,10 @@ Route::middleware('auth')->group(function () {
     Route::get('reservar', [ReservarCitaController::class, 'create'])->name('reservar');
     Route::post('reservar', [ReservarCitaController::class, 'reservar'])->name('reservar');
     Route::get('cita-confirmada/{id}', [ReservarCitaController::class, 'confirmada'])->name('cita-confirmada');
+    Route::get('cita-confirmada/{id}/calendar', [ReservarCitaController::class, 'calendar'])->name('calendario');
+    Route::get('cuenta', function () {
+        return view('cuenta');
+    });
 });
 Route::middleware('guest:admin')->group(function () {
     Route::get('login-admin', [LoginAdminController::class, 'create'])
