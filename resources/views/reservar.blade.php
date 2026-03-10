@@ -42,11 +42,11 @@
                 <div id="phase2" style="display:none;">
                     <div class="form-group">
                         <label class="text-light" for="dia">Selecciona un día</label>
-                        <input type="text" id="dia" name="dia" class="form-control">
+                        <input type="text" id="dia" name="dia" class="form-control" required>
                     </div>
                     <div class="form-group mt-4">
                         <label class="text-light" for="hora">Selecciona una hora</label>
-                        <select class="form-control" name="hora" id="hora">
+                        <select class="form-control" name="hora" id="hora" required>
 
                         </select>
                     </div>

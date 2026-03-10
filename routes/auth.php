@@ -11,7 +11,9 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BloqueosHorariosController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservarCitaController;
+use App\Http\Controllers\CitasController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -40,6 +42,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::patch('/cambiar-contrasena', [ProfileController::class, 'updatePassword'])->name('cuenta.password');
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -64,9 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::post('reservar', [ReservarCitaController::class, 'reservar'])->name('reservar');
     Route::get('cita-confirmada/{id}', [ReservarCitaController::class, 'confirmada'])->name('cita-confirmada');
     Route::get('cita-confirmada/{id}/calendar', [ReservarCitaController::class, 'calendar'])->name('calendario');
-    Route::get('cuenta', function () {
-        return view('cuenta');
-    });
+    Route::get('cuenta', [ProfileController::class,'updateProfile']);
 });
 Route::middleware('guest:admin')->group(function () {
     Route::get('login-admin', [LoginAdminController::class, 'create'])
@@ -84,5 +85,7 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::post('bloqueos', [BloqueosHorariosController::class, 'store'])
         ->name('bloqueos.store');
-
+    Route::get('/cita/{id}/editar', [CitasController::class, 'editarCitaView'])->name('citas.edit');
+    Route::put('/cita/{id}', [CitasController::class, 'editarCita'])->name('citas.update');
+    Route::delete('/citas/{id}', [CitasController::class, 'eliminarCita'])->name('citas.destroy');
 });

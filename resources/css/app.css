@@ -12,3 +12,19 @@
     backdrop-filter: blur(10px);
     border-radius: 20px;
 }
+.nav-tabs .nav-link {
+    color: white;
+}
+
+.nav-tabs .nav-link:hover {
+    color: white;
+}
+
+.nav-tabs .nav-link.active {
+    color: black;
+    background-color: white;
+}
+
+.nav-tabs .nav-link.active:hover {
+    color: black;
+}
