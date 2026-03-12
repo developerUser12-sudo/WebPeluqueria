@@ -21,7 +21,7 @@
 
 </head>
 
-<body class="font-sans antialiased">
+<body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar bg-black">
             <div class="container-xl p-3">
@@ -63,7 +63,7 @@
             </div>
         </nav>
     </header>
-    <main>
+   <main class="@yield('main-class') flex-grow-1 bg-secondary d-flex justify-content-center flex-column" style="min-height:700px">
         @yield('content')
 
     </main>

@@ -2,16 +2,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 .main {
     background-image: url('/storage/app/public/photo-1493256338651-d82f7acb2b38.avif');
-    background-size: cover;     
-    height: 80vh;         
+    background-size: cover;
 }
+
+
 .glass {
-    background: rgba(0, 0, 0, 0.4); 
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(10px);
     border-radius: 20px;
 }
+
 .nav-tabs .nav-link {
     color: white;
 }
@@ -27,4 +30,8 @@
 
 .nav-tabs .nav-link.active:hover {
     color: black;
+}
+
+#myTab {
+    border-bottom: none;
 }

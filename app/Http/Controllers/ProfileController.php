@@ -58,10 +58,11 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
-    public function updateProfile(){
+    public function updateProfile()
+    {
         $user = Auth::user();
-        return view('cuenta',compact('user'));
-    } 
+        return view('cuenta', compact('user'));
+    }
     public function updatePassword(Request $request)
     {
         $user = $request->user();
@@ -73,6 +74,39 @@ class ProfileController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return back()->with('success', 'Contraseña actualizada correctamente.');
+        return back()->with('success', 'Contraseña actualizada correctamente');
+    }
+    public function updateEmail(Request $request)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'email' => 'required|email|unique:users,email'
+        ]);
+
+        $user->email = $request->email;
+        $user->save();
+
+        return back()->with('success', 'Correo actualizado correctamente');
+    }
+    public function updateDatos(Request $request)
+    {
+        $user = $request->user();
+
+        if ($request->filled('name')) {
+            $user->name = $request->name;
+        }
+
+        if ($request->filled('surname')) {
+            $user->surname = $request->surname;
+        }
+
+        if ($request->filled('phone')) {
+            $user->phone = $request->phone;
+        }
+
+        $user->save();
+
+        return back()->with('success', 'Datos actualizados correctamente');
     }
 }

@@ -39,10 +39,14 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
+
+    
 });
 
 Route::middleware('auth')->group(function () {
     Route::patch('/cambiar-contrasena', [ProfileController::class, 'updatePassword'])->name('cuenta.password');
+    Route::patch('/cambiar-email', [ProfileController::class, 'updateEmail'])->name('cuenta.email');
+    Route::patch('/cambiar-datos', [ProfileController::class, 'updateDatos'])->name('cuenta.datos');
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
@@ -67,7 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::post('reservar', [ReservarCitaController::class, 'reservar'])->name('reservar');
     Route::get('cita-confirmada/{id}', [ReservarCitaController::class, 'confirmada'])->name('cita-confirmada');
     Route::get('cita-confirmada/{id}/calendar', [ReservarCitaController::class, 'calendar'])->name('calendario');
-    Route::get('cuenta', [ProfileController::class,'updateProfile']);
+    Route::get('cuenta', [ProfileController::class, 'updateProfile']);
 });
 Route::middleware('guest:admin')->group(function () {
     Route::get('login-admin', [LoginAdminController::class, 'create'])
