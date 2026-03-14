@@ -13,9 +13,9 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <!-- CSS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -63,8 +63,22 @@
             </div>
         </nav>
     </header>
-   <main class="@yield('main-class') flex-grow-1 bg-secondary d-flex justify-content-center flex-column" style="min-height:700px">
-        @yield('content')
+    <main class="@yield('main-class') flex-grow-1 main d-flex justify-content-center flex-column">
+
+        @hasSection('homepage')
+
+            @yield('homepage')
+
+        @else
+
+            <div class="d-flex justify-content-center align-items-center @yield('class-style')" >
+                <div class="@yield('class-style') bg-black p-5 rounded-4 text-light my-5 my-md-0 "
+                    style="@yield('card-style')">
+                    @yield('content')
+                </div>
+            </div>
+
+        @endif
 
     </main>
     <footer class="bg-black text-light p-3">

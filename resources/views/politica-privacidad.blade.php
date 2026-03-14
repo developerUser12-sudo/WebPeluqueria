@@ -1,8 +1,8 @@
 @extends('layouts.app')
+@section('class-style','my-0 my-lg-5')
 
 @section('content')
-    <div class="bg-secondary d-flex justify-content-center align-items-center" style="height:100vh">
-        <div class="bg-black p-5 rounded-4 text-light">
+ 
             <h2 class="mb-4">Política de Privacidad</h2>
 
             <p><strong>Responsable del tratamiento:</strong> LM Barber</p>
@@ -34,6 +34,5 @@
 
             <h3>Seguridad</h3>
             <p>Se adoptan las medidas necesarias para proteger la información personal de los usuarios.</p>
-        </div>
-    </div>
+       
 @endsection

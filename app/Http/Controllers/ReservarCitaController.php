@@ -10,6 +10,7 @@ class ReservarCitaController extends Controller
 {
     public function create()
     {
+        
         $horasBloqueadas = BloqueosHorarios::where('tipo', 'franja_horaria')
             ->get(['fecha_inicio', 'fecha_fin']);
         $diasBloqueados = BloqueosHorarios::where('tipo', 'dia_entero')
@@ -17,8 +18,8 @@ class ReservarCitaController extends Controller
             ->map(function ($bloqueo) {
                 return Carbon::parse($bloqueo->fecha_inicio)->format('Y-m-d');
             });
-
-        return view('reservar', compact('diasBloqueados', 'horasBloqueadas'));
+        $usuario=auth()->id();
+        return view('reservar', compact('diasBloqueados', 'horasBloqueadas','usuario'));
     }
     public function reservar(Request $request)
     {
@@ -47,7 +48,7 @@ class ReservarCitaController extends Controller
                 break;
 
         }
-
+        
         $cita = Citas::create([
             'id_usuario' => auth()->id(),
             'servicio' => $request->servicio,
@@ -55,6 +56,9 @@ class ReservarCitaController extends Controller
             'dia' => $request->dia,
             'hora' => $request->hora,
             'precio' => $precio,
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            'telefono' => $request->telefono,
         ]);
         return redirect()->route('cita-confirmada', $cita->id);
     }

@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ReservarCitaController;
 Route::get('/', function () {
     return view('homepage');
 });
@@ -12,6 +12,10 @@ Route::get('politica-de-privacidad', function () {
 Route::get('aviso-legal', function () {
     return view('aviso-legal');
 });
+Route::get('reservar', [ReservarCitaController::class, 'create'])->name('reservar');
+Route::post('reservar', [ReservarCitaController::class, 'reservar'])->name('reservar');
+Route::get('cita-confirmada/{id}', [ReservarCitaController::class, 'confirmada'])->name('cita-confirmada');
+Route::get('cita-confirmada/{id}/calendar', [ReservarCitaController::class, 'calendar'])->name('calendario');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

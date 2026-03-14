@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-secondary d-flex justify-content-center align-items-center" style="height:85vh">
-        <div class="bg-black p-5 rounded-4 text-light">
+   
             <h2 class="mb-4">Aviso Legal</h2>
 
             <p><strong>Titular del sitio web:</strong> Barbería XYZ</p>
@@ -25,6 +24,5 @@
             <h3>Propiedad intelectual</h3>
             <p>Todos los contenidos de esta web, incluyendo textos, imágenes y diseño, están protegidos por derechos de
                 propiedad intelectual.</p>
-        </div>
-    </div>
+      
 @endsection

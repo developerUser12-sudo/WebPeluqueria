@@ -14,6 +14,9 @@ class Citas extends Model
         'dia',
         'hora',
         'precio',
+        'nombre',
+        'apellido',
+        'telefono',
     ];
     public function user()
     {

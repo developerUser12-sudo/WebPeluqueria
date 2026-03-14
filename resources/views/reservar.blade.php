@@ -1,86 +1,144 @@
 @extends('layouts.app')
-
+@section('card-style','width:500px')
 @section('content')
-    <div class="bg-secondary d-flex justify-content-center align-items-center" style="height:85vh">
-        <div class="bg-black p-5 rounded-4 " style="width:450px">
-            <form method="POST" action="{{ route('reservar') }}">
-                @csrf
-                <div id="phase1">
-                    <div class="form-group">
-                        <label for="servicio" class="text-light">Servicio:</label>
-                        <select class="form-control" name="servicio" id="servicio" required>
-                            <option value="" selected disabled hidden>Escoge servicio</option>
-                            <option value="afeitado_de_cabeza_y_barba"
-                                data-info="Afeitado a máquina más el ritual de barba con toalla caliente. 30 min - 10€">
-                                Afeitado
-                                de cabeza + barba</option>
-                            <option value="arreglo_de_barba"
-                                data-info="Un servicio para los que su barba le importa, corte a máquina, tijeras, navaja y por supuesto toalla cálida. 15 min - 6€">
-                                Arreglo de barba</option>
-                            <option value="corte_y_barba"
-                                data-info="El arreglo de barba en este caso se hace exclusivamente a máquina y con el marcado superior a navaja. 30 min - 13€">
-                                Corte + barba</option>
-                            <option value="corte_y_barba_ritual"
-                                data-info="El ritual es una experiencia de relajación en la que el cliente disfrutará de un arreglo de barba clásico con toalla. 30 min - 15€">
-                                Corte + barba ritual</option>
-                            <option value="corte_de_pelo"
-                                data-info="Desde corte clásico totalmente a tijera hasta un degradado pulido desde afeitadora, además de un asesoramiento personal. 30 min - 10€">
-                                Corte de pelo</option>
-                        </select>
-                        <small class="mt-3 text-light" id="detalles"></small>
-                        <small id="mensajeError" class="text-danger"></small>
-                    </div>
-                    <div class="form-group mt-4">
-                        <label for="peluquero" class="text-light">Peluquero:</label>
-                        <select class="form-control" name="peluquero" id="peluquero" required>
-                            <option value="luis">Luis</option>
-                        </select>
-                    </div>
 
-                    <button type="button" id="continuar" class="btn btn-primary mt-3">Continuar</button>
-                </div>
-                <div id="phase2" style="display:none;">
-                    <div class="form-group">
-                        <label class="text-light" for="dia">Selecciona un día</label>
-                        <input type="text" id="dia" name="dia" class="form-control" required>
-                    </div>
-                    <div class="form-group mt-4">
-                        <label class="text-light" for="hora">Selecciona una hora</label>
-                        <select class="form-control" name="hora" id="hora" required>
+    <h5 class="text-light mb-4">Recomendamos hacer inicio de sesión para futuras citas, comunicaciones y
+        promociones.</h5>
+    <form method="POST" action="{{ route('reservar') }}">
+        @csrf
+        <div id="phase1">
+            <h5 class="text-light mb-3">Datos personales</h5>
+            <div class="form-group">
+                <label for="nombre" class="text-light">Nombre</label>
+                <input id="nombre" type="text" name="nombre" class="form-control">
+            </div>
 
-                        </select>
-                    </div>
-                    <button type="button" id="atras" class="btn btn-primary mt-3">Atrás</button>
-                    <button type="submit" class="btn btn-primary mt-3">Reservar</button>
-                </div>
-            </form>
+            <div class="form-group mt-3">
+                <label for="apellido" class="text-light">Apellido</label>
+                <input id="apellido" type="text" name="apellido" class="form-control">
+            </div>
 
+            <div class="form-group mt-3">
+                <label for="telefono" class="text-light">Teléfono</label>
+                <input id="telefono" type="text" name="telefono" class="form-control">
+            </div>
 
+            <button type="button" id="continuar1" class="btn btn-primary mt-4">Continuar</button>
         </div>
-    </div>
+
+
+        <div id="phase2" style="display:none;">
+            <h5 class="text-light mb-3">Servicio y profesional</h5>
+
+            <div class="form-group">
+                <label for="servicio" class="text-light">Servicio</label>
+                <select class="form-control" name="servicio" id="servicio" required>
+                    <option value="" selected disabled hidden>Escoge servicio</option>
+                    <option value="afeitado_de_cabeza_y_barba"
+                        data-info="Afeitado a máquina más el ritual de barba con toalla caliente. 30 min - 10€">
+                        Afeitado de cabeza + barba</option>
+                    <option value="arreglo_de_barba"
+                        data-info="Un servicio para los que su barba le importa, corte a máquina, tijeras, navaja y por supuesto toalla cálida. 15 min - 6€">
+                        Arreglo de barba</option>
+                    <option value="corte_y_barba"
+                        data-info="El arreglo de barba en este caso se hace exclusivamente a máquina y con el marcado superior a navaja. 30 min - 13€">
+                        Corte + barba</option>
+                    <option value="corte_y_barba_ritual"
+                        data-info="El ritual es una experiencia de relajación en la que el cliente disfrutará de un arreglo de barba clásico con toalla. 30 min - 15€">
+                        Corte + barba ritual</option>
+                    <option value="corte_de_pelo"
+                        data-info="Desde corte clásico totalmente a tijera hasta un degradado pulido desde afeitadora, además de un asesoramiento personal. 30 min - 10€">
+                        Corte de pelo</option>
+                </select>
+
+                <small class="text-light mt-2 d-block" id="detalles"></small>
+            </div>
+
+            <div class="form-group mt-3">
+                <label for="profesional" class="text-light">Profesional</label>
+                <select class="form-control" id="profesional" name="peluquero" required>
+                    <option value="luis">Luis</option>
+                </select>
+            </div>
+
+            <button type="button" id="atras1" class="btn btn-secondary mt-4">Atrás</button>
+            <button type="button" id="continuar2" class="btn btn-primary mt-4">Continuar</button>
+        </div>
+
+
+        <div id="phase3" style="display:none;">
+            <h5 class="text-light mb-3">Fecha y hora</h5>
+
+            <div class="form-group">
+                <label for="dia" class="text-light">Día</label>
+                <input type="text" id="dia" name="dia" class="form-control" required>
+            </div>
+
+            <div class="form-group mt-3">
+                <label for="hora" class="text-light">Hora</label>
+                <select class="form-control" name="hora" id="hora" required></select>
+            </div>
+
+            <button type="button" id="atras2" class="btn btn-secondary mt-4">Atrás</button>
+            <button id="reservar" type="submit" class="btn btn-success mt-4">Reservar</button>
+        </div>
+    </form>
+
+
+
     <script>
         let fase1 = document.getElementById('phase1');
         let fase2 = document.getElementById('phase2');
-        let mensajeError = document.getElementById('mensajeError');
+        let fase3 = document.getElementById('phase3');
         let servicios = document.getElementById('servicio');
-
+        let nombre = document.getElementById('nombre');
+        let apellido = document.getElementById('apellido');
+        let telefono = document.getElementById('telefono');
+        let usuario = @json($usuario);
+        let botonAtras1 = document.getElementById('atras1');
+        if (usuario != null) {
+            fase2.style.display = 'block'
+            fase1.style.display = 'none'
+            if (botonAtras1) {
+                botonAtras1.remove();
+            }
+        }
         servicios.addEventListener('change', function () {
             const texto = this.options[this.selectedIndex].dataset.info;
             document.getElementById('detalles').textContent = texto;
             mensajeError.textContent = ''
         })
-        document.getElementById('continuar').addEventListener('click', function () {
-            if (servicios.value == '') {
-                mensajeError.textContent = 'Debes seleccionar una opción'
+        document.getElementById('continuar1').addEventListener('click', function () {
+            if (nombre.value == '' || apellido.value == '' || telefono.value == '') {
+                alert('Datos faltantes')
             } else {
                 fase2.style.display = 'block'
                 fase1.style.display = 'none'
             }
         })
-        document.getElementById('atras').addEventListener('click', function () {
+        document.getElementById('continuar2').addEventListener('click', function () {
+            if (servicios.value == '') {
+                alert('Datos faltantes')
+            } else {
+                fase3.style.display = 'block'
+                fase2.style.display = 'none'
+            }
+        })
+        document.getElementById('reservar').addEventListener('click', function () {
+            if (dia.value == '' || hora.value == '') {
+                alert('Datos faltantes')
+            }
+        })
+        if (botonAtras1) {
+            botonAtras1.addEventListener('click', function () {
+                fase1.style.display = 'block'
+                fase2.style.display = 'none'
+            })
+        }
+        document.getElementById('atras2').addEventListener('click', function () {
 
-            fase1.style.display = 'block'
-            fase2.style.display = 'none'
+            fase2.style.display = 'block'
+            fase3.style.display = 'none'
 
         })
         const diasBloqueados = @json($diasBloqueados);

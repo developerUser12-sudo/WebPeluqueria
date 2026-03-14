@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('main-class', 'bg-black')
-@section('content')
+@section('homepage')
 
     <div class="main text-light d-flex justify-content-center align-items-center" style="height:70vh">
 
