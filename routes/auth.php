@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BloqueosHorariosController;
+use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservarCitaController;
 use App\Http\Controllers\CitasController;
@@ -39,11 +40,13 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
-    
+
 
 });
 
 Route::middleware('auth')->group(function () {
+    Route::delete('/cita-cliente/{id}', [HistorialController::class, 'eliminarCita'])->name('citaCliente.destroy');
+
     Route::patch('/cambiar-contrasena', [ProfileController::class, 'updatePassword'])->name('cuenta.password');
     Route::patch('/cambiar-email', [ProfileController::class, 'updateEmail'])->name('cuenta.email');
     Route::patch('/cambiar-datos', [ProfileController::class, 'updateDatos'])->name('cuenta.datos');
@@ -69,6 +72,7 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 
     Route::get('cuenta', [ProfileController::class, 'updateProfile'])->middleware('verified');
+    Route::get('historial', [HistorialController::class, 'show'])->middleware('verified');
 });
 Route::middleware('guest:admin')->group(function () {
     Route::get('login-admin', [LoginAdminController::class, 'create'])

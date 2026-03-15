@@ -34,19 +34,21 @@
                                             data-bs-target="#eliminarCita">
                                             Eliminar
                                         </button>
-                                        <div class="modal fade" id="eliminarCita" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                            aria-hidden="true">
+                                        <div class="modal fade" id="eliminarCita" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         ¿Seguro que quieres eliminar esta cita?
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cerrar</button>
                                                         <button type="submit" class="btn btn-primary">Eliminar</button>
                                                     </div>
                                                 </div>
@@ -59,7 +61,7 @@
                     </tbody>
                 </table>
                 <div class="mt-3">
-                    {{ $citasFuturas->links() }}
+                    {{ $citasFuturas->links('pagination::bootstrap-5') }}
                 </div>
                 <h5 class="text-light">Citas pasadas</h5>
 

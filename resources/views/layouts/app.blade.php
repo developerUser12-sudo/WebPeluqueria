@@ -24,7 +24,7 @@
 <body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar bg-black">
-            <div class="container-xl p-3">
+            <div class="container-xl d-flex flex-md-row flex-row-reverse p-3">
                 <div>
                     <a href="{{ url('/') }}">
                         <img class="text-light w-75" src="{{ asset('storage/logo.webp') }}" alt="Logo">
@@ -45,6 +45,9 @@
                                 <li>
                                     <a href="{{ config('app.url') }}/cuenta" class="dropdown-item bg-light text-black">Mi
                                         cuenta</a>
+                                </li>
+                                <li>
+                                    <a href="{{ config('app.url') }}/historial" class="dropdown-item bg-light text-black">Historial de citas</a>
                                 </li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
@@ -71,8 +74,8 @@
 
         @else
 
-            <div class="d-flex justify-content-center align-items-center @yield('class-style')" >
-                <div class="@yield('class-style') bg-black p-5 rounded-4 text-light my-5 my-md-0 "
+            <div class="d-flex justify-content-center align-items-center " >
+                <div class="@yield('class-style') bg-black p-5 rounded-4 text-light my-5 my-md-0"
                     style="@yield('card-style')">
                     @yield('content')
                 </div>
