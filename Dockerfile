@@ -1,65 +1,42 @@
-# ------------------------------
-# Stage 1: Node para Vite
-# ------------------------------
-FROM node:20 AS node
+# Stage 1: Build assets con Node
+FROM node:20 as node
+
 WORKDIR /var/www/html
 
-# Copiar package.json y package-lock.json
 COPY package*.json ./
-
-# Instalar dependencias JS
 RUN npm install
 
-# Copiar recursos de Laravel (JS/CSS)
 COPY vite.config.js ./
 COPY resources ./resources
 
-# Construir assets para producción
+# (Si usas webpack.mix.js) Si no, solo resources y vite.config.js bastan
+
 RUN npm run build
 
-# ------------------------------
 # Stage 2: PHP + Apache
-# ------------------------------
 FROM php:8.2-apache
 
-# Instalar extensiones de PHP necesarias
 RUN apt-get update && apt-get install -y \
     git unzip zip curl libpng-dev libonig-dev libxml2-dev libzip-dev libpq-dev \
     && docker-php-ext-install pdo pdo_mysql zip pdo_pgsql
 
-# Activar mod_rewrite (rutas Laravel)
-RUN a2enmod rewrite
-
-# Instalar Composer
+# Composer
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 
-# Establecer directorio de trabajo
-WORKDIR /var/www/html
+COPY . /var/www/html/
 
-# Copiar proyecto Laravel completo
-COPY . .
-
-# Copiar build de Vite desde stage Node
+# Copiar los assets build de Node
 COPY --from=node /var/www/html/public/build /var/www/html/public/build
 
-# Instalar dependencias de PHP (solo prod)
+WORKDIR /var/www/html
+
 RUN composer install --no-dev --optimize-autoloader
 
-# Ajustar permisos para storage y bootstrap/cache
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 storage bootstrap/cache
+RUN chmod -R 775 storage bootstrap/cache && \
+    chown -R www-data:www-data /var/www/html
 
-# Configurar DocumentRoot a /public y permitir .htaccess
+RUN a2enmod rewrite
+
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
-# Agregar configuración específica para Laravel
-RUN echo "<Directory /var/www/html/public>\n\
-    AllowOverride All\n\
-    Require all granted\n\
-</Directory>" >> /etc/apache2/sites-available/000-default.conf
-
-# Exponer puerto 80
 EXPOSE 80
-
-# Comando por defecto
-CMD ["apache2-foreground"]
