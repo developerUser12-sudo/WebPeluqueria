@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('card-style', 'width:800px')
 
 @section('content')
 
@@ -9,7 +10,7 @@
     <div class="rounded-4 ">
 
         <div class="mb-4 text-sm text-light ">
-            {{ __('Gracias por registrarte. Antes de continuar, por favor, verifica tu cuenta para usar todas las funciones, pinchando en el enlace que te acabamos de enviar a tu correo electrónico. Recuerda verificar tu cuenta en el mismo navegador que estás viendo este mensaje.') }}
+            {{ __('Gracias por registrarte. Antes de continuar, por favor, verifica tu cuenta para usar todas las funciones, pinchando en el enlace que acabamos de enviar a tu correo electrónico. Recuerda verificar tu cuenta en el mismo navegador que estás viendo este mensaje.') }}
         </div>
 
         @if (session('status') == 'verification-link-sent')

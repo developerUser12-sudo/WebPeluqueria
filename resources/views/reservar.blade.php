@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('card-style','width:500px')
+@section('card-style', 'width:500px')
 @section('content')
 
     <h5 class="text-light mb-4">Recomendamos hacer inicio de sesión para futuras citas, comunicaciones y
@@ -164,7 +164,24 @@
             }
 
         });
+        const ahora = new Date();
+        const yyyy = ahora.getFullYear();
+        const mm = String(ahora.getMonth() + 1).padStart(2, '0');
+        const dd = String(ahora.getDate()).padStart(2, '0');
+
+        const fecha = `${yyyy}-${mm}-${dd}`;
+
+        function esMasDe5MinMayor(horaStr) {
+
+            const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
+
+            const [h, m] = horaStr.split(':');
+            const minutosParametro = parseInt(h) * 60 + parseInt(m);
+
+            return minutosParametro > minutosAhora + 5;
+        }
         function generarHoras(params) {
+
             document.getElementById('hora').innerHTML = '';
             let horas = new Array();
             let horaParametro = new Date(params)
@@ -177,33 +194,63 @@
             }
             if (horasBloqueadas.length == 0) {
                 for (let i = 0; i < horas.length; i++) {
-                    let opt = document.createElement('option');
-                    opt.value = horas[i];
-                    opt.innerHTML = horas[i];
-                    document.getElementById('hora').appendChild(opt);
+
+                    if (params == fecha) {
+                        if (esMasDe5MinMayor(horas[i])) {
+                            let opt = document.createElement('option');
+                            opt.value = horas[i];
+                            opt.innerHTML = horas[i];
+                            document.getElementById('hora').appendChild(opt);
+
+                        }
+                    } else {
+                        let opt = document.createElement('option');
+                        opt.value = horas[i];
+                        opt.innerHTML = horas[i];
+                        document.getElementById('hora').appendChild(opt);
+                    }
                 }
                 return;
             }
             for (let index = 0; index < horasBloqueadas.length; index++) {
                 if (horasBloqueadas[index].fecha_inicio.split('T')[0] == params) {
-                    document.getElementById('hora').innerHTML = '';
                     for (let secondIndex = 0; secondIndex < horas.length; secondIndex++) {
                         if (!(horas[secondIndex] >= horasBloqueadas[index].fecha_inicio.split('T')[1] && horasBloqueadas[index].fecha_fin.split('T')[1] > horas[secondIndex])) {
-                            let opt = document.createElement('option');
-                            opt.value = horas[secondIndex];
-                            opt.innerHTML = horas[secondIndex];
-                            document.getElementById('hora').appendChild(opt);
+                            if (params == fecha) {
+                                if (esMasDe5MinMayor(horas[secondIndex])) {
+                                    let opt = document.createElement('option');
+                                    opt.value = horas[secondIndex];
+                                    opt.innerHTML = horas[secondIndex];
+                                    document.getElementById('hora').appendChild(opt);
+
+                                }
+                            } else {
+                                let opt = document.createElement('option');
+                                opt.value = horas[secondIndex];
+                                opt.innerHTML = horas[secondIndex];
+                                document.getElementById('hora').appendChild(opt);
+
+                            }
                         }
 
                     }
-
                 } else {
-                    document.getElementById('hora').innerHTML = '';
                     for (let thirdIndex = 0; thirdIndex < horas.length; thirdIndex++) {
-                        let opt = document.createElement('option');
-                        opt.value = horas[thirdIndex];
-                        opt.innerHTML = horas[thirdIndex];
-                        document.getElementById('hora').appendChild(opt);
+
+                        if (params == fecha) {
+                            if (esMasDe5MinMayor(horas[thirdIndex])) {
+                                let opt = document.createElement('option');
+                                opt.value = horas[thirdIndex];
+                                opt.innerHTML = horas[thirdIndex];
+                                document.getElementById('hora').appendChild(opt);
+
+                            }
+                        } else {
+                            let opt = document.createElement('option');
+                            opt.value = horas[thirdIndex];
+                            opt.innerHTML = horas[thirdIndex];
+                            document.getElementById('hora').appendChild(opt);
+                        }
 
                     }
 

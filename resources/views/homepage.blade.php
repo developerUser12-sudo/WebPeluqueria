@@ -2,7 +2,7 @@
 @section('main-class', 'bg-black')
 @section('homepage')
 
-    <div class="main text-light d-flex justify-content-center align-items-center" style="height:70vh">
+    <div class="main text-light d-flex justify-content-center align-items-center" style="height:75vh">
 
         <div class="p-5 d-flex flex-column align-items-center gap-4 glass">
             <img src="/storage/logo-sin-fondo.png" alt="Logo">
@@ -15,7 +15,7 @@
     </div>
     <div class="bg-black d-flex justify-content-center flex-column gap-5" style="height:30vh">
 
-        <div class="d-flex flex-row justify-content-evenly w-100">
+        <div class="d-flex flex-row justify-content-evenly">
             <div class="d-flex flex-row gap-5">
                 <div>
                     <a href="https://www.instagram.com/lmbarberestudio/" class="text-decoration-none text-light"><i
