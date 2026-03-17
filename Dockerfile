@@ -1,25 +1,29 @@
-# Stage 1: Node para construir assets
+# ------------------------------
+# Stage 1: Node (para construir assets)
+# ------------------------------
 FROM node:20 AS node
 
 WORKDIR /var/www/html
 
-# Copiar package.json y lock
+# Copiar package.json y package-lock.json
 COPY package*.json ./
 
 # Instalar dependencias JS
 RUN npm install
 
-# Copiar recursos de Laravel para build (JS/CSS)
+# Copiar recursos de Laravel (JS/CSS)
 COPY vite.config.js ./
 COPY resources ./resources
 
-# Construir assets
+# Construir assets para producción
 RUN npm run build
 
+# ------------------------------
 # Stage 2: PHP + Apache
+# ------------------------------
 FROM php:8.2-apache
 
-# Instalar dependencias de PHP
+# Instalar extensiones de PHP necesarias
 RUN apt-get update && apt-get install -y \
     git unzip zip curl libpng-dev libonig-dev libxml2-dev libzip-dev libpq-dev \
     && docker-php-ext-install pdo pdo_mysql zip pdo_pgsql
@@ -36,7 +40,7 @@ COPY --from=node /var/www/html/public/build /var/www/html/public/build
 # Establecer WORKDIR
 WORKDIR /var/www/html
 
-# Instalar dependencias de PHP
+# Instalar dependencias de PHP (solo prod)
 RUN composer install --no-dev --optimize-autoloader
 
 # Ajustar permisos
@@ -49,8 +53,9 @@ RUN a2enmod rewrite
 # Cambiar DocumentRoot a /public
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
-# Permitir .htaccess
+# Permitir .htaccess en /public
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+RUN echo '<Directory /var/www/html/public>\n    AllowOverride All\n    Require all granted\n</Directory>' >> /etc/apache2/apache2.conf
 
 # Exponer puerto 80
 EXPOSE 80
