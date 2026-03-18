@@ -1,19 +1,23 @@
+# ------------------------------
 # Stage 1: Build assets con Node
+# ------------------------------
 FROM node:20 as node
 
 WORKDIR /var/www/html
 
-COPY package*.json ./
+# ⚠️ Copiar TODO el proyecto (no solo resources)
+COPY . .
+
+# Instalar dependencias JS
 RUN npm install
 
-COPY vite.config.js ./
-COPY resources ./resources
-
-# (Si usas webpack.mix.js) Si no, solo resources y vite.config.js bastan
-
+# Build producción Vite
 RUN npm run build
 
+
+# ------------------------------
 # Stage 2: PHP + Apache
+# ------------------------------
 FROM php:8.2-apache
 
 RUN apt-get update && apt-get install -y \
@@ -23,20 +27,27 @@ RUN apt-get update && apt-get install -y \
 # Composer
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 
-COPY . /var/www/html/
-
-# Copiar los assets build de Node
-COPY --from=node /var/www/html/public/build /var/www/html/public/build
-
 WORKDIR /var/www/html
 
+# Copiar proyecto Laravel
+COPY . .
+
+# Copiar assets generados por Vite
+COPY --from=node /var/www/html/public/build /var/www/html/public/build
+
+# Instalar dependencias PHP
 RUN composer install --no-dev --optimize-autoloader
 
+# Permisos Laravel
 RUN chmod -R 775 storage bootstrap/cache && \
     chown -R www-data:www-data /var/www/html
 
+# Activar rewrite
 RUN a2enmod rewrite
 
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
+# Servir desde public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' \
+    /etc/apache2/sites-available/000-default.conf
 
 EXPOSE 80
+CMD ["apache2-foreground"]
