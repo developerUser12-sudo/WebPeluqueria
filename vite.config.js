@@ -8,12 +8,4 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    build: {
-        manifest: true,
-        outDir: 'public/build',
-        rollupOptions: {
-            input: 'resources/js/app.js'
-        },
-        base: '/build/', // 🔑 Esto indica que los assets están en public/build/
-    },
 });
