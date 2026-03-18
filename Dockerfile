@@ -31,7 +31,7 @@ COPY --from=node /var/www/html/public/build /var/www/html/public/build
 WORKDIR /var/www/html
 
 RUN composer install --no-dev --optimize-autoloader
-
+RUN php artisan storage:link
 RUN chmod -R 775 storage bootstrap/cache && \
     chown -R www-data:www-data /var/www/html
 
