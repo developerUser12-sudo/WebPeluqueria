@@ -32,23 +32,18 @@ COPY --from=node /var/www/html/public/build /var/www/html/public/build
 # Instalar deps PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# 🔥 CREAR SYMLINK STORAGE (MUY IMPORTANTE)
 RUN php artisan storage:link || true
 
-# 🔥 Permisos
 RUN chown -R www-data:www-data /var/www/html && \
     chmod -R 755 /var/www/html/public && \
     chmod -R 755 /var/www/html/storage && \
     chmod -R 755 /var/www/html/bootstrap/cache
 
-# 🔥 Permitir acceso a storage
-RUN echo '<Directory /var/www/html/public/storage>
-    Options Indexes FollowSymLinks
-    AllowOverride All
-    Require all granted
-</Directory>' >> /etc/apache2/apache2.conf
-
-# Rewrite Laravel
+RUN printf '<Directory /var/www/html/public/storage>\n\
+Options Indexes FollowSymLinks\n\
+AllowOverride All\n\
+Require all granted\n\
+</Directory>\n' >> /etc/apache2/apache2.conf
 RUN a2enmod rewrite
 
 # DocumentRoot a /public
