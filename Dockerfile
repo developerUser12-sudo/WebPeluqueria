@@ -32,7 +32,9 @@ WORKDIR /var/www/html
 
 RUN composer install --no-dev --optimize-autoloader
 RUN php artisan storage:link || true
-RUN chmod -R 775 storage bootstrap/cache && \
+RUN chmod -R 755 public && \
+    chmod -R 755 storage && \
+    chmod -R 755 bootstrap/cache && \
     chown -R www-data:www-data /var/www/html
 
 RUN a2enmod rewrite
