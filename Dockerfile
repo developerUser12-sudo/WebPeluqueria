@@ -40,3 +40,4 @@ RUN a2enmod rewrite
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
 EXPOSE 80
+CMD ["sh", "-c", "php artisan migrate --force && apache2-foreground"]
