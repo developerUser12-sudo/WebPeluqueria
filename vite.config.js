@@ -8,13 +8,6 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
         }),
-        viteStaticCopy({
-            targets: [
-                {
-                    src: 'node_modules/bootstrap-icons/font/fonts/*',
-                    dest: 'assets/fonts'
-                }
-            ]
-        })
+        
     ],
 });
