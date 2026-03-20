@@ -66,7 +66,7 @@
             </div>
         </nav>
     </header>
-    <main class="@yield('main-class') flex-grow-1 main d-flex justify-content-center flex-column">
+    <main class="@yield('main-class') flex-grow-1 main d-flex justify-content-center flex-column" style="background-image:url('{{ asset('storage/photo-1493256338651-d82f7acb2b38.avif') }}')">
 
         @hasSection('homepage')
 
