@@ -1,5 +1,6 @@
 @extends('layouts.app')
-@section('class-style','my-0 my-lg-5')
+@section('class-style', 'my-0 my-md-5 w-100')
+@section('card-style', 'max-width:650px')
 
 @section('content')
 
@@ -8,61 +9,63 @@
         <div>
             <h5 class="text-light">Citas futuras</h5>
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Servicio</th>
-                        <th>Peluquero</th>
-                        <th>Dia</th>
-                        <th>Hora</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($citasFuturas as $citaFutura)
+            <div class="table-responsive ">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{ ucwords(str_replace('_', ' ', $citaFutura->servicio)) }}</td>
-                            <td>{{ ucwords($citaFutura->peluquero) }}</td>
-                            <td>{{ $citaFutura->dia }}</td>
-                            <td>{{ $citaFutura->hora }}</td>
-                            <td>
-                                <form action="{{ route('citas.edit', $citaFutura->id) }}" method="GET">
-                                    <button type="submit" class="btn btn-warning ">Editar</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="{{ route('citas.destroy', $citaFutura->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#eliminarCita{{ $citaFutura->id }}">
-                                        Eliminar
-                                    </button>
-                                    <div class="modal fade" id="eliminarCita{{ $citaFutura->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    ¿Seguro que quieres eliminar esta cita?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Cerrar</button>
-                                                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                            <th>Servicio</th>
+                            <th>Profesional</th>
+                            <th>Dia</th>
+                            <th>Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($citasFuturas as $citaFutura)
+                            <tr>
+                                <td>{{ ucwords(str_replace('_', ' ', $citaFutura->servicio)) }}</td>
+                                <td>{{ ucwords($citaFutura->peluquero) }}</td>
+                                <td>{{ $citaFutura->dia }}</td>
+                                <td>{{ $citaFutura->hora }}</td>
+                                <td>
+                                    <form action="{{ route('citas.edit', $citaFutura->id) }}" method="GET">
+                                        <button type="submit" class="btn btn-warning ">Editar</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="{{ route('citas.destroy', $citaFutura->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#eliminarCita{{ $citaFutura->id }}">
+                                            Eliminar
+                                        </button>
+                                        <div class="modal fade" id="eliminarCita{{ $citaFutura->id }}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ¿Seguro que quieres eliminar esta cita?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cerrar</button>
+                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="mt-3">
@@ -72,61 +75,63 @@
             <h5 class="text-light">Citas pasadas</h5>
 
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Servicio</th>
-                        <th>Peluquero</th>
-                        <th>Dia</th>
-                        <th>Hora</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($citasPasadas as $citaPasada)
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
                         <tr>
-                            <td>{{ ucwords(str_replace('_', ' ', $citaPasada->servicio)) }}</td>
-                            <td>{{ ucwords($citaPasada->peluquero) }}</td>
-                            <td>{{ $citaPasada->dia }}</td>
-                            <td>{{ $citaPasada->hora }}</td>
-                            <td>
-                                <form action="{{ route('citas.edit', $citaPasada->id) }}" method="GET">
-                                    <button type="submit" class="btn btn-warning ">Editar</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="{{ route('citas.destroy', $citaPasada->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#eliminarCita{{ $citaPasada->id }}">
-                                        Eliminar
-                                    </button>
-                                    <div class="modal fade" id="eliminarCita{{ $citaPasada->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    ¿Seguro que quieres eliminar esta cita?
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Cerrar</button>
-                                                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                            <th>Servicio</th>
+                            <th>Profesional</th>
+                            <th>Dia</th>
+                            <th>Hora</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($citasPasadas as $citaPasada)
+                            <tr>
+                                <td>{{ ucwords(str_replace('_', ' ', $citaPasada->servicio)) }}</td>
+                                <td>{{ ucwords($citaPasada->peluquero) }}</td>
+                                <td>{{ $citaPasada->dia }}</td>
+                                <td>{{ $citaPasada->hora }}</td>
+                                <td>
+                                    <form action="{{ route('citas.edit', $citaPasada->id) }}" method="GET">
+                                        <button type="submit" class="btn btn-warning ">Editar</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="{{ route('citas.destroy', $citaPasada->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#eliminarCita{{ $citaPasada->id }}">
+                                            Eliminar
+                                        </button>
+                                        <div class="modal fade" id="eliminarCita{{ $citaPasada->id }}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ¿Seguro que quieres eliminar esta cita?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cerrar</button>
+                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="mt-3">

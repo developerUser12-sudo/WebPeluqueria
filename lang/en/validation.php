@@ -160,7 +160,7 @@ return [
     'starts_with' => 'The :attribute field must start with one of the following: :values.',
     'string' => 'The :attribute field must be a string.',
     'timezone' => 'The :attribute field must be a valid timezone.',
-    'unique' => 'Este correo ya existe',
+    'unique' => 'Este :attribute ya existe.',
     'uploaded' => 'The :attribute failed to upload.',
     'uppercase' => 'The :attribute field must be uppercase.',
     'url' => 'The :attribute field must be a valid URL.',
@@ -195,6 +195,7 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => ['phone' => 'número de teléfono',
+    'email' => 'correo electrónico',],
 
 ];

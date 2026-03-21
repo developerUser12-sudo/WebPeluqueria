@@ -11,8 +11,7 @@
         </div>
         <div class="mt-4">
             <label for="surname" class="text-light">Apellidos</label>
-            <input id="surname" class="block mt-1 w-full rounded-2 text-dark" type="text" name="surname" required autofocus>
-            <x-input-error :messages="$errors->get('surname')" class="mt-2" />
+            <input id="surname" class="block mt-1 w-full rounded-2 text-dark" type="text" name="surname"  autofocus>
         </div>
         <div class="mt-4">
             <label for="phone" class="text-light">Número de teléfono (9 digitos, sin espacios)</label>

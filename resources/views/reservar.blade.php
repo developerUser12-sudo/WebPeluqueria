@@ -15,9 +15,8 @@
             </div>
 
             <div class="form-group mt-3">
-                <label for="apellido" class="text-light">Apellido</label>
+                <label for="apellido" class="text-light">Apellido (opcional)</label>
                 <input id="apellido" type="text" name="apellido" class="form-control">
-                <small class="text-danger mt-2 " id="apellido-error"></small>
             </div>
 
             <div class="form-group mt-3">
@@ -62,8 +61,11 @@
             <div class="form-group mt-3">
                 <label for="profesional" class="text-light">Profesional</label>
                 <select class="form-control" id="profesional" name="peluquero" required>
+                    <option value="" selected disabled hidden>Escoge profesional</option>
                     <option value="luis">Luis</option>
+                    <option value="hugo">Hugo</option>
                 </select>
+                <small class="text-danger mt-2 " id="profesional-error"></small>
             </div>
 
             <button type="button" id="atras1" class="btn btn-secondary mt-4">Atrás</button>
@@ -101,7 +103,6 @@
         let fase3 = document.getElementById('phase3');
         let servicios = document.getElementById('servicio');
         let nombre = document.getElementById('nombre');
-        let apellido = document.getElementById('apellido');
         let telefono = document.getElementById('telefono');
         let usuario = @json($usuario);
         let botonAtras1 = document.getElementById('atras1');
@@ -109,6 +110,7 @@
         let apellidoError = document.getElementById('apellido-error');
         let telefonoError = document.getElementById('telefono-error');
         let servicioError = document.getElementById('servicio-error');
+        let profesionalError = document.getElementById('profesional-error');
         let diaError = document.getElementById('dia-error');
         let horaError = document.getElementById('hora-error');
         const ahora = new Date();
@@ -135,14 +137,9 @@
         })
         document.getElementById('continuar1').addEventListener('click', function () {
             nombreError.textContent = '';
-            apellidoError.textContent = '';
             telefonoError.textContent = '';
             if (nombre.value == '') {
                 nombreError.textContent = 'Dato faltante';
-                return;
-            }
-            if (apellido.value == '') {
-                apellidoError.textContent = 'Dato faltante';
                 return;
             }
 
@@ -159,10 +156,14 @@
             if (servicios.value == '') {
                 servicioError.textContent = 'Debes escoger un servicio';
                 return;
-            } else {
-                fase3.style.display = 'block'
-                fase2.style.display = 'none'
+            }if (document.getElementById('profesional').value=='') {
+                profesionalError.textContent = 'Debes escoger un profesional';
+                return;
+                
             }
+            fase3.style.display = 'block'
+            fase2.style.display = 'none'
+
         })
         document.getElementById('reservar').addEventListener('click', function () {
             if (dia.value == '') {
@@ -193,6 +194,7 @@
             dateFormat: "Y-m-d",
             locale: "es",
             minDate: "today",
+            maxDate: new Date().fp_incr(30),
             disable: [
                 function (date) {
                     const yyyy = date.getFullYear();

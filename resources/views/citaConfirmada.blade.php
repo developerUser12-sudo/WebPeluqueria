@@ -31,7 +31,7 @@
             <td>{{ ucwords(str_replace('_', ' ', $cita->servicio)) }}</td>
         </tr>
         <tr class="table-secondary">
-            <th>Peluquero</th>
+            <th>Profesional</th>
             <td>{{ ucwords($cita->peluquero) }}</td>
         </tr>
         <tr class="table-secondary">
