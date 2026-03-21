@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('class-style','my-0 my-lg-5')
 @section('content')
 
     <form method="POST" action="{{ route('register') }}">
@@ -15,23 +15,23 @@
             <x-input-error :messages="$errors->get('surname')" class="mt-2" />
         </div>
         <div class="mt-4">
-            <label for="phone" class="text-light">Número de teléfono</label>
+            <label for="phone" class="text-light">Número de teléfono (9 digitos, sin espacios)</label>
             <input id="phone" class="block mt-1 w-full rounded-2 text-dark" type="text" name="phone" required autofocus>
-            <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+            <x-input-error :messages="$errors->get('phone')" class="mt-2 text-end" />
         </div>
 
         <div class="mt-4">
             <label for="email" class="text-light">Correo electrónico</label>
             <input id="email" class="block mt-1 w-full rounded-2 text-dark" type="email" name="email" :value="old('email')" required
                 autofocus>
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2 text-end" />
         </div>
 
         <div class="mt-4">
             <label for="password" class="text-light">Contraseña</label>
             <input id="password" class="block mt-1 w-full rounded-2 text-dark" type="password" name="password" required>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            <x-input-error :messages="$errors->get('password')" class="mt-2 text-end" />
         </div>
 
         <!-- Confirm Password -->

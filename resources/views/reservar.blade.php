@@ -11,16 +11,19 @@
             <div class="form-group">
                 <label for="nombre" class="text-light">Nombre</label>
                 <input id="nombre" type="text" name="nombre" class="form-control">
+                <small class="text-danger mt-2 " id="nombre-error"></small>
             </div>
 
             <div class="form-group mt-3">
                 <label for="apellido" class="text-light">Apellido</label>
                 <input id="apellido" type="text" name="apellido" class="form-control">
+                <small class="text-danger mt-2 " id="apellido-error"></small>
             </div>
 
             <div class="form-group mt-3">
-                <label for="telefono" class="text-light">Teléfono</label>
+                <label for="telefono" class="text-light">Teléfono (9 digitos y sin espacio)</label>
                 <input id="telefono" type="text" name="telefono" class="form-control">
+                <small class="text-danger mt-2 " id="telefono-error"></small>
             </div>
 
             <button type="button" id="continuar1" class="btn btn-primary mt-4">Continuar</button>
@@ -51,7 +54,9 @@
                         Corte de pelo</option>
                 </select>
 
+                <small class="text-danger mt-2 " id="servicio-error"></small>
                 <small class="text-light mt-2 d-block" id="detalles"></small>
+
             </div>
 
             <div class="form-group mt-3">
@@ -72,11 +77,15 @@
             <div class="form-group">
                 <label for="dia" class="text-light">Día</label>
                 <input type="text" id="dia" name="dia" class="form-control" required>
+                <small class="text-danger mt-2 " id="dia-error"></small>
+
             </div>
 
             <div class="form-group mt-3">
                 <label for="hora" class="text-light">Hora</label>
                 <select class="form-control" name="hora" id="hora" required></select>
+                <small class="text-danger mt-2 " id="hora-error"></small>
+
             </div>
 
             <button type="button" id="atras2" class="btn btn-secondary mt-4">Atrás</button>
@@ -96,6 +105,22 @@
         let telefono = document.getElementById('telefono');
         let usuario = @json($usuario);
         let botonAtras1 = document.getElementById('atras1');
+        let nombreError = document.getElementById('nombre-error');
+        let apellidoError = document.getElementById('apellido-error');
+        let telefonoError = document.getElementById('telefono-error');
+        let servicioError = document.getElementById('servicio-error');
+        let diaError = document.getElementById('dia-error');
+        let horaError = document.getElementById('hora-error');
+        const ahora = new Date();
+        const yyyy = ahora.getFullYear();
+        const mm = String(ahora.getMonth() + 1).padStart(2, '0');
+        const dd = String(ahora.getDate()).padStart(2, '0');
+        const fecha = `${yyyy}-${mm}-${dd}`;
+
+        function telefonoValido(tel) {
+            const regex = /^\d{9}$/;
+            return regex.test(tel);
+        }
         if (usuario != null) {
             fase2.style.display = 'block'
             fase1.style.display = 'none'
@@ -104,29 +129,49 @@
             }
         }
         servicios.addEventListener('change', function () {
+            servicioError.textContent = '';
             const texto = this.options[this.selectedIndex].dataset.info;
             document.getElementById('detalles').textContent = texto;
-            mensajeError.textContent = ''
         })
         document.getElementById('continuar1').addEventListener('click', function () {
-            if (nombre.value == '' || apellido.value == '' || telefono.value == '') {
-                alert('Datos faltantes')
-            } else {
-                fase2.style.display = 'block'
-                fase1.style.display = 'none'
+            nombreError.textContent = '';
+            apellidoError.textContent = '';
+            telefonoError.textContent = '';
+            if (nombre.value == '') {
+                nombreError.textContent = 'Dato faltante';
+                return;
             }
+            if (apellido.value == '') {
+                apellidoError.textContent = 'Dato faltante';
+                return;
+            }
+
+            if (!telefonoValido(telefono.value) || telefono.value == '') {
+                telefonoError.textContent = 'Dato faltante o formato incorrecto';
+                return;
+            }
+
+            fase2.style.display = 'block'
+            fase1.style.display = 'none'
         })
         document.getElementById('continuar2').addEventListener('click', function () {
+            servicioError.textContent = '';
             if (servicios.value == '') {
-                alert('Datos faltantes')
+                servicioError.textContent = 'Debes escoger un servicio';
+                return;
             } else {
                 fase3.style.display = 'block'
                 fase2.style.display = 'none'
             }
         })
         document.getElementById('reservar').addEventListener('click', function () {
-            if (dia.value == '' || hora.value == '') {
-                alert('Datos faltantes')
+            if (dia.value == '') {
+                diaError.textContent = 'Dato faltante';
+                return;
+            }
+            if (hora.value == '') {
+                horaError.textContent = 'Dato faltante';
+                return;
             }
         })
         if (botonAtras1) {
@@ -154,8 +199,16 @@
                     const mm = String(date.getMonth() + 1).padStart(2, '0');
                     const dd = String(date.getDate()).padStart(2, '0');
                     const fechaLocal = `${yyyy}-${mm}-${dd}`;
-
-                    return date.getDay() === 0 || diasBloqueados.includes(fechaLocal);
+                    const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
+                    let limite;
+                    if (date.getDay() === 6) {
+                        limite = 13 * 60;
+                    }
+                    else {
+                        limite = 20 * 60 + 30;
+                    }
+                    const hoyFueraHorario = fechaLocal === fecha && minutosAhora > limite;
+                    return date.getDay() === 0 || diasBloqueados.includes(fechaLocal) || hoyFueraHorario;
                 }
             ],
             onChange: function (selectedDates, dateStr, instance) {
@@ -164,12 +217,7 @@
             }
 
         });
-        const ahora = new Date();
-        const yyyy = ahora.getFullYear();
-        const mm = String(ahora.getMonth() + 1).padStart(2, '0');
-        const dd = String(ahora.getDate()).padStart(2, '0');
 
-        const fecha = `${yyyy}-${mm}-${dd}`;
 
         function esMasDe5MinMayor(horaStr) {
 

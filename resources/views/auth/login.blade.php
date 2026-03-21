@@ -8,7 +8,7 @@
             <label for="email" class="text-light">Correo electrónico</label>
             <input id="email" class="block mt-1 w-full rounded-2 text-dark" type="email" name="email" :value="old('email')" required
                 autofocus>
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2 text-end" />
         </div>
 
         <div class="mt-4">
