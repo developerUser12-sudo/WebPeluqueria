@@ -156,10 +156,10 @@
             if (servicios.value == '') {
                 servicioError.textContent = 'Debes escoger un servicio';
                 return;
-            }if (document.getElementById('profesional').value=='') {
+            } if (document.getElementById('profesional').value == '') {
                 profesionalError.textContent = 'Debes escoger un profesional';
                 return;
-                
+
             }
             fase3.style.display = 'block'
             fase2.style.display = 'none'
@@ -189,6 +189,7 @@
         })
         const diasBloqueados = @json($diasBloqueados);
         const horasBloqueadas = @json($horasBloqueadas);
+        const citas = @json($citas);
 
         flatpickr("#dia", {
             dateFormat: "Y-m-d",
@@ -234,14 +235,32 @@
 
             document.getElementById('hora').innerHTML = '';
             let horas = new Array();
-            let horaParametro = new Date(params)
+            let horaParametro = new Date(params);
+            let yyyy = horaParametro.getFullYear();
+            let mm = String(horaParametro.getMonth() + 1).padStart(2, '0');
+            let dd = String(horaParametro.getDate()).padStart(2, '0');
 
-            if (horaParametro.getDay() == 6) {
+            let diaParametro = `${yyyy}-${mm}-${dd}`;
+
+            if (diaParametro == 6) {
                 horas = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
             } else {
                 horas = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30'];
 
             }
+            for (let index = 0; index < citas.length; index++) {
+
+                if (citas[index].dia == diaParametro) {
+                    for (let index2 = 0; index2 < horas.length; index2++) {
+                        if (citas[index].hora == horas[index2]) {
+                            horas.splice(index2, 1);
+                        }
+                    }
+
+                }
+
+            }
+
             if (horasBloqueadas.length == 0) {
                 for (let i = 0; i < horas.length; i++) {
 

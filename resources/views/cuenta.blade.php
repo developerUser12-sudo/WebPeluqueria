@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('class-style','d-flex flex-column align-items-center my-0 my-md-5')
+@section('class-style', 'd-flex flex-column align-items-center my-0 my-md-5')
 
 @section('content')
 
@@ -78,12 +78,25 @@
         </div>
     </div>
 
-    <div class="mt-4">
+    <div class="position-relative w-100 mt-3" >
         @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <div id="flash-success"
+                class="alert alert-success alert-dismissible fade show shadow-sm position-absolute top-0 start-50 translate-middle-x"
+                style="border-radius: 12px; z-index: 1000; transition: all 0.5s ease;" role="alert">
                 {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
             </div>
+
+            <script>
+                setTimeout(() => {
+                    const flash = document.getElementById('flash-success');
+                    if (flash) {
+                        flash.style.opacity = '0';
+                        flash.style.transform = 'translateY(-20px)';
+                        setTimeout(() => flash.remove(), 500);
+                    }
+                }, 3000);
+            </script>
         @endif
     </div>
 
