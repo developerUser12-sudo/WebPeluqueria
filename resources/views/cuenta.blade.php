@@ -34,6 +34,9 @@
                     @method('PATCH')
                     <label for="new-email">Nueva dirección de correo</label>
                     <input id="new-email" name="email" type="email" class="text-dark form-control  ">
+                    @error('email')
+                        <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
                     <input type="submit" class="btn btn-secondary mt-3" style="border-radius:12px;background-color:#222322"
                         value="Cambiar dirección de correo">
                 </form>
@@ -52,6 +55,9 @@
                     <label for="confirm-password">Confirmar nueva contraseña</label>
                     <input id="confirm-password" type="password" name="password_confirmation" class="form-control "
                         required>
+                    @error('password')
+                        <small class="text-danger d-block mt-2">{{ $message }}</small>
+                    @enderror
                 </div>
                 <input type="submit" class="btn btn-secondary mt-3" style="border-radius:12px;background-color:#222322"
                     value="Cambiar contraseña">
@@ -69,36 +75,18 @@
                 <label class="mt-3">Apellido</label>
                 <input type="text" name="surname" class="form-control text-dark " placeholder="{{ $user->surname }}">
 
-                <label class="mt-3">Teléfono</label>
+                <label>Teléfono (9 digitos sin espacios)</label>
                 <input type="text" name="phone" class="form-control text-dark " placeholder="{{ $user->phone }}">
-
+                @error('phone')
+                    <small class="text-danger d-block mt-2">{{ $message }}</small>
+                @enderror
                 <input type="submit" class="btn btn-secondary mt-3" style="border-radius:12px;background-color:#222322"
                     value="Actualizar datos">
             </form>
         </div>
     </div>
 
-    <div class="position-relative w-100 mt-3" >
-        @if(session('success'))
-            <div id="flash-success"
-                class="alert alert-success alert-dismissible fade show shadow-sm position-absolute top-0 start-50 translate-middle-x"
-                style="border-radius: 12px; z-index: 1000; transition: all 0.5s ease;" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-            </div>
 
-            <script>
-                setTimeout(() => {
-                    const flash = document.getElementById('flash-success');
-                    if (flash) {
-                        flash.style.opacity = '0';
-                        flash.style.transform = 'translateY(-20px)';
-                        setTimeout(() => flash.remove(), 500);
-                    }
-                }, 3000);
-            </script>
-        @endif
-    </div>
 
 
 @endsection

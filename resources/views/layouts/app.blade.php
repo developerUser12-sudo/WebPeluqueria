@@ -67,7 +67,19 @@
             </div>
         </nav>
     </header>
-    <main class="@yield('main-class') flex-grow-1 main d-flex justify-content-center flex-column" style="background-image:url('{{ asset('storage/photo-1493256338651-d82f7acb2b38.avif') }}')">
+    <div class="flash-wrapper">
+
+    @if(session('success'))
+        <div id="flash-success"
+            class="alert alert-success alert-dismissible fade show shadow-sm flash-message"
+            role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
+</div>
+    <main class="@yield('main-class') flex-grow-1 main d-flex justify-content-center flex-column" style="background-image:url('{{ asset('storage/imagen-fondo.jpg') }}')">
 
         @hasSection('homepage')
 
@@ -111,7 +123,22 @@
             </div>
         </div>
     </footer>
+<script>
+setTimeout(() => {
 
+    const success = document.getElementById('flash-success');
+    const error = document.getElementById('flash-error');
+
+    if (success) {
+        success.style.opacity = '0';
+        success.style.transform = 'translateY(-20px)';
+        setTimeout(() => success.remove(), 500);
+    }
+
+    
+
+}, 3000);
+</script>
 </body>
 
 </html>

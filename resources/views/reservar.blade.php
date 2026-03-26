@@ -118,8 +118,20 @@
         const mm = String(ahora.getMonth() + 1).padStart(2, '0');
         const dd = String(ahora.getDate()).padStart(2, '0');
         const fecha = `${yyyy}-${mm}-${dd}`;
+        const diasBloqueados = @json($diasBloqueados);
+        const horasBloqueadas = @json($horasBloqueadas);
+        const citas = @json($citas);
 
         function telefonoValido(tel) {
+            for (let index = 0; index < citas.length; index++) {
+                if (citas[index].user && citas[index].user.phone) {
+                    if (citas[index].user.phone == tel) {
+
+                        return false;
+                    }
+                }
+
+            }
             const regex = /^\d{9}$/;
             return regex.test(tel);
         }
@@ -144,7 +156,7 @@
             }
 
             if (!telefonoValido(telefono.value) || telefono.value == '') {
-                telefonoError.textContent = 'Dato faltante o formato incorrecto';
+                telefonoError.textContent = 'Formato incorrecto o teléfono ya existente';
                 return;
             }
 
@@ -187,9 +199,6 @@
             fase3.style.display = 'none'
 
         })
-        const diasBloqueados = @json($diasBloqueados);
-        const horasBloqueadas = @json($horasBloqueadas);
-        const citas = @json($citas);
 
         flatpickr("#dia", {
             dateFormat: "Y-m-d",
@@ -221,7 +230,10 @@
 
         });
 
-
+        function horaATotalMinutos(hora) {
+            const [h, m] = hora.split(':').map(Number);
+            return h * 60 + m;
+        }
         function esMasDe5MinMayor(horaStr) {
 
             const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
@@ -255,70 +267,26 @@
                         if (citas[index].hora == horas[index2]) {
                             horas.splice(index2, 1);
                         }
+
                     }
 
                 }
 
             }
+            if (horasBloqueadas.length > 0) {
 
-            if (horasBloqueadas.length == 0) {
-                for (let i = 0; i < horas.length; i++) {
+                for (let index = 0; index < horasBloqueadas.length; index++) {
 
-                    if (params == fecha) {
-                        if (esMasDe5MinMayor(horas[i])) {
-                            let opt = document.createElement('option');
-                            opt.value = horas[i];
-                            opt.innerHTML = horas[i];
-                            document.getElementById('hora').appendChild(opt);
 
-                        }
-                    } else {
-                        let opt = document.createElement('option');
-                        opt.value = horas[i];
-                        opt.innerHTML = horas[i];
-                        document.getElementById('hora').appendChild(opt);
-                    }
-                }
-                return;
-            }
-            for (let index = 0; index < horasBloqueadas.length; index++) {
-                if (horasBloqueadas[index].fecha_inicio.split('T')[0] == params) {
-                    for (let secondIndex = 0; secondIndex < horas.length; secondIndex++) {
-                        if (!(horas[secondIndex] >= horasBloqueadas[index].fecha_inicio.split('T')[1] && horasBloqueadas[index].fecha_fin.split('T')[1] > horas[secondIndex])) {
-                            if (params == fecha) {
-                                if (esMasDe5MinMayor(horas[secondIndex])) {
-                                    let opt = document.createElement('option');
-                                    opt.value = horas[secondIndex];
-                                    opt.innerHTML = horas[secondIndex];
-                                    document.getElementById('hora').appendChild(opt);
+                    if (horasBloqueadas[index].fecha_inicio.split('T')[0] == params) {
 
-                                }
-                            } else {
-                                let opt = document.createElement('option');
-                                opt.value = horas[secondIndex];
-                                opt.innerHTML = horas[secondIndex];
-                                document.getElementById('hora').appendChild(opt);
+                        for (let index2 = horas.length - 1; index2 >= 0; index2--) {
 
+                            if (horaATotalMinutos(horas[index2]) >= horaATotalMinutos(horasBloqueadas[index].fecha_inicio.split('T')[1]) &&
+                                horaATotalMinutos(horas[index2]) < horaATotalMinutos(horasBloqueadas[index].fecha_fin.split('T')[1])) {
+                                horas.splice(index2, 1);
                             }
-                        }
 
-                    }
-                } else {
-                    for (let thirdIndex = 0; thirdIndex < horas.length; thirdIndex++) {
-
-                        if (params == fecha) {
-                            if (esMasDe5MinMayor(horas[thirdIndex])) {
-                                let opt = document.createElement('option');
-                                opt.value = horas[thirdIndex];
-                                opt.innerHTML = horas[thirdIndex];
-                                document.getElementById('hora').appendChild(opt);
-
-                            }
-                        } else {
-                            let opt = document.createElement('option');
-                            opt.value = horas[thirdIndex];
-                            opt.innerHTML = horas[thirdIndex];
-                            document.getElementById('hora').appendChild(opt);
                         }
 
                     }
@@ -326,6 +294,24 @@
                 }
 
             }
+            if (params === fecha) { 
+                for (let i = horas.length - 1; i >= 0; i--) { 
+                    if (!esMasDe5MinMayor(horas[i])) {
+                        horas.splice(i, 1); 
+                    }
+                }
+            }   
+
+
+            for (let i = 0; i < horas.length; i++) {
+                let opt = document.createElement('option');
+                opt.value = horas[i];
+                opt.innerHTML = horas[i];
+                document.getElementById('hora').appendChild(opt);
+
+            }
+
+
         }
     </script>
 

@@ -15,7 +15,7 @@
     </div>
     <div class="bg-black d-flex justify-content-center flex-column gap-5" style="height:30vh">
 
-        <div class="d-flex flex-row justify-content-evenly">
+        <div class="d-flex flex-md-row flex-column justify-content-md-evenly gap-4 align-items-center">
             <div class="d-flex flex-row gap-5">
                 <div>
                     <a href="https://www.instagram.com/lmbarberestudio/" class="text-decoration-none text-light"><i
@@ -27,8 +27,8 @@
 
                 </div>
             </div>
-            <div class="text-light">
-                Valoraciones google maps
+            <div class="text-light ">
+                <h3>⭐⭐⭐⭐⭐ | 8 reseñas</h3>
             </div>
         </div>
         <div class="d-flex flex-row justify-content-center gap-5">

@@ -42,6 +42,10 @@ class BloqueosHorariosController extends Controller
 
         return back()->with('success', 'Cita reservada correctamente');
     }
+    public function show(){
+        $horariosBloqueados=BloqueosHorarios::all();
+        
+    }
 
     
 }

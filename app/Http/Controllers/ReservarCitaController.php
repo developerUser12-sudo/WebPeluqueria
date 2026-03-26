@@ -18,7 +18,7 @@ class ReservarCitaController extends Controller
             ->map(function ($bloqueo) {
                 return Carbon::parse($bloqueo->fecha_inicio)->format('Y-m-d');
             });
-        $citas=Citas::all();
+        $citas = Citas::with('user')->get();
         $usuario=auth()->id();
         return view('reservar', compact('diasBloqueados', 'horasBloqueadas','usuario','citas'));
     }

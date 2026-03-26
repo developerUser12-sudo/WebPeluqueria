@@ -5,6 +5,7 @@
 
 .main {
     background-size: cover;
+    background-position: center;
 }
 
 
@@ -34,4 +35,18 @@
 
 #myTab {
     border-bottom: none;
+}
+.flash-wrapper{
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 500px;
+    z-index: 3000;
+}
+
+.flash-message{
+    border-radius: 12px;
+    transition: all .5s ease;
 }
