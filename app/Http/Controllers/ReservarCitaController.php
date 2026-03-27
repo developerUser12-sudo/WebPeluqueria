@@ -63,23 +63,7 @@ class ReservarCitaController extends Controller
         ]);
         return redirect()->route('cita-confirmada', $cita->id);
     }
-    public function show()
-    {
-        $citasFuturas = Citas::where('dia', '>=', Carbon::today())
-            ->orderBy('dia')
-            ->orderBy('hora')
-            ->paginate(10);
-
-        $citasPasadas = Citas::where('dia', '<', Carbon::today())
-            ->orderBy('dia', 'desc')
-            ->orderBy('hora', 'desc')
-            ->paginate(10);
-        $citasHoy = Citas::where('dia', Carbon::today())->get();
-        $preciosHoy = Citas::where('dia', Carbon::today())->get();
-        $totalHoy = $preciosHoy->sum('precio');
-
-        return view('admin.adminpage', compact('citasFuturas', 'citasPasadas', 'citasHoy','totalHoy'));
-    }
+    
     public function confirmada($id)
     {
         $cita = Citas::find($id);

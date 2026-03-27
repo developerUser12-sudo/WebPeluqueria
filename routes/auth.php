@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -83,7 +84,7 @@ Route::middleware('guest:admin')->group(function () {
 });
 Route::middleware('auth:admin')->group(function () {
 
-    Route::get('admin', [ReservarCitaController::class, 'show']);
+    Route::get('admin', [AdminController::class, 'show']);
 
     Route::post('logout-admin', [LoginAdminController::class, 'destroy'])
         ->name('admin.logout');
@@ -93,4 +94,5 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/cita/{id}/editar', [CitasController::class, 'editarCitaView'])->name('citas.edit');
     Route::put('/cita/{id}', [CitasController::class, 'editarCita'])->name('citas.update');
     Route::delete('/citas/{id}', [CitasController::class, 'eliminarCita'])->name('citas.destroy');
+    Route::delete('/horarioBloqueado/{id}', [BloqueosHorariosController::class, 'eliminarHorario'])->name('horarioBloqueado.destroy');
 });

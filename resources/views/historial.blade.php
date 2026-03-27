@@ -36,14 +36,13 @@
                                     data-bs-target="#eliminarCita" style="background-color:#222322" value="Cancelar"
                                     @if(!$puedeCancelar) disabled @endif>
 
-                                <div class="modal fade" id="eliminarCita" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                <div class="modal fade " id="eliminarCita" tabindex="-1" aria-labelledby="exampleModalLabel"
                                     aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
+                                    <div class="modal-dialog ">
+                                        <div class="modal-content text-white" style="background-color:#222322">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
+                                               
                                             </div>
                                             <div class="modal-body">
                                                 ¿Seguro que quieres eliminar esta cita?
@@ -69,5 +68,5 @@
         </div>
         
     </div>
-    <small>Las citas que sean dentro de dos horas o menos no podrán ser canceladas</small>
+    <small>Las citas que se realicen dentro de dos horas o menos no podrán ser canceladas.</small>
 @endsection

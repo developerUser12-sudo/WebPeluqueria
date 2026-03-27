@@ -28,11 +28,11 @@
     <table class="mt-2 table table-striped">
         <tr class="table-secondary">
             <th>Servicio</th>
-            <td>{{ ucwords(str_replace('_', ' ', $cita->servicio)) }}</td>
+            <td>{{ ucfirst(str_replace('_', ' ', $cita->servicio)) }}</td>
         </tr>
         <tr class="table-secondary">
             <th>Profesional</th>
-            <td>{{ ucwords($cita->peluquero) }}</td>
+            <td>{{ ucfirst($cita->peluquero) }}</td>
         </tr>
         <tr class="table-secondary">
             <th>Día</th>

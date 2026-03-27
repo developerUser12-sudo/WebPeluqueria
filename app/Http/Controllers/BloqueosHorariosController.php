@@ -40,12 +40,15 @@ class BloqueosHorariosController extends Controller
             'fecha_fin' => $fin,
         ]);
 
-        return back()->with('success', 'Cita reservada correctamente');
+        return back();
     }
-    public function show(){
-        $horariosBloqueados=BloqueosHorarios::all();
-        
+    public function eliminarHorario($id)
+    {
+        $horario = BloqueosHorarios::find($id);
+        $horario->delete();
+        return redirect()->back();
     }
+    
 
     
 }
