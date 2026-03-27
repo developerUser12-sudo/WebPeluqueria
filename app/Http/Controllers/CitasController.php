@@ -36,13 +36,13 @@ class CitasController extends Controller
 
         $cita->save();
 
-        return redirect('admin');
+        return redirect('admin')->with('success', 'Cita editada');
     }
     public function eliminarCita($id)
     {
         $cita = Citas::find($id);
         $cita->delete();
-        return redirect()->back();
+        return back()->with('success', 'Cita eliminada');
     }
 
 }

@@ -46,7 +46,7 @@ class BloqueosHorariosController extends Controller
     {
         $horario = BloqueosHorarios::find($id);
         $horario->delete();
-        return redirect()->back();
+        return back()->with('success', 'Horario bloqueado eliminado');
     }
     
 
