@@ -12,6 +12,7 @@ Route::get('politica-de-privacidad', function () {
 Route::get('aviso-legal', function () {
     return view('aviso-legal');
 });
+
 Route::get('reservar', [ReservarCitaController::class, 'create'])->name('reservar');
 Route::post('reservar', [ReservarCitaController::class, 'reservar']);
 Route::get('cita-confirmada/{id}', [ReservarCitaController::class, 'confirmada'])->name('cita-confirmada');

@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BloqueosHorarios;
 use App\Models\Citas;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\CitaReservada;
 class ReservarCitaController extends Controller
 {
     public function create()
     {
-        
+
         $horasBloqueadas = BloqueosHorarios::where('tipo', 'franja_horaria')
             ->get(['fecha_inicio', 'fecha_fin']);
         $diasBloqueados = BloqueosHorarios::where('tipo', 'dia_entero')
@@ -19,8 +21,8 @@ class ReservarCitaController extends Controller
                 return Carbon::parse($bloqueo->fecha_inicio)->format('Y-m-d');
             });
         $citas = Citas::with('user')->get();
-        $usuario=auth()->id();
-        return view('reservar', compact('diasBloqueados', 'horasBloqueadas','usuario','citas'));
+        $usuario = auth()->id();
+        return view('reservar', compact('diasBloqueados', 'horasBloqueadas', 'usuario', 'citas'));
     }
     public function reservar(Request $request)
     {
@@ -49,7 +51,7 @@ class ReservarCitaController extends Controller
                 break;
 
         }
-        
+
         $cita = Citas::create([
             'id_usuario' => auth()->id(),
             'servicio' => $request->servicio,
@@ -61,9 +63,12 @@ class ReservarCitaController extends Controller
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
         ]);
+        if (auth()->check()) {
+            Mail::to(auth()->user()->email)->send(new CitaReservada($cita));
+        }
         return redirect()->route('cita-confirmada', $cita->id);
     }
-    
+
     public function confirmada($id)
     {
         $cita = Citas::find($id);

@@ -15,12 +15,12 @@ class AdminController extends Controller
         $citasFuturas = Citas::where('dia', '>=', Carbon::today())
             ->orderBy('dia')
             ->orderBy('hora')
-            ->paginate(10);
+            ->paginate(6);
 
         $citasPasadas = Citas::where('dia', '<', Carbon::today())
             ->orderBy('dia', 'desc')
             ->orderBy('hora', 'desc')
-            ->paginate(10);
+            ->paginate(6);
         $citasHoy = Citas::where('dia', Carbon::today())->get();
         $preciosHoy = Citas::where('dia', Carbon::today())->get();
         $totalHoy = $preciosHoy->sum('precio');

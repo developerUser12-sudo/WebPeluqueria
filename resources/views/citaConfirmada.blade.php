@@ -25,6 +25,10 @@
     <small class=" mt-2 text-light">
         Para Apple Calendar, descarga el archivo y ábrelo/importalo.
     </small>
+    <br><br>
+    <small class="text-light">
+        Te enviaremos un recordatorio de tu cita por Whatsapp.
+    </small>
     <table class="mt-2 table table-striped">
         <tr class="table-secondary">
             <th>Servicio</th>

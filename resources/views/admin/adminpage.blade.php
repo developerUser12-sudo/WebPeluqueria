@@ -4,17 +4,14 @@
 
 @section('content')
 
-    <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+    <ul class="nav nav-tabs mb-4 d-flex align-items-center flex-column flex-md-row justify-content-md-start" id="adminTabs"
+        role="tablist">
         <li class="nav-item">
-            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#futuras">
-                Citas futuras
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#citas">
+                Citas
             </button>
         </li>
-        <li class="nav-item">
-            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#pasadas">
-                Citas pasadas
-            </button>
-        </li>
+
         <li class="nav-item">
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#bloqueos">
                 Bloqueos horarios
@@ -29,7 +26,7 @@
 
     <div class="tab-content">
 
-        <div class="tab-pane fade show active" id="futuras">
+        <div class="tab-pane fade show active" id="citas">
 
             <h5 class="text-light">Citas futuras</h5>
 
@@ -50,7 +47,7 @@
                             <tr>
                                 <td>{{ ucfirst(str_replace('_', ' ', $citaFutura->servicio)) }}</td>
                                 <td>{{ ucfirst($citaFutura->peluquero) }}</td>
-                                <td>{{ $citaFutura->dia }}</td>
+                                <td>{{ \Carbon\Carbon::parse($citaFutura->dia)->format('d-m-Y') }}</td>
                                 <td>{{ $citaFutura->hora }}</td>
                                 <td>
                                     <form action="{{ route('citas.edit', $citaFutura->id) }}" method="GET">
@@ -61,7 +58,27 @@
                                     <form action="{{ route('citas.destroy', $citaFutura->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#eliminarCita{{ $citaFutura->id }}">Eliminar</button>
+                                        <div class="modal fade " id="eliminarCita{{ $citaFutura->id }}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog ">
+                                                <div class="modal-content text-white" style="background-color:#222322">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
+
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ¿Seguro que quieres eliminar esta cita?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cerrar</button>
+                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </form>
                                 </td>
                             </tr>
@@ -72,9 +89,8 @@
 
             {{ $citasFuturas->links('pagination::bootstrap-5') }}
 
-        </div>
 
-        <div class="tab-pane fade" id="pasadas">
+
 
             <h5 class="text-light">Citas pasadas</h5>
 
@@ -95,7 +111,7 @@
                             <tr>
                                 <td>{{ ucfirst(str_replace('_', ' ', $citaPasada->servicio)) }}</td>
                                 <td>{{ ucfirst($citaPasada->peluquero) }}</td>
-                                <td>{{ $citaPasada->dia }}</td>
+                                <td>{{ \Carbon\Carbon::parse($citaPasada->dia)->format('d-m-Y') }}</td>
                                 <td>{{ $citaPasada->hora }}</td>
                                 <td>
                                     <form action="{{ route('citas.edit', $citaPasada->id) }}" method="GET">
@@ -106,7 +122,27 @@
                                     <form action="{{ route('citas.destroy', $citaPasada->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#eliminarCita{{ $citaPasada->id }}">Eliminar</button>
+                                        <div class="modal fade " id="eliminarCita{{ $citaPasada->id }}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog ">
+                                                <div class="modal-content text-white" style="background-color:#222322">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
+
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ¿Seguro que quieres eliminar esta cita?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cerrar</button>
+                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </form>
                                 </td>
                             </tr>
@@ -119,29 +155,29 @@
 
         </div>
 
-
         <div class="tab-pane fade" id="bloqueos">
 
-            <h4 class="text-light">Bloquear franja horaria</h4>
+            <h5 class="text-light">Bloquear franja horaria</h5>
 
             <form method="POST" action="{{ route('bloqueos.store') }}">
                 @csrf
 
-                <select name="tipo" id="tipo" class="form-select mb-3">
+                <select name="tipo" id="tipo" class="form-select mb-3" required>
+                    <option value="" selected disabled hidden>Escoge formato</option>
                     <option value="dia_entero">Día completo</option>
                     <option value="franja_horaria">Franja horaria</option>
                 </select>
 
                 <div id="franjaHoraria" style="display:none;">
                     <label class="text-light">Inicio</label>
-                    <input class="form-control" name="fecha_inicio" type="datetime-local">
+                    <input class="form-control" name="fecha_inicio" id="fecha_inicio" type="datetime-local">
 
                     <label class="text-light mt-3">Fin</label>
-                    <input class="form-control" name="fecha_fin" type="datetime-local">
+                    <input class="form-control" name="fecha_fin" id="fecha_fin" type="datetime-local">
                 </div>
 
                 <div id="diaEntero">
-                    <input class="form-control" type="date" name="dia">
+                    <input class="form-control" type="date" id="dia" name="dia">
                 </div>
 
                 <button type="submit" class="btn btn-primary mt-3">Crear bloqueo</button>
@@ -168,7 +204,27 @@
                                     <form action="{{ route('horarioBloqueado.destroy', $horarioBloqueado->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#eliminarHorario{{ $horarioBloqueado->id }}">Eliminar</button>
+                                        <div class="modal fade " id="eliminarHorario{{ $horarioBloqueado->id }}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog ">
+                                                <div class="modal-content text-white" style="background-color:#222322">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
+
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ¿Seguro que quieres eliminar este horario?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cerrar</button>
+                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </form>
                                 </td>
                             </tr>
@@ -176,14 +232,6 @@
                     </tbody>
                 </table>
             </div>
-
-
-
-
-            <form method="POST" action="{{ route('admin.logout') }}">
-                @csrf
-                <button type="submit" class="btn btn-danger mt-3">Cerrar sesión</button>
-            </form>
 
         </div>
         <div class="tab-pane fade" id="estadisticas">
@@ -216,19 +264,33 @@
 
 
     </div>
-
+    <form method="POST" action="{{ route('admin.logout') }}">
+        @csrf
+        <button type="submit" class="btn btn-danger mt-3">Cerrar sesión</button>
+    </form>
     <script>
+        const diaInput = document.getElementById('dia');
+        const inicioInput = document.getElementById('fecha_inicio');
+        const finInput = document.getElementById('fecha_fin');
         document.getElementById('tipo').addEventListener('change', function () {
 
             if (this.value == 'dia_entero') {
                 document.getElementById('diaEntero').style.display = 'block';
                 document.getElementById('franjaHoraria').style.display = 'none';
+                diaInput.setAttribute('required', true);
+                inicioInput.removeAttribute('required');
+                finInput.removeAttribute('required');
             } else {
                 document.getElementById('diaEntero').style.display = 'none';
                 document.getElementById('franjaHoraria').style.display = 'block';
+                inicioInput.setAttribute('required', true);
+                finInput.setAttribute('required', true);
+
+                diaInput.removeAttribute('required');
             }
 
         });
+
     </script>
 
 @endsection

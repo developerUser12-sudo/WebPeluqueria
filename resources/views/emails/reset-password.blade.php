@@ -13,19 +13,15 @@
                     <tr>
                         <td align="center">
 
-                            <!-- Logo -->
                             <a href="{{ config('app.url') }}">
                                 <img src="https://res.cloudinary.com/dajh0uyig/image/upload/v1774349669/logo-sin-fondo_xb5st8.png"
                                     alt="LM Barber" width="140">
                             </a>
 
-                            <!-- Saludo -->
                             <h2>Hola, {{ $user->name }}</h2>
 
-                            <!-- Mensaje principal -->
                             <p>Has solicitado restablecer tu contraseña en LM Barber.</p>
 
-                            <!-- Botón -->
                             <div style="margin-top: 30px;">
                                 <a href="{{ $url }}"
                                    style="border-radius: 12px;background-color:#222322;color:white;padding:12px 20px;text-decoration:none;display:inline-block;">
@@ -33,12 +29,10 @@
                                 </a>
                             </div>
 
-                            <!-- Mensaje de advertencia -->
                             <p style="margin-top:30px;color:#777">
                                 Si no solicitaste este cambio, ignora este correo.
                             </p>
 
-                            <!-- Enlace alternativo -->
                             <p style="margin-top:20px;color:#777">
                                 Si tienes problemas para hacer clic en el botón, copia y pega la siguiente URL en tu navegador web: {{ $url }}
                             </p>

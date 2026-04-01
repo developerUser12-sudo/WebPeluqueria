@@ -40,7 +40,7 @@ class BloqueosHorariosController extends Controller
             'fecha_fin' => $fin,
         ]);
 
-        return back();
+        return back()->with('success', 'Horario bloqueado agregado');
     }
     public function eliminarHorario($id)
     {
