@@ -48,7 +48,8 @@
                                         cuenta</a>
                                 </li>
                                 <li>
-                                    <a href="{{ config('app.url') }}/historial" class="dropdown-item bg-light text-black">Historial de citas</a>
+                                    <a href="{{ config('app.url') }}/historial"
+                                        class="dropdown-item bg-light text-black">Historial de citas</a>
                                 </li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">
@@ -69,17 +70,17 @@
     </header>
     <div class="flash-wrapper">
 
-    @if(session('success'))
-        <div id="flash-success"
-            class="alert alert-success alert-dismissible fade show shadow-sm flash-message"
-            role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
+        @if(session('success'))
+            <div id="flash-success" class="alert alert-success alert-dismissible fade show shadow-sm flash-message"
+                role="alert">
+                {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
 
-</div>
-    <main class="@yield('main-class') flex-grow-1 main d-flex justify-content-center flex-column" style="background-image:url('{{ asset('storage/imagen-fondo.jpg') }}')">
+    </div>
+    <main class="@yield('main-class') flex-grow-1 main d-flex justify-content-center flex-column"
+        style="background-image:url('{{ asset('storage/imagen-fondo.jpg') }}')">
 
         @hasSection('homepage')
 
@@ -87,7 +88,7 @@
 
         @else
 
-            <div class="d-flex justify-content-center align-items-center " >
+            <div class="d-flex justify-content-center align-items-center ">
                 <div class="@yield('class-style') bg-black p-5 rounded-4 text-light my-5 my-md-0 "
                     style="@yield('card-style')">
                     @yield('content')
@@ -97,6 +98,7 @@
         @endif
 
     </main>
+    
     <footer class="bg-black text-light p-3">
         <div class="d-flex flex-row justify-content-evenly">
             <div class="d-flex flex-column align-items-center">
@@ -114,31 +116,39 @@
                 Info
             </div>
             <div class="d-flex flex-column align-items-center">
-                <i class="bi bi-image"></i>
+                <a href="/galeria" class="text-light">
+
+                    <i class="bi bi-image"></i>
+                </a>
                 Galería
             </div>
             <div class="d-flex flex-column align-items-center">
-                <i class="bi bi-star"></i>
+                <a href="/#reseñas" class="text-light">
+                    <button type="button" id="boton-reseñas">
+                        <i class="bi bi-star"></i>
+                    </button>
+                </a>
                 Reseñas
+
             </div>
         </div>
     </footer>
-<script>
-setTimeout(() => {
+    <script>
+        setTimeout(() => {
 
-    const success = document.getElementById('flash-success');
-    const error = document.getElementById('flash-error');
+            const success = document.getElementById('flash-success');
+            const error = document.getElementById('flash-error');
 
-    if (success) {
-        success.style.opacity = '0';
-        success.style.transform = 'translateY(-20px)';
-        setTimeout(() => success.remove(), 500);
-    }
+            if (success) {
+                success.style.opacity = '0';
+                success.style.transform = 'translateY(-20px)';
+                setTimeout(() => success.remove(), 500);
+            }
 
-    
 
-}, 3000);
-</script>
+
+        }, 3000);
+    </script>
 </body>
 
 </html>

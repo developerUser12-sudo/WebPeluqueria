@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('class-style', 'my-0 my-md-5 w-100')
-@section('card-style', 'max-width:650px')
+@section('card-style', 'max-width:750px')
 
 @section('content')
 
@@ -38,6 +38,8 @@
                             <th>Profesional</th>
                             <th>Dia</th>
                             <th>Hora</th>
+                            <th>Nombre cliente</th>
+                            <th>Telefono cliente</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -49,6 +51,13 @@
                                 <td>{{ ucfirst($citaFutura->peluquero) }}</td>
                                 <td>{{ \Carbon\Carbon::parse($citaFutura->dia)->format('d-m-Y') }}</td>
                                 <td>{{ $citaFutura->hora }}</td>
+                                <td>@if ($citaFutura->nombre != null)
+                                {{ $citaFutura->nombre }} @else {{ $citaFutura->user->name }}
+                                    @endif
+                                </td>
+                                <td>@if ($citaFutura->telefono != null)
+                                {{ $citaFutura->telefono }} @else {{ $citaFutura->user->phone }}
+                                    @endif</td>
                                 <td>
                                     <form action="{{ route('citas.edit', $citaFutura->id) }}" method="GET">
                                         <button type="submit" class="btn btn-warning">Editar</button>
@@ -102,6 +111,8 @@
                             <th>Profesional</th>
                             <th>Dia</th>
                             <th>Hora</th>
+                            <th>Nombre cliente</th>
+                            <th>Telefono cliente</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -113,6 +124,12 @@
                                 <td>{{ ucfirst($citaPasada->peluquero) }}</td>
                                 <td>{{ \Carbon\Carbon::parse($citaPasada->dia)->format('d-m-Y') }}</td>
                                 <td>{{ $citaPasada->hora }}</td>
+                                <td>@if ($citaPasada->nombre != null)
+                                {{ $citaPasada->nombre }} @else {{ $citaPasada->user->name }}
+                                    @endif</td>
+                                <td>@if ($citaPasada->telefono != null)
+                                {{ $citaPasada->telefono }} @else {{ $citaPasada->user->phone }}
+                                    @endif</td>
                                 <td>
                                     <form action="{{ route('citas.edit', $citaPasada->id) }}" method="GET">
                                         <button type="submit" class="btn btn-warning">Editar</button>

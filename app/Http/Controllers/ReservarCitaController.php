@@ -66,6 +66,7 @@ class ReservarCitaController extends Controller
         if (auth()->check()) {
             Mail::to(auth()->user()->email)->send(new CitaReservada($cita));
         }
+
         return redirect()->route('cita-confirmada', $cita->id);
     }
 

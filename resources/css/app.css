@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -36,7 +35,8 @@
 #myTab {
     border-bottom: none;
 }
-.flash-wrapper{
+
+.flash-wrapper {
     position: fixed;
     top: 100px;
     left: 50%;
@@ -46,7 +46,27 @@
     z-index: 3000;
 }
 
-.flash-message{
+.flash-message {
     border-radius: 12px;
     transition: all .5s ease;
+}
+
+#reseñas {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s ease, max-height 0.5s ease;
+}
+
+#reseñas.show {
+    opacity: 1;
+    max-height: 2000px;
+}
+
+button {
+    outline: none;
+}
+
+button:focus {
+    outline: none;
 }

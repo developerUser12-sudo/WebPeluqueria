@@ -13,9 +13,11 @@
                 style="border-radius: 12px;background-color:#222322">Reservar</a>
         </div>
     </div>
-    <div class="bg-black d-flex justify-content-center flex-column gap-5" style="height:30vh">
 
-        <div class="d-flex flex-md-row flex-column justify-content-md-evenly gap-4 align-items-center">
+    <div class="bg-black d-flex justify-content-center flex-column gap-5">
+
+
+        <div class="d-flex flex-md-row flex-column justify-content-md-evenly gap-4 align-items-center mt-5">
             <div class="d-flex flex-row gap-5">
                 <div>
                     <a href="https://www.instagram.com/lmbarberestudio/" class="text-decoration-none text-light"><i
@@ -35,5 +37,49 @@
             <a href="/politica-de-privacidad" class="text-decoration-none text-light">Política de privacidad</a>
             <a href="/aviso-legal" class="text-decoration-none text-light">Aviso legal</a>
         </div>
+        <div class="d-flex flex-column gap-3 align-items-center mt-3" id="reseñas">
+
+            <div class="p-3 text-light border-bottom" style="min-width:300px;max-width:500px">
+                <strong>Alejandro Ruiz</strong>
+                <p class="mb-1">★★★★★</p>
+                <p class="mb-0">Barbería 100% recomendable, buen trato y un trabajo exquisito. Difícil encontrar algo igual
+                    en Utrera.</p>
+            </div>
+
+            <div class="p-3 text-light border-bottom" style="min-width:300px;max-width:500px">
+                <strong>Ivan Ruiz Perez</strong>
+                <p class="mb-1">★★★★★</p>
+                <p class="mb-0">Muy bien trato en la barbería y muy profesionales de lo mejor de utrera</p>
+            </div>
+
+            <div class="p-3 text-light border-bottom" style="min-width:300px;max-width:500px">
+                <strong>Juaky Nunez</strong>
+                <p class="mb-1">★★★★★</p>
+                <p class="mb-0">De las mejores barberías que he visitado, en utrera muy buena opción</p>
+            </div>
+            <div class="p-3 text-light border-bottom" style="min-width:300px;max-width:500px">
+                <strong>Sergio Ramirez</strong>
+                <p class="mb-1">★★★★★</p>
+                <p class="mb-0">Perfecto trato, perfecto trabajo y dedicación. Un placer y ha repetir!</p>
+            </div>
+
+        </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const boton = document.getElementById('boton-reseñas');
+            const reseñas = document.getElementById('reseñas');
+
+            if (boton && reseñas) {
+                boton.addEventListener('click', function () {
+                    reseñas.classList.toggle('show');
+                });
+            }
+            if (window.location.hash === '#reseñas') {
+                reseñas.classList.add('show');
+
+                reseñas.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
 @endsection
