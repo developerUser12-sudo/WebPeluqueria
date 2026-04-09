@@ -98,39 +98,34 @@
         @endif
 
     </main>
-    
+
     <footer class="bg-black text-light p-3">
         <div class="d-flex flex-row justify-content-evenly">
-            <div class="d-flex flex-column align-items-center">
-                <a href="{{ route('reservar') }}" class="text-decoration-none text-light">
 
-                    <i class="bi bi-calendar-date"></i>
-                </a>
+            <a href="{{ route('reservar') }}"
+                class="d-flex flex-column align-items-center text-decoration-none text-light">
+
+                <i class="bi bi-calendar-date"></i>
                 Reserva
-            </div>
-            <div class="d-flex flex-column align-items-center">
+            </a>
+
                 <a href="https://maps.app.goo.gl/Cy26WeuxhQJhYfpS7" target="blank"
-                    class="text-decoration-none text-light">
+                    class="d-flex flex-column align-items-center text-decoration-none text-light">
                     <i class="bi bi-geo-alt"></i>
+                    Info
                 </a>
-                Info
-            </div>
-            <div class="d-flex flex-column align-items-center">
-                <a href="/galeria" class="text-light">
+                <a href="/galeria" class="d-flex flex-column align-items-center text-decoration-none text-light">
 
                     <i class="bi bi-image"></i>
+                    Galería
                 </a>
-                Galería
-            </div>
-            <div class="d-flex flex-column align-items-center">
-                <a href="/#reseñas" class="text-light">
+                <a href="/#reseñas" class="d-flex flex-column align-items-center text-decoration-none text-light">
                     <button type="button" id="boton-reseñas">
                         <i class="bi bi-star"></i>
                     </button>
+                    Reseñas
                 </a>
-                Reseñas
 
-            </div>
         </div>
     </footer>
     <script>

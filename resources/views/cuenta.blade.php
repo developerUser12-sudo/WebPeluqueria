@@ -75,7 +75,7 @@
                 <label class="mt-3">Apellido</label>
                 <input type="text" name="surname" class="form-control text-dark " placeholder="{{ $user->surname }}">
 
-                <label>Teléfono (9 digitos sin espacios)</label>
+                <label class="mt-3">Teléfono (9 digitos sin espacios)</label>
                 <input type="text" name="phone" class="form-control text-dark " placeholder="{{ $user->phone }}">
                 @error('phone')
                     <small class="text-danger d-block mt-2">{{ $message }}</small>
