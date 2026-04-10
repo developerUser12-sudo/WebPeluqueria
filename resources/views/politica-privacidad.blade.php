@@ -5,9 +5,9 @@
  
             <h2 class="mb-4">Política de Privacidad</h2>
 
-            <p><strong>Responsable del tratamiento:</strong> LM Barber</p>
-            <p><strong>Correo electrónico:</strong> contacto@barberiaxyz.com</p>
-            <p><strong>Teléfono:</strong> +34 600 000 000</p>
+            <p><strong>Responsable del tratamiento:</strong> Luis Manuel Mayor Vega</p>
+            <p><strong>Correo electrónico:</strong> lmbarberestudio@gmail.com </p>
+            <p><strong>Teléfono:</strong> +34623199913</p>
 
             <h3>Datos que recopilamos</h3>
             <ul>

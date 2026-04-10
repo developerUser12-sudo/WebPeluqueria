@@ -1,14 +1,15 @@
 @extends('layouts.app')
+@section('class-style','my-0 my-lg-5')
 
 @section('content')
    
             <h2 class="mb-4">Aviso Legal</h2>
 
-            <p><strong>Titular del sitio web:</strong> Barbería XYZ</p>
-            <p><strong>NIF/DNI:</strong> 12345678X</p>
-            <p><strong>Dirección:</strong> Calle Ejemplo 12, Ciudad, España</p>
-            <p><strong>Correo electrónico:</strong> contacto@barberiaxyz.com</p>
-            <p><strong>Teléfono:</strong> +34 600 000 000</p>
+            <p><strong>Titular del sitio web:</strong> Luis Manuel Mayor Vega </p>
+            <p><strong>NIF/DNI:</strong> 30218237D</p>
+            <p><strong>Dirección:</strong>  C. Santiago Apóstol, 1, 41710 Utrera, Sevilla</p>
+            <p><strong>Correo electrónico:</strong> lmbarberestudio@gmail.com </p>
+            <p><strong>Teléfono:</strong> +34623199913</p>
 
             <h3>Objeto</h3>
             <p>El presente sitio web tiene como finalidad ofrecer información sobre los servicios de barbería y permitir la
