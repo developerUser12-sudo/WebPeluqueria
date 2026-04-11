@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Citas;
 
-class NotificacionCitaAdmin extends Mailable
+class CancelarCita extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,7 +18,6 @@ class NotificacionCitaAdmin extends Mailable
      * Create a new message instance.
      */
     public $cita;
-
     public function __construct(Citas $cita)
     {
         $this->cita = $cita;
@@ -30,11 +29,6 @@ class NotificacionCitaAdmin extends Mailable
     public function build()
     {
         return $this->subject('Cita confirmada')
-            ->view('notificacion-cita-admin');
+            ->view('emails.cancelar-cita');
     }
-
-    /**
-     * Get the message content definition.
-     */
-
 }

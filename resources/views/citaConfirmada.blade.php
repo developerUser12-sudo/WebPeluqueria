@@ -27,7 +27,7 @@
     </small>
     <br><br>
     <small class="text-light">
-        Te enviaremos un recordatorio de tu cita por Whatsapp.
+        Te enviaremos un recordatorio de tu cita por Whatsapp. <br>Recuerda que es preferible el pago en efectivo.
     </small>
     <table class="mt-2 table table-striped">
         <tr class="table-secondary">

@@ -21,6 +21,7 @@
                 <label for="apellido" class="text-light">Apellido (opcional)</label>
                 <input id="apellido" type="text" name="apellido" class="form-control">
             </div>
+            
 
             <div class="form-group mt-3">
                 <label for="telefono" class="text-light">Teléfono (9 digitos y sin espacio)</label>
@@ -44,16 +45,16 @@
                         Corte de pelo - 10€</option>
                     <option value="corte_y_barba"
                         data-info="El arreglo de barba en este caso se hace exclusivamente a máquina y con el marcado superior a navaja. 30 min - 13€">
-                        Corte + barba</option>
+                        Corte + barba - 13€</option>
                     <option value="corte_y_barba_ritual"
                         data-info="El ritual es una experiencia de relajación en la que el cliente disfrutará de un arreglo de barba clásico con toalla. 30 min - 15€">
-                        Corte + barba ritual</option>
+                        Corte + barba ritual - 15€</option>
                     <option value="afeitado_de_cabeza_y_barba"
                         data-info="Afeitado a máquina más el ritual de barba con toalla caliente. 30 min - 10€">
-                        Afeitado de cabeza + barba</option>
+                        Afeitado de cabeza + barba - 10€</option>
                     <option value="arreglo_de_barba"
                         data-info="Un servicio para los que su barba le importa, corte a máquina, tijeras, navaja y por supuesto toalla cálida. 15 min - 6€">
-                        Arreglo de barba</option>
+                        Arreglo de barba - 6€</option>
                 </select>
 
                 <small class="text-danger mt-2 " id="servicio-error"></small>
@@ -92,6 +93,12 @@
                 <small class="text-danger mt-2 " id="hora-error"></small>
 
             </div>
+            @guest
+            <div class="form-group mt-3">
+                <label for="email" class="text-light">Correo electrónico (opcional, para poder cancelar tu cita fácilmente)</label>
+                <input id="email" type="email" name="email" class="form-control">
+            </div>
+            @endguest
 
             <button type="button" id="atras2" class="btn btn-secondary mt-4">Atrás</button>
             <button id="reservar" type="submit" class="btn btn-success mt-4">Reservar</button>

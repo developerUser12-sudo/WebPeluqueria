@@ -28,6 +28,20 @@
 
         <div class="tab-pane fade show active" id="citas">
 
+            <form method="GET" class="mb-3 d-flex gap-2">
+
+                <input type="text" name="search" class="form-control" placeholder="Buscar por nombre o teléfono..."
+                    value="{{ request('search') }}">
+
+                <button type="submit" class="btn btn-primary">
+                    Buscar
+                </button>
+
+                <a href="{{ url()->current() }}" class="btn btn-secondary">
+                    Borrar
+                </a>
+
+            </form>
             <h5 class="text-light">Citas futuras</h5>
 
             <div class="table-responsive">
@@ -57,7 +71,8 @@
                                 </td>
                                 <td>@if ($citaFutura->telefono != null)
                                 {{ $citaFutura->telefono }} @else {{ $citaFutura->user->phone }}
-                                    @endif</td>
+                                    @endif
+                                </td>
                                 <td>
                                     <form action="{{ route('citas.edit', $citaFutura->id) }}" method="GET">
                                         <button type="submit" class="btn btn-warning">Editar</button>
@@ -104,6 +119,7 @@
             <h5 class="text-light">Citas pasadas</h5>
 
             <div class="table-responsive">
+
                 <table class="table">
                     <thead>
                         <tr>
@@ -126,10 +142,12 @@
                                 <td>{{ $citaPasada->hora }}</td>
                                 <td>@if ($citaPasada->nombre != null)
                                 {{ $citaPasada->nombre }} @else {{ $citaPasada->user->name }}
-                                    @endif</td>
+                                    @endif
+                                </td>
                                 <td>@if ($citaPasada->telefono != null)
                                 {{ $citaPasada->telefono }} @else {{ $citaPasada->user->phone }}
-                                    @endif</td>
+                                    @endif
+                                </td>
                                 <td>
                                     <form action="{{ route('citas.edit', $citaPasada->id) }}" method="GET">
                                         <button type="submit" class="btn btn-warning">Editar</button>

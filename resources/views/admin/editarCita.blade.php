@@ -45,6 +45,10 @@
             <input type="time" value="{{ $cita->hora }}" id="hora" name="hora" class="form-control">
         </div>
         <button type="submit" class="btn btn-primary mt-3">Actualizar</button>
+        <a href="/admin" style="background-color:#222322" class="btn btn-secondary mt-3">Volver</a>
     </form>
+   
+    
+    
 
 @endsection

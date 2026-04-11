@@ -13,8 +13,22 @@
                     <tr>
                         <td align="center">
 
+                            <a href="{{ config('app.url') }}">
+                                <img
+                                    src="https://res.cloudinary.com/dajh0uyig/image/upload/v1774349669/logo-sin-fondo_xb5st8.png">
+                            </a>
+                            <h4>
+                                Hola, {{ $cita->nombre }}
+                            </h4>
+                            <p>
+                                Si deseas cancelar tu cita, pulsa aqui:
+                            </p>
+                            <a href="{{ route('citas.cancelar', $cita->token) }}"
+                                style="display:inline-block;padding:10px 20px;background:#222322;color:white;border-radius:12px;text-decoration:none;">
+                                Cancelar cita
+                            </a>
 
-                            <p>Se acaba de realizar una cita en LM Barber</p>
+                            <p>Estos son los detalles de tu cita 💈</p>
                             <div style="margin-top:20px;text-align:left;">
                                 <p><strong>Servicio:</strong> {{ str_replace('_', ' ', $cita->servicio) }}</p>
                                 <p><strong>Profesional:</strong> {{ ucfirst($cita->peluquero) }}</p>
@@ -22,7 +36,6 @@
                                 <p><strong>Hora:</strong> {{ $cita->hora }}</p>
                                 <p><strong>Precio:</strong> {{ $cita->precio }}€</p>
                             </div>
-                            
 
 
                         </td>

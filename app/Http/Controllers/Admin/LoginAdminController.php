@@ -25,7 +25,7 @@ class LoginAdminController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $credentials = $request->only('email', 'password');
-
+        Auth::guard('web')->logout();
         if (Auth::guard('admin')->attempt($credentials)) {
 
             $request->session()->regenerate();

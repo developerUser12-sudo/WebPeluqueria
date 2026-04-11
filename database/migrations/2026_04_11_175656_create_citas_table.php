@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('nombre')->nullable();
             $table->string('apellido')->nullable();
             $table->string('telefono')->nullable();
+            $table->string('token')->nullable();
             $table->timestamps();
         });
     }

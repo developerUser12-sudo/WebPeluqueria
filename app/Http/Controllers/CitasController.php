@@ -42,7 +42,19 @@ class CitasController extends Controller
     {
         $cita = Citas::find($id);
         $cita->delete();
-        return back()->with('success', 'Cita eliminada');
+        return redirect('/')->with('success', 'Cita eliminada');
+    }
+    public function eliminarCitaInvitado($token)
+    {
+        $cita = Citas::where('token', $token)->first();
+
+        if (!$cita) {
+            return redirect('/')->with('error', 'Cita no encontrada');
+        }
+
+        $cita->delete();
+
+        return redirect('/')->with('success', 'Cita eliminada');
     }
 
 }

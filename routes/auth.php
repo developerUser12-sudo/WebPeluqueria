@@ -19,6 +19,7 @@ use App\Http\Controllers\CitasController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
+    Route::get('/cancelar-cita-invitado/{token}', [CitasController::class, 'eliminarCitaInvitado'])->name('citas.cancelar');
 
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
@@ -72,8 +73,8 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 
-    Route::get('cuenta', [ProfileController::class, 'updateProfile'])->middleware('verified');
-    Route::get('historial', [HistorialController::class, 'show'])->middleware('verified');
+    Route::get('cuenta', [ProfileController::class, 'updateProfile']);
+    Route::get('historial', [HistorialController::class, 'show']);
 });
 Route::middleware('guest:admin')->group(function () {
     Route::get('login-admin', [LoginAdminController::class, 'create'])

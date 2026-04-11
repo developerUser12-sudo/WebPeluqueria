@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\CancelarCita;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,6 +9,7 @@ use App\Models\BloqueosHorarios;
 use App\Models\Citas;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CitaReservada;
+use Illuminate\Support\Str;
 class ReservarCitaController extends Controller
 {
     public function create()
@@ -51,7 +53,10 @@ class ReservarCitaController extends Controller
                 break;
 
         }
-
+        $token="";
+        if (auth()->guest()) {
+            $token=Str::random(40);
+        }
         $cita = Citas::create([
             'id_usuario' => auth()->id(),
             'servicio' => $request->servicio,
@@ -62,9 +67,12 @@ class ReservarCitaController extends Controller
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
+            'token' => $token,
         ]);
         if (auth()->check()) {
             Mail::to(auth()->user()->email)->send(new CitaReservada($cita));
+        } else {
+            Mail::to($request->email)->send(new CancelarCita($cita));
         }
 
         return redirect()->route('cita-confirmada', $cita->id);
