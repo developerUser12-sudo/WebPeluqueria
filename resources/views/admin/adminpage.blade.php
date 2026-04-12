@@ -28,10 +28,11 @@
 
         <div class="tab-pane fade show active" id="citas">
 
-            <form method="GET" class="mb-3 d-flex gap-2">
+            <form method="GET" class="mb-3 d-flex gap-2 flex-column flex-md-row">
 
-                <input type="text" name="search" class="form-control" placeholder="Buscar por nombre o teléfono..."
+                <input type="text" name="search" class="form-control" placeholder="Busca por nombre o teléfono..."
                     value="{{ request('search') }}">
+                <input type="date" name="fecha" class="form-control" value="{{ request('fecha') }}">
 
                 <button type="submit" class="btn btn-primary">
                     Buscar
@@ -112,9 +113,6 @@
             </div>
 
             {{ $citasFuturas->links('pagination::bootstrap-5') }}
-
-
-
 
             <h5 class="text-light">Citas pasadas</h5>
 
@@ -279,7 +277,7 @@
                     <div class="card shadow border-0 bg-dark text-light">
                         <div class="card-body text-center">
                             <h6 class="text-secondary">Citas hoy</h6>
-                            <h2 class="fw-bold">{{ count($citasHoy) }}</h2>
+                            <h2 class="fw-bold">{{ $citasHoy }}</h2>
                         </div>
                     </div>
                 </div>

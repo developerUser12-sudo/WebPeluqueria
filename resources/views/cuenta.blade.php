@@ -5,7 +5,7 @@
 
     <h4 class="text-light text-center">Ajustes de cuenta</h4>
 
-    <ul class="nav nav-tabs mt-4 d-flex justify-content-center" id="myTab" role="tablist">
+    <ul class="nav nav-tabs mt-4 d-flex justify-content-center"  role="tablist">
         <li class="nav-item">
             <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#correo" type="button">
                 Cambiar correo
