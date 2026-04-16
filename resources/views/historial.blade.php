@@ -15,36 +15,43 @@
                 </tr>
             </thead>
             <tbody>
-               
+                @php
+                    $now = now();
+                    $limite = $now->copy()->addHours(2);
+                @endphp
+                
                 @foreach ($citas as $cita)
 
                     <tr>
-                        <td style="min-width:100px">{{ \Carbon\Carbon::parse($cita->dia)->format('d-m-Y') }} - {{ $cita->hora }}</td>
+                        <td style="min-width:100px">{{ \Carbon\Carbon::parse($cita->dia)->format('d-m-Y') }} - {{ $cita->hora }}
+                        </td>
                         <td>{{ ucfirst(str_replace('_', ' ', $cita->servicio)) }}</td>
 
                         <td>{{ $cita->precio }}€</td>
 
                         <td>{{ ucwords($cita->peluquero) }}</td>
                         @php
-                        $citaDT = \Carbon\Carbon::parse($cita->dia . ' ' . $cita->hora);
-                        $puedeCancelar = now()->addHours(2)->lt($citaDT);
+                            $citaDT = \Carbon\Carbon::parse($cita->dia . ' ' . $cita->hora);
+                            $puedeCancelar = $citaDT->greaterThan($limite);
                         @endphp
-                        
+
+
                         <td>
                             <form action="{{ route('citaCliente.destroy', $cita->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <input type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#eliminarCita{{ $cita->id }}" style="background-color:#222322" value="Cancelar"
-                                    @if(!$puedeCancelar) disabled @endif>
 
-                                <div class="modal fade " id="eliminarCita{{ $cita->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true">
+                                <input type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#eliminarCita{{ $cita->id }}" style="background-color:#222322"
+                                    value="Cancelar" {{ !$puedeCancelar ? 'disabled' : '' }}>
+
+                                <div class="modal fade " id="eliminarCita{{ $cita->id }}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog ">
                                         <div class="modal-content text-white" style="background-color:#222322">
                                             <div class="modal-header">
                                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Cancelar cita</h1>
-                                               
+
                                             </div>
                                             <div class="modal-body">
                                                 ¿Seguro que quieres cancelar esta cita?
@@ -68,7 +75,7 @@
         <div class="mt-3">
             {{ $citas->links('pagination::bootstrap-5') }}
         </div>
-        
+
     </div>
     <small>Las citas que se realicen dentro de dos horas o menos no podrán ser canceladas.</small>
 @endsection
