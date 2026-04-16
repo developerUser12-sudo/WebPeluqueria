@@ -18,7 +18,7 @@
                                     src="https://res.cloudinary.com/dajh0uyig/image/upload/v1774349669/logo-sin-fondo_xb5st8.png">
                             </a>
                             <h4>
-                                Hola, {{ $cita->nombre }}
+                                Hola, {{ ucfirst($cita->nombre) }}
                             </h4>
                             <p>
                                 Si deseas cancelar tu cita, pulsa aqui:

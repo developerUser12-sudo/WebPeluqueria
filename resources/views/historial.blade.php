@@ -15,42 +15,44 @@
                 </tr>
             </thead>
             <tbody>
+               
                 @foreach ($citas as $cita)
 
                     <tr>
                         <td style="min-width:100px">{{ \Carbon\Carbon::parse($cita->dia)->format('d-m-Y') }} - {{ $cita->hora }}</td>
-                        <td>{{ ucwords(str_replace('_', ' ', $cita->servicio)) }}</td>
+                        <td>{{ ucfirst(str_replace('_', ' ', $cita->servicio)) }}</td>
 
                         <td>{{ $cita->precio }}€</td>
 
                         <td>{{ ucwords($cita->peluquero) }}</td>
                         @php
-                            $citaDT = \Carbon\Carbon::parse($cita->dia . ' ' . $cita->hora);
-                            $puedeCancelar = now()->diffInMinutes($citaDT, false) > 120;
+                        $citaDT = \Carbon\Carbon::parse($cita->dia . ' ' . $cita->hora);
+                        $puedeCancelar = now()->addHours(2)->lt($citaDT);
                         @endphp
+                        
                         <td>
                             <form action="{{ route('citaCliente.destroy', $cita->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <input type="button" class="btn btn-secondary" data-bs-toggle="modal"
-                                    data-bs-target="#eliminarCita" style="background-color:#222322" value="Cancelar"
+                                    data-bs-target="#eliminarCita{{ $cita->id }}" style="background-color:#222322" value="Cancelar"
                                     @if(!$puedeCancelar) disabled @endif>
 
-                                <div class="modal fade " id="eliminarCita" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                <div class="modal fade " id="eliminarCita{{ $cita->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
                                     aria-hidden="true">
                                     <div class="modal-dialog ">
                                         <div class="modal-content text-white" style="background-color:#222322">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Cancelar cita</h1>
                                                
                                             </div>
                                             <div class="modal-body">
-                                                ¿Seguro que quieres eliminar esta cita?
+                                                ¿Seguro que quieres cancelar esta cita?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Cerrar</button>
-                                                <button type="submit" class="btn btn-primary">Eliminar</button>
+                                                <button type="submit" class="btn btn-primary">Cancelar</button>
                                             </div>
                                         </div>
                                     </div>
