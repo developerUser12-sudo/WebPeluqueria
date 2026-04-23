@@ -68,3 +68,45 @@ button {
 button:focus {
     outline: none;
 }
+.tiktok-wrapper {
+    height: 100vh;
+    background: black;
+    position: relative;
+     overflow: hidden;
+     height: auto; /* 🔥 CAMBIA ESTO */
+      padding: 20px 0; /* opcional */
+
+}
+
+video {
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+    margin: 0 auto;
+    touch-action: none;
+
+}
+
+
+
+#prevBtn {
+    position: absolute;
+    right: 20px;
+    padding: 10px;
+    top: 30%;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+#nextBtn {
+    position: absolute;
+    right: 20px;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 20px;
+    top: 50%;
+}
+#nextBtn:hover, #prevBtn:hover{
+    background-color: #222322;
+}
+
