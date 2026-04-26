@@ -69,24 +69,20 @@ button:focus {
     outline: none;
 }
 .tiktok-wrapper {
-    height: 100vh;
     background: black;
     position: relative;
-     overflow: hidden;
-     height: auto; /* 🔥 CAMBIA ESTO */
-      padding: 20px 0; /* opcional */
-
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 video {
-    width: 75%;
-    height: 75%;
+    width: 60%;
+    height: 85%;
     object-fit: cover;
-    margin: 0 auto;
     touch-action: none;
-
 }
-
 
 
 #prevBtn {

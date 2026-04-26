@@ -4,20 +4,20 @@
 @section('content')
     <h2 class="mb-4">Galería</h2>
 
-    <div class="d-flex flex-column gap-5">
+    <div class="d-flex flex-column">
         <div class="row gap-3">
             <div class="col-sm">
-                <img src="/storage/foto-galeria-1.jpeg" alt="Foto galeria 1">
+                <img src="/storage/foto-galeria-1.webp" alt="Foto galeria 1">
             </div>
             <div class="col-sm">
-                <img src="/storage/foto-galeria-2.jpeg" alt="Foto galeria 2">
+                <img src="/storage/foto-galeria-2.webp" alt="Foto galeria 2">
             </div>
 
         </div>
         <div class="row gap-3">
 
             <div class="tiktok-wrapper">
-                <video id="videoPlayer" autoplay muted loop></video>
+                <video id="videoPlayer" autoplay muted loop playsinline webkit-playsinline></video>
 
                 <button id="prevBtn">▲ </button>
                 <button id="nextBtn">▼</button>

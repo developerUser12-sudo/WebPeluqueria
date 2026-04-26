@@ -2,7 +2,7 @@
 @section('main-class', 'bg-black')
 @section('homepage')
 
-    <div class="main text-light d-flex justify-content-center align-items-center" style="height:75vh">
+    <div class="main text-light d-flex justify-content-center align-items-center p-3" style="height:75vh">
 
         <div class="p-5 d-flex flex-column align-items-center gap-4 glass">
             <img src="/storage/logo-sin-fondo.png" alt="Logo">
