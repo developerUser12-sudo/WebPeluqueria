@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('apellido')->nullable();
             $table->string('telefono')->nullable();
             $table->string('token')->nullable();
+            $table->boolean('completado');
             $table->timestamps();
         });
     }

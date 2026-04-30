@@ -127,8 +127,7 @@
                             <th>Hora</th>
                             <th>Nombre cliente</th>
                             <th>Telefono cliente</th>
-                            <th></th>
-                            <th></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -146,6 +145,9 @@
                                 {{ $citaPasada->telefono }} @else {{ $citaPasada->user->phone }}
                                     @endif
                                 </td>
+                                
+                                
+                                
                                 <td>
                                     <form action="{{ route('citas.edit', $citaPasada->id) }}" method="GET">
                                         <button type="submit" class="btn btn-warning">Editar</button>
@@ -178,6 +180,18 @@
                                         </div>
                                     </form>
                                 </td>
+                                <td>
+                                    @if ($citaPasada->nombre == null)
+                                    
+                                    <form action="{{ route('admin.servicio-completado', $citaPasada->id) }}" method="POST">
+                                        @csrf
+
+                                        <button type="submit" class="btn btn-success" {{ $citaPasada->completado==true ? 'disabled' : '' }}>Completado</button>
+                                    </form>
+                                   
+                                    @endif 
+                                </td>
+                                
                             </tr>
                         @endforeach
                     </tbody>

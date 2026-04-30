@@ -68,6 +68,7 @@ class ReservarCitaController extends Controller
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
             'token' => $token,
+            'completado' => false,
         ]);
         if (auth()->check()) {
             Mail::to(auth()->user()->email)->send(new CitaReservada($cita));

@@ -48,8 +48,16 @@
                                         cuenta</a>
                                 </li>
                                 <li>
-                                    <a href="{{ config('app.url') }}/historial"
+                                    <a href="{{ config('app.url') }}/historial-citas"
                                         class="dropdown-item bg-light text-black">Historial de citas</a>
+                                </li>
+                                <li>
+                                    <a href="{{ config('app.url') }}/mis-puntos"
+                                        class="dropdown-item bg-light text-black">Mis puntos</a>
+                                </li>
+                                <li>
+                                    <a href="{{ config('app.url') }}/historial-canjeos"
+                                        class="dropdown-item bg-light text-black">Historial de canjeos</a>
                                 </li>
                                 <li>
                                     <form method="POST" action="{{ route('logout') }}">

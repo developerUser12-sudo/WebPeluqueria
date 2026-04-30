@@ -27,18 +27,22 @@
     </div>
     <script>
         const videos = [
-            "/storage/video-galeria-1.mp4",
-            "/storage/video-galeria-2.mp4",
-            "/storage/video-galeria-3.mp4",
-            "/storage/video-galeria-4.mp4"
+            "https://res.cloudinary.com/dajh0uyig/video/upload/v1777566117/video-galeria-1_hw5jj9.mp4",
+            "https://res.cloudinary.com/dajh0uyig/video/upload/v1777566117/video-galeria-2_ri5rgw.mp4",
+            "https://res.cloudinary.com/dajh0uyig/video/upload/v1777566117/video-galeria-3_rl1sp6.mp4",
+            "https://res.cloudinary.com/dajh0uyig/video/upload/v1777566118/video-galeria-4_npd1al.mp4"
         ];
 
         let index = 0;
         const player = document.getElementById("videoPlayer");
         function loadVideo(i) {
+            if (player.dataset.src === videos[i]) return;
+
+            player.dataset.src = videos[i];
             player.src = videos[i];
-            player.load();
-            player.play();
+
+            const playPromise = player.play();
+            if (playPromise) playPromise.catch(() => { });
         }
         document.getElementById("nextBtn").onclick = () => {
             index = (index + 1) % videos.length;

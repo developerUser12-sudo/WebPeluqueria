@@ -18,6 +18,7 @@ class Citas extends Model
         'apellido',
         'telefono',
         'token',
+        'completado',
     ];
     public function user()
     {

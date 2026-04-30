@@ -13,7 +13,9 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BloqueosHorariosController;
 use App\Http\Controllers\HistorialController;
+use App\Http\Controllers\HistorialPuntosController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PuntosController;
 use App\Http\Controllers\ReservarCitaController;
 use App\Http\Controllers\CitasController;
 use Illuminate\Support\Facades\Route;
@@ -74,7 +76,9 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 
     Route::get('cuenta', [ProfileController::class, 'updateProfile']);
-    Route::get('historial', [HistorialController::class, 'show']);
+    Route::get('historial-citas', [HistorialController::class, 'show']);
+    Route::get('historial-canjeos', [HistorialPuntosController::class, 'show']);
+    Route::get('mis-puntos', [PuntosController::class, 'show']);
 });
 Route::middleware('guest:admin')->group(function () {
     Route::get('login-admin', [LoginAdminController::class, 'create'])
@@ -86,9 +90,11 @@ Route::middleware('guest:admin')->group(function () {
 Route::middleware('auth:admin')->group(function () {
 
     Route::get('admin', [AdminController::class, 'show']);
-
+    
     Route::post('logout-admin', [LoginAdminController::class, 'destroy'])
         ->name('admin.logout');
+    Route::post('servicio-completado/{id}', [PuntosController::class, 'servicioCompletado'])
+        ->name('admin.servicio-completado');
 
     Route::post('bloqueos', [BloqueosHorariosController::class, 'store'])
         ->name('bloqueos.store');
