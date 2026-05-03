@@ -9,11 +9,17 @@ class MovimientosPuntos extends Model
     protected $table = 'movimientospuntos';
      protected $fillable = [
         'id_usuario',
+        'id_vale',
         'motivo',
         'puntos',
+        'pendiente',
     ];
     public function user()
     {
         return $this->belongsTo(User::class, 'id_usuario'); 
+    }
+    public function vale()
+    {
+        return $this->belongsTo(Vales::class, 'id_vale'); 
     }
 }

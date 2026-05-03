@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\MovimientosPuntos;
+use App\Models\Vales;
 use Illuminate\Http\Request;
 use App\Models\Citas;
 use App\Models\User;
@@ -12,8 +14,9 @@ class PuntosController extends Controller
     public function show()
     {
         $user=User::find(auth()->id());
+        $vales = Vales::get();
 
-        return view('mis-puntos',compact('user'));
+        return view('mis-puntos',compact('user','vales'));
     }
     public function servicioCompletado($id)
     {
@@ -25,9 +28,6 @@ class PuntosController extends Controller
         switch ($cita->servicio) {
             case 'corte_de_pelo':
                 $puntos=10;
-                break;
-            case 'corte_y_barba':
-                $puntos=12;
                 break;
             case 'corte_y_barba_ritual':
                 $puntos=15;
@@ -43,10 +43,27 @@ class PuntosController extends Controller
                 break;
             
         }
-        $usuario->puntos=$puntos;
+        $usuario->puntos+=$puntos;
         $usuario->save();
+        MovimientosPuntos::create([
+            'id_usuario' => auth()->id(),
+            'motivo' => 'reserva',
+            'puntos' => $puntos,
+            
+        ]);
 
         
         return redirect('admin')->with('success', 'Confirmación de cita realizada.');
+    }
+    public function canjear($id){
+        $vale=Vales::find($id);
+        MovimientosPuntos::create([
+            'id_usuario' => auth()->id(),
+            'id_vale'=>$vale->id,
+            'motivo' => 'reserva',
+            'puntos' => $vale->puntos,
+            'pendiente'=>true
+        ]);
+        return redirect()->back()->with('success','Oferta pendiente de revisión');
     }
 }

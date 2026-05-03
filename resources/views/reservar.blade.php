@@ -41,22 +41,19 @@
                 <select class="form-control" name="servicio" id="servicio" required>
                     <option value="" selected disabled hidden>Escoge servicio</option>
                     <option value="corte_de_pelo"
-                        data-info="Desde corte clásico totalmente a tijera hasta un degradado pulido desde afeitadora, además de un asesoramiento personal. 30 min - 10€">
+                        data-info="Desde corte clásico totalmente a tijera hasta un degradado pulido desde afeitadora, además de un asesoramiento personal. 30 min">
                         Corte de pelo - 11€</option>
-                    <option value="corte_y_barba"
-                        data-info="El arreglo de barba en este caso se hace exclusivamente a máquina y con el marcado superior a navaja. 30 min - 13€">
-                        Corte + barba - 13€</option>
                     <option value="corte_y_barba_ritual"
-                        data-info="El ritual es una experiencia de relajación en la que el cliente disfrutará de un arreglo de barba clásico con toalla. 30 min - 15€">
+                        data-info="El ritual es una experiencia de relajación en la que el cliente disfrutará de un arreglo de barba clásico con toalla. 45 min">
                         Corte + barba ritual - 16€</option>
                     <option value="afeitado_de_cabeza_y_barba"
-                        data-info="Afeitado a máquina más el ritual de barba con toalla caliente. 30 min - 10€">
-                        Afeitado de cabeza + barba - 14€</option>
+                        data-info="Afeitado a máquina más el ritual de barba con toalla caliente. 30 min">
+                        Afeitado de cabeza + barba - 12€</option>
                     <option value="afeitado_de_cabeza_o_numero"
-                        data-info="">
+                        data-info="Afeitado: Rasurado al límite con las máquinas más apuradas. Un solo número: corte clásico a un solo número con máquina (rapado) y contornos marcados. 15 min cada uno">
                         Afeitado de cabeza o un solo número - 8€</option>
                     <option value="arreglo_de_barba"
-                        data-info="Un servicio para los que su barba le importa, corte a máquina, tijeras, navaja y por supuesto toalla cálida. 15 min - 6€">
+                        data-info="Un servicio para los que su barba le importa, corte a máquina, tijeras, navaja y por supuesto toalla cálida. 15 min">
                         Arreglo de barba - 7€</option>
                 </select>
 

@@ -25,7 +25,7 @@
 <body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar bg-black">
-            <div class="container-xl d-flex flex-md-row flex-row-reverse p-3">
+            <div class="container-xl d-flex flex-xxl-row flex-row-reverse p-3">
                 <div>
                     <a href="{{ url('/') }}">
                         <img class="text-light w-75" src="{{ asset('storage/logo.webp') }}" alt="Logo">
@@ -37,7 +37,7 @@
                             <i class="bi bi-door-closed"></i> Identificarse
                         </a>
                     @else
-                        <div class="dropdown">
+                        <div class="dropdown me-4">
                             <button class="text-light dropdown-toggle" type="button" id="userDropdown"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-people-fill me-2"></i>{{ Auth::user()->name }}
@@ -48,12 +48,12 @@
                                         cuenta</a>
                                 </li>
                                 <li>
-                                    <a href="{{ config('app.url') }}/historial-citas"
-                                        class="dropdown-item bg-light text-black">Historial de citas</a>
+                                    <a href="{{ config('app.url') }}/mis-puntos"
+                                    class="dropdown-item bg-light text-black">Mis puntos</a>
                                 </li>
                                 <li>
-                                    <a href="{{ config('app.url') }}/mis-puntos"
-                                        class="dropdown-item bg-light text-black">Mis puntos</a>
+                                    <a href="{{ config('app.url') }}/historial-citas"
+                                        class="dropdown-item bg-light text-black">Historial de citas</a>
                                 </li>
                                 <li>
                                     <a href="{{ config('app.url') }}/historial-canjeos"

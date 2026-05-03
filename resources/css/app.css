@@ -5,9 +5,27 @@
 .main {
     background-size: cover;
     background-position: center;
+    
 }
-
-
+.transparent-container{
+    height: 75vh;
+}
+@media (max-width: 650px) {
+  .transparent-container{
+    height: 85vh;
+}
+.boton-oferta{
+    height: 65px;
+    min-width: 110px;
+}
+}
+.boton-oferta{
+    height: 45px;
+    min-width:  125px;
+}
+.tab-content{
+    height: 300px;
+}
 
 .glass {
     background: rgba(0, 0, 0, 0.4);

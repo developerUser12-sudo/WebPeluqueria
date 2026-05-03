@@ -5,7 +5,7 @@
 
     <h4 class="text-light text-center">Ajustes de cuenta</h4>
 
-    <ul class="nav nav-tabs mt-4 d-flex justify-content-center"  role="tablist">
+    <ul class="nav nav-tabs mt-4 d-flex align-items-center flex-column flex-sm-row"  role="tablist">
         <li class="nav-item">
             <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#correo" type="button">
                 Cambiar correo
@@ -28,12 +28,12 @@
         <div class="tab-pane fade show active text-light" id="correo" style="max-width:200px">
             <form method="POST" action="{{ route('cuenta.email') }}">
                 <label for="current-email">Dirección de correo actual</label>
-                <input id="current-email" type="text" class="text-dark form-control w-100" value="{{ $user->email }}"
+                <input id="current-email" type="text" class="text-dark form-control w-100 mt-2" value="{{ $user->email }}"
                     readonly>
                 @csrf
                 @method('PATCH')
-                <label class="mt-3" for="new-email">Nueva dirección de correo</label>
-                <input id="new-email" name="email" type="email" class="text-dark form-control  w-100">
+                <label class="mt-4" for="new-email">Nueva dirección de correo</label>
+                <input id="new-email" name="email" type="email" class="text-dark form-control mt-2 w-100">
                 @error('email')
                     <small class="text-danger d-block mt-2">{{ $message }}</small>
                 @enderror
@@ -48,11 +48,11 @@
                 @method('PATCH')
                 <div>
                     <label for="password">Nueva contraseña</label>
-                    <input id="password" type="password" name="password" class="form-control w-100" required>
+                    <input id="password" type="password" name="password" class="form-control w-100 mt-2" required>
                 </div>
-                <div class="mt-3">
+                <div class="mt-4">
                     <label for="confirm-password">Confirmar nueva contraseña</label>
-                    <input id="confirm-password" type="password" name="password_confirmation" class="form-control w-100"
+                    <input id="confirm-password" type="password" name="password_confirmation" class="form-control w-100 mt-2"
                         required>
                     @error('password')
                         <small class="text-danger d-block mt-2">{{ $message }}</small>

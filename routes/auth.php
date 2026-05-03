@@ -79,6 +79,7 @@ Route::middleware('auth')->group(function () {
     Route::get('historial-citas', [HistorialController::class, 'show']);
     Route::get('historial-canjeos', [HistorialPuntosController::class, 'show']);
     Route::get('mis-puntos', [PuntosController::class, 'show']);
+    Route::post('canjear/{id}', [PuntosController::class, 'canjear'])->name('canjear');
 });
 Route::middleware('guest:admin')->group(function () {
     Route::get('login-admin', [LoginAdminController::class, 'create'])

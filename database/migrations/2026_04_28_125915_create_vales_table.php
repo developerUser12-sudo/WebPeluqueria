@@ -10,13 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('movimientospuntos', function (Blueprint $table) {
+        Schema::create('vales', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_usuario')->constrained('users')->onDelete('cascade');
-            $table->foreignId('id_vale')->nullable()->constrained('vales')->nullOnDelete();
-            $table->string('motivo');
             $table->string('puntos');
-            $table->boolean('pendiente');
+            $table->string('titulo');
+            $table->string('tipo');
+
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('movimientospuntos');
+        Schema::dropIfExists('vales');
     }
 };
