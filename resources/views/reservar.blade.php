@@ -21,7 +21,7 @@
                 <label for="apellido" class="text-light">Apellido (opcional)</label>
                 <input id="apellido" type="text" name="apellido" class="form-control">
             </div>
-            
+
 
             <div class="form-group mt-3">
                 <label for="telefono" class="text-light">Teléfono (9 digitos y sin espacio)</label>
@@ -94,10 +94,11 @@
 
             </div>
             @guest
-            <div class="form-group mt-3">
-                <label for="email" class="text-light">Correo electrónico (opcional, para poder cancelar tu cita fácilmente)</label>
-                <input id="email" type="email" name="email" class="form-control">
-            </div>
+                <div class="form-group mt-3">
+                    <label for="email" class="text-light">Correo electrónico (opcional, para poder cancelar tu cita
+                        fácilmente)</label>
+                    <input id="email" type="email" name="email" class="form-control">
+                </div>
             @endguest
 
             <button type="button" id="atras2" class="btn btn-secondary mt-4">Atrás</button>
@@ -253,6 +254,12 @@
 
             return minutosParametro > minutosAhora + 5;
         }
+        function limpiarHora(fechaISO) {
+            const date = new Date(fechaISO);
+            const h = String(date.getHours()).padStart(2, '0');
+            const m = String(date.getMinutes()).padStart(2, '0');
+            return `${h}:${m}`;
+        }
         function generarHoras(params) {
 
             document.getElementById('hora').innerHTML = '';
@@ -264,7 +271,7 @@
 
             let diaParametro = `${yyyy}-${mm}-${dd}`;
 
-            if (diaParametro == 6) {
+            if (horaParametro.getDay() === 6) {
                 horas = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
             } else {
                 horas = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30'];
@@ -289,12 +296,15 @@
 
 
                     if (horasBloqueadas[index].fecha_inicio.split('T')[0] == params) {
+                        const inicio = limpiarHora(horasBloqueadas[index].fecha_inicio);
+                        const fin = limpiarHora(horasBloqueadas[index].fecha_fin);
 
                         for (let index2 = horas.length - 1; index2 >= 0; index2--) {
 
-                            if (horaATotalMinutos(horas[index2]) >= horaATotalMinutos(horasBloqueadas[index].fecha_inicio.split('T')[1]) &&
-                                horaATotalMinutos(horas[index2]) < horaATotalMinutos(horasBloqueadas[index].fecha_fin.split('T')[1])) {
+                            if (horaATotalMinutos(horas[index2]) >= horaATotalMinutos(inicio) &&
+                                horaATotalMinutos(horas[index2]) <= horaATotalMinutos(fin)) {
                                 horas.splice(index2, 1);
+
                             }
 
                         }

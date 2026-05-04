@@ -17,12 +17,24 @@ class AdminController extends Controller
     public function show(Request $request)
     {
         $queryFuturas = $this->aplicarFiltros(
-            Citas::where('dia', '>=', Carbon::today()),
+            Citas::where(function ($q) {
+                $q->whereDate('dia', '>', Carbon::today())
+                    ->orWhere(function ($q2) {
+                        $q2->whereDate('dia', Carbon::today())
+                            ->where('hora', '>=', Carbon::now()->format('H:i'));
+                    });
+            }),
             $request
         );
 
         $queryPasadas = $this->aplicarFiltros(
-            Citas::where('dia', '<', Carbon::today()),
+            Citas::where(function ($q) {
+                $q->whereDate('dia', '<', Carbon::today())
+                    ->orWhere(function ($q2) {
+                        $q2->whereDate('dia', Carbon::today())
+                            ->where('hora', '<', Carbon::now()->format('H:i'));
+                    });
+            }),
             $request
         );
 
