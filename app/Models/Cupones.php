@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Vales extends Model
+class Cupones extends Model
 {
     protected $fillable = [
         'puntos',

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\MovimientosPuntos;
-use App\Models\Vales;
+use App\Models\Cupones;
 use Illuminate\Http\Request;
 use App\Models\Citas;
 use App\Models\User;
@@ -14,7 +14,7 @@ class PuntosController extends Controller
     public function show()
     {
         $user=User::find(auth()->id());
-        $vales = Vales::get();
+        $vales = Cupones::get();
 
         return view('mis-puntos',compact('user','vales'));
     }
@@ -56,14 +56,17 @@ class PuntosController extends Controller
         return redirect('admin')->with('success', 'Confirmación de cita realizada.');
     }
     public function canjear($id){
-        $vale=Vales::find($id);
+        $vale=Cupones::find($id);
+       
         MovimientosPuntos::create([
             'id_usuario' => auth()->id(),
-            'id_vale'=>$vale->id,
-            'motivo' => 'reserva',
+            'id_cupon'=>$vale->id,
+            'motivo' => 'canjeo',
             'puntos' => $vale->puntos,
             'pendiente'=>true
         ]);
-        return redirect()->back()->with('success','Oferta pendiente de revisión');
+
+        return redirect()->back()->with('success','Cupón pendiente de revisión');
     }
+    
 }

@@ -10,11 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('vales', function (Blueprint $table) {
+        Schema::create('cuponesgenerados', function (Blueprint $table) {
             $table->id();
-            $table->string('puntos');
-            $table->string('titulo');
-            $table->string('tipo');
+            $table->string('cupon');
 
             $table->timestamps();
         });
@@ -25,6 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('vales');
+        Schema::dropIfExists('cuponesgenerados');
     }
 };

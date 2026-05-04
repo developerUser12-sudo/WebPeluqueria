@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\CuponesGenerados;
+use App\Models\MovimientosPuntos;
 use Illuminate\Http\Request;
 use App\Models\BloqueosHorarios;
 use App\Models\Citas;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -33,20 +37,23 @@ class AdminController extends Controller
             ->orderBy('hora', 'desc')
             ->paginate(5, ['*'], 'pasadas_page')
             ->withQueryString();
-            
+
         $citasHoyQuery = Citas::whereDate('dia', Carbon::today());
 
         $citasHoy = $citasHoyQuery->count();
         $totalHoy = $citasHoyQuery->sum('precio');
 
         $horariosBloqueados = BloqueosHorarios::all();
-
+        $movimientos = MovimientosPuntos::orderBy('created_at', 'desc')->get();
+        $cuponesGenerados = CuponesGenerados::get();
         return view('admin.adminpage', compact(
             'citasFuturas',
             'citasPasadas',
             'citasHoy',
             'totalHoy',
-            'horariosBloqueados'
+            'movimientos',
+            'horariosBloqueados',
+            'cuponesGenerados',
         ));
     }
 
@@ -68,5 +75,24 @@ class AdminController extends Controller
             ->when($request->filled('fecha'), function ($q) use ($request) {
                 $q->whereDate('dia', $request->fecha);
             });
+    }
+    public function validarCupon($id)
+    {
+        $cuponGenerado = CuponesGenerados::create([
+            'cupon' => 'LM-' . Str::random(4),
+
+        ]);
+        $movimiento = MovimientosPuntos::find($id);
+        $movimiento->update([
+            'pendiente' => false,
+            'id_cupongenerado' => $cuponGenerado->id,
+        ]);
+
+        $movimiento->save();
+        $usuario = User::find($movimiento->id_usuario);
+        $usuario->puntos -= $movimiento->puntos;
+        $usuario->save();
+
+        return redirect()->back()->with('success', 'Cupón validado');
     }
 }

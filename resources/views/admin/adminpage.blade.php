@@ -22,6 +22,11 @@
                 Estadisticas
             </button>
         </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#canjeos">
+                Canjeos
+            </button>
+        </li>
     </ul>
 
     <div class="tab-content">
@@ -43,7 +48,7 @@
                 </a>
 
             </form>
-            <h5 class="text-light">Citas futuras</h5>
+            <h4 class="text-light">Citas futuras</h4>
 
             <div class="table-responsive">
                 <table class="table">
@@ -53,8 +58,8 @@
                             <th>Profesional</th>
                             <th>Dia</th>
                             <th>Hora</th>
-                            <th>Nombre cliente</th>
-                            <th>Telefono cliente</th>
+                            <th>Nombre usuario</th>
+                            <th>Telefono usuario</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -114,7 +119,7 @@
 
             {{ $citasFuturas->links('pagination::bootstrap-5') }}
 
-            <h5 class="text-light">Citas pasadas</h5>
+            <h4 class="text-light">Citas pasadas</h4>
 
             <div class="table-responsive">
 
@@ -125,8 +130,8 @@
                             <th>Profesional</th>
                             <th>Dia</th>
                             <th>Hora</th>
-                            <th>Nombre cliente</th>
-                            <th>Telefono cliente</th>
+                            <th>Nombre usuario</th>
+                            <th>Telefono usuario</th>
 
                         </tr>
                     </thead>
@@ -145,9 +150,9 @@
                                 {{ $citaPasada->telefono }} @else {{ $citaPasada->user->phone }}
                                     @endif
                                 </td>
-                                
-                                
-                                
+
+
+
                                 <td>
                                     <form action="{{ route('citas.edit', $citaPasada->id) }}" method="GET">
                                         <button type="submit" class="btn btn-warning">Editar</button>
@@ -182,16 +187,16 @@
                                 </td>
                                 <td>
                                     @if ($citaPasada->nombre == null)
-                                    
-                                    <form action="{{ route('admin.servicio-completado', $citaPasada->id) }}" method="POST">
-                                        @csrf
 
-                                        <button type="submit" class="btn btn-success" {{ $citaPasada->completado==true ? 'disabled' : '' }}>Completado</button>
-                                    </form>
-                                   
-                                    @endif 
+                                        <form action="{{ route('admin.servicio-completado', $citaPasada->id) }}" method="POST">
+                                            @csrf
+
+                                            <button type="submit" class="btn btn-success" {{ $citaPasada->completado == true ? 'disabled' : '' }}>Completado</button>
+                                        </form>
+
+                                    @endif
                                 </td>
-                                
+
                             </tr>
                         @endforeach
                     </tbody>
@@ -204,7 +209,7 @@
 
         <div class="tab-pane fade" id="bloqueos">
 
-            <h5 class="text-light">Bloquear franja horaria</h5>
+            <h4 class="text-light">Bloquear franja horaria</h4>
 
             <form method="POST" action="{{ route('bloqueos.store') }}">
                 @csrf
@@ -305,6 +310,103 @@
                     </div>
                 </div>
 
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="canjeos">
+
+            <h4 class="text-light mb-4">Canjeos sin validar</h4>
+
+            <div class="table-responsive mt-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Cupón</th>
+                            <th>Puntos</th>
+                            <th>Nombre usuario</th>
+                            <th>Telefono usuario</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($movimientos as $movimiento)
+                            @if ($movimiento->motivo == 'canjeo' && $movimiento->pendiente == true)
+                                <tr>
+                                    <td>{{ ucfirst($movimiento->cupon->titulo) }}</td>
+                                    <td>{{ $movimiento->puntos }}</td>
+                                    <td>{{ $movimiento->user->name }}</td>
+                                    <td>{{ $movimiento->user->phone }}</td>
+                                    <td>
+
+
+                                        <form action="{{ route('validar', $movimiento->id) }}" method="POST">
+                                            @csrf
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                data-bs-target="#eliminarHorario{{ $movimiento->id }}">Validar</button>
+                                            <div class="modal fade " id="eliminarHorario{{ $movimiento->id }}" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog ">
+                                                    <div class="modal-content text-white" style="background-color:#222322">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Validar cupón</h1>
+
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            ¿Seguro que quieres validar este cupón?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cerrar</button>
+                                                            <button type="submit" class="btn btn-primary">Validar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </td>
+                                </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <h4 class="text-light mb-4">Canjeos validados</h4>
+
+            <div class="table-responsive mt-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Cupón</th>
+                            <th>Cupón generado</th>
+                            <th>Puntos</th>
+                            <th>Nombre usuario</th>
+                            <th>Telefono usuario</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($movimientos as $movimiento)
+                            @if ($movimiento->motivo == 'canjeo' && $movimiento->pendiente == false)
+                                <tr>
+                                    <td>
+                                        {{ ucfirst($movimiento->cupon->titulo) }}
+                                    </td>
+                                    <td>
+                                        {{ ucfirst($movimiento->cupongenerado->cupon) }}
+                                    </td>
+                                    <td>
+                                        {{ ucfirst($movimiento->cupon->puntos) }}
+                                    </td>
+                                   
+                                    <td>{{ $movimiento->user->name }}</td>
+                                    <td>{{ $movimiento->user->phone }}</td>
+
+                                </tr>
+                            @endif
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
 
         </div>

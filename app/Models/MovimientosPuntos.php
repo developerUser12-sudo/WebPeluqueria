@@ -9,17 +9,23 @@ class MovimientosPuntos extends Model
     protected $table = 'movimientospuntos';
      protected $fillable = [
         'id_usuario',
-        'id_vale',
+        'id_cupon',
+        'id_cupongenerado',
         'motivo',
         'puntos',
         'pendiente',
     ];
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'id_usuario'); 
     }
-    public function vale()
+    public function cupon()
     {
-        return $this->belongsTo(Vales::class, 'id_vale'); 
+        return $this->belongsTo(Cupones::class, 'id_cupon'); 
+    }
+    public function cupongenerado()
+    {
+        return $this->belongsTo(CuponesGenerados::class, 'id_cupongenerado');
     }
 }

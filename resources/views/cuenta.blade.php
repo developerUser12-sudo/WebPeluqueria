@@ -24,7 +24,7 @@
     </ul>
 
 
-    <div class="tab-content mt-4">
+    <div class="tab-content tabs-cuenta mt-4">
         <div class="tab-pane fade show active text-light" id="correo" style="max-width:200px">
             <form method="POST" action="{{ route('cuenta.email') }}">
                 <label for="current-email">Dirección de correo actual</label>

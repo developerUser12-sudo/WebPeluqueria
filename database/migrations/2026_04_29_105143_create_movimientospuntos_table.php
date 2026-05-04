@@ -13,10 +13,12 @@ return new class extends Migration {
         Schema::create('movimientospuntos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_usuario')->constrained('users')->onDelete('cascade');
-            $table->foreignId('id_vale')->nullable()->constrained('vales')->nullOnDelete();
+            $table->foreignId('id_cupon')->nullable()->constrained('cupones')->nullOnDelete();
+            $table->foreignId('id_cupongenerado')->nullable()->constrained('cuponesgenerados')->nullOnDelete();
+
             $table->string('motivo');
             $table->string('puntos');
-            $table->boolean('pendiente');
+            $table->boolean('pendiente')->nullable();
             $table->timestamps();
         });
     }

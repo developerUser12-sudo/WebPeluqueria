@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
         ->middleware(['signed', 'throttle:6,1'])
         ->name('verification.verify');
-    
+
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
         ->middleware('throttle:6,1')
         ->name('verification.send');
@@ -89,9 +89,10 @@ Route::middleware('guest:admin')->group(function () {
         ->name('admin.loginadmin.submit');
 });
 Route::middleware('auth:admin')->group(function () {
+    Route::post('validar/{id}', [AdminController::class, 'validarCupon'])->name('validar');
 
     Route::get('admin', [AdminController::class, 'show']);
-    
+
     Route::post('logout-admin', [LoginAdminController::class, 'destroy'])
         ->name('admin.logout');
     Route::post('servicio-completado/{id}', [PuntosController::class, 'servicioCompletado'])

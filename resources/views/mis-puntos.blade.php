@@ -24,7 +24,6 @@
 
     <div class="d-flex flex-column flex-lg-row gap-3">
 
-        {{-- DESCUENTOS --}}
         <div class="d-flex flex-column" style="border:1px solid #8B8000;border-radius:15px;max-width:300px;width:100%">
             <h3 class="p-4">Descuentos</h3>
 
@@ -257,6 +256,9 @@
             @endforeach
         </div>
 
+    </div>
+    <div class="mt-3">
+        <p >Las ofertas canjeadas serán enviadas a revisión. Cuando sea validada, se te enviará un correo electrónico con el cupón.</p>
     </div>
 
 
