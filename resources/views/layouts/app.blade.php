@@ -85,6 +85,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
+        @if(session('error'))
+            <div id="flash-error" class="alert alert-danger alert-dismissible fade show shadow-sm flash-message"
+                role="alert">
+                {{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
 
     </div>
     <main class="@yield('main-class') flex-grow-1 main d-flex justify-content-center flex-column"
@@ -146,6 +153,11 @@
                 success.style.opacity = '0';
                 success.style.transform = 'translateY(-20px)';
                 setTimeout(() => success.remove(), 500);
+            }
+            if (error) {
+                error.style.opacity = '0';
+                error.style.transform = 'translateY(-20px)';
+                setTimeout(() => error.remove(), 500);
             }
 
 

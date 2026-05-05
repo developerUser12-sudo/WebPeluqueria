@@ -314,7 +314,21 @@
 
         </div>
         <div class="tab-pane fade" id="canjeos">
+            <form method="GET" class="mb-3 d-flex gap-2 flex-column flex-md-row">
 
+                <input type="text" name="search" class="form-control" placeholder="Busca cupón..."
+                    value="{{ request('search') }}">
+                <input type="date" name="fecha" class="form-control" value="{{ request('fecha') }}">
+
+                <button type="submit" class="btn btn-primary">
+                    Buscar
+                </button>
+
+                <a href="{{ url()->current() }}" class="btn btn-secondary">
+                    Borrar
+                </a>
+
+            </form>
             <h4 class="text-light mb-4">Canjeos sin validar</h4>
 
             <div class="table-responsive mt-4">
@@ -325,17 +339,19 @@
                             <th>Puntos</th>
                             <th>Nombre usuario</th>
                             <th>Telefono usuario</th>
+                            <th>Fecha</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($movimientos as $movimiento)
+                        @foreach ($movimientosPendientes as $movimiento)
                             @if ($movimiento->motivo == 'canjeo' && $movimiento->pendiente == true)
                                 <tr>
                                     <td>{{ ucfirst($movimiento->cupon->titulo) }}</td>
                                     <td>{{ $movimiento->puntos }}</td>
                                     <td>{{ $movimiento->user->name }}</td>
                                     <td>{{ $movimiento->user->phone }}</td>
+                                    <td>{{ $movimiento->created_at->format('d-m-Y H:i') }}</td>
                                     <td>
 
 
@@ -371,6 +387,7 @@
                     </tbody>
                 </table>
             </div>
+            {{ $movimientosPendientes->links('pagination::bootstrap-5') }}
             <h4 class="text-light mb-4">Canjeos validados</h4>
 
             <div class="table-responsive mt-4">
@@ -382,11 +399,12 @@
                             <th>Puntos</th>
                             <th>Nombre usuario</th>
                             <th>Telefono usuario</th>
+                            <th>Fecha</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($movimientos as $movimiento)
+                        @foreach ($movimientosValidados as $movimiento)
                             @if ($movimiento->motivo == 'canjeo' && $movimiento->pendiente == false)
                                 <tr>
                                     <td>
@@ -398,9 +416,10 @@
                                     <td>
                                         {{ ucfirst($movimiento->cupon->puntos) }}
                                     </td>
-                                   
+
                                     <td>{{ $movimiento->user->name }}</td>
                                     <td>{{ $movimiento->user->phone }}</td>
+                                    <td>{{ $movimiento->cupongenerado->created_at->format('d-m-Y H:i') }}</td>
 
                                 </tr>
                             @endif
@@ -408,6 +427,7 @@
                     </tbody>
                 </table>
             </div>
+             {{ $movimientosValidados->links('pagination::bootstrap-5') }}
 
         </div>
 
@@ -441,5 +461,23 @@
         });
 
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
 
+            let activeTab = localStorage.getItem('activeTab');
+
+            if (activeTab) {
+                let tabTrigger = document.querySelector('[data-bs-target="' + activeTab + '"]');
+                if (tabTrigger) {
+                    tabTrigger.click();
+                }
+            }
+            document.querySelectorAll('[data-bs-toggle="tab"]').forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    localStorage.setItem('activeTab', this.getAttribute('data-bs-target'));
+                });
+            });
+
+        });
+    </script>
 @endsection

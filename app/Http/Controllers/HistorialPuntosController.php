@@ -10,7 +10,7 @@ class HistorialPuntosController extends Controller
 {
     public function show()
     {
-        $movimientos = MovimientosPuntos::where('id_usuario', auth()->id())->get();
+        $movimientos = MovimientosPuntos::where('id_usuario', auth()->id())->orderBy('created_at','desc')->paginate(5);
         return view('historial-puntos', compact('movimientos'));
 
     }
