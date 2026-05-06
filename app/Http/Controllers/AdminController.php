@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\CuponValidado;
 use App\Models\CuponesGenerados;
 use App\Models\MovimientosPuntos;
 use Illuminate\Http\Request;
@@ -11,6 +12,7 @@ use App\Models\Citas;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -143,7 +145,7 @@ class AdminController extends Controller
         $usuario = User::find($movimiento->id_usuario);
         $usuario->puntos -= $movimiento->puntos;
         $usuario->save();
-
+        Mail::to($usuario->email)->queue(new CuponValidado($movimiento));
         return redirect()->back()->with('success', 'Cupón validado');
     }
 }

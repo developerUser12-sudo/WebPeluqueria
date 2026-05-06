@@ -71,11 +71,11 @@ class ReservarCitaController extends Controller
             'completado' => false,
         ]);
         if (auth()->check()) {
-            Mail::to(auth()->user()->email)->send(new CitaReservada($cita));
+            Mail::to(auth()->user()->email)->queue(new CitaReservada($cita));
         } else {
             if ($request->email!=null) {
                 
-                Mail::to($request->email)->send(new CancelarCita($cita));
+                Mail::to($request->email)->queue(new CancelarCita($cita));
             }
         }
 
