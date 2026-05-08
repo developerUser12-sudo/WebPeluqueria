@@ -104,7 +104,7 @@
         @else
 
             <div class="d-flex justify-content-center align-items-center ">
-                <div class="@yield('class-style') bg-black p-5 rounded-4 text-light my-5 my-md-0 "
+                <div class="@yield('class-style') bg-black p-5 rounded-4 text-light my-5 "
                     style="@yield('card-style')">
                     @yield('content')
                 </div>

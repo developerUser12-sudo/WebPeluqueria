@@ -37,19 +37,19 @@ class ReservarCitaController extends Controller
         $precio = 0;
         switch ($request->servicio) {
             case 'afeitado_de_cabeza_y_barba':
-                $precio = 10;
+                $precio = 14;
                 break;
             case 'arreglo_de_barba':
-                $precio = 6;
+                $precio = 7;
                 break;
-            case 'corte_y_barba':
-                $precio = 13;
+            case 'cafeitado_de_cabeza_o_numero':
+                $precio = 8;
                 break;
             case 'corte_y_barba_ritual':
-                $precio = 15;
+                $precio = 16;
                 break;
             case 'corte_de_pelo':
-                $precio = 10;
+                $precio = 11;
                 break;
 
         }

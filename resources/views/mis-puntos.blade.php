@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('card-style', 'min-width:300px;max-width:1050px')
-@section('class-style', 'my-0 my-lg-5')
+@section('card-style', 'min-width:320px;max-width:1050px')
+@section('class-style', 'my-0 my-md-5')
 
 @section('content')
     @php
@@ -22,17 +22,17 @@
 
     <hr>
 
-    <div class="d-flex flex-column flex-lg-row gap-3">
+    <div class="d-flex flex-column flex-lg-row align-items-center gap-3">
 
-        <div class="d-flex flex-column" style="border:1px solid #8B8000;border-radius:15px;max-width:300px;width:100%">
+        <div class="d-flex flex-column " style="border:1px solid #8B8000;border-radius:15px;max-width:300px;width:100%">
             <h3 class="p-4">Descuentos</h3>
 
             @foreach ($vales as $vale)
                 @if ($vale->tipo == 'descuento')
                     <div class="d-flex flex-row justify-content-between"
-                        style="border:1px solid #8B8000;border-left:none;border-right:none;border-bottom:none;height:120px">
+                        style="border:1px solid #8B8000;border-left:none;border-right:none;border-bottom:none;height:180px">
 
-                        <div class="p-3 d-flex align-items-center">
+                        <div class="p-3 d-flex align-items-center" style="min-width:80px">
                             {{ $vale->puntos }} puntos - {{ str_replace('_', ' ', ucfirst($vale->titulo)) }}
                         </div>
 
@@ -107,9 +107,9 @@
             @foreach ($vales as $vale)
                 @if ($vale->tipo == 'servicio')
                     <div class="d-flex flex-row justify-content-between"
-                        style="border:1px solid #8B8000;border-left:none;border-right:none;border-bottom:none;height:120px">
+                        style="border:1px solid #8B8000;border-left:none;border-right:none;border-bottom:none;height:180px">
 
-                        <div class="p-3 d-flex align-items-center">
+                        <div class="p-3 d-flex align-items-center" style="min-width:80px">
                             {{ $vale->puntos }} puntos - {{ str_replace('_', ' ', ucfirst($vale->titulo)) }}
                         </div>
 
@@ -178,16 +178,15 @@
             @endforeach
         </div>
 
-        {{-- EXTRAS --}}
         <div class="d-flex flex-column" style="border:1px solid #8B8000;border-radius:15px;max-width:300px;width:100%">
             <h3 class="p-4">Extras</h3>
 
             @foreach ($vales as $vale)
                 @if ($vale->tipo == 'extra')
                     <div class="d-flex flex-row justify-content-between"
-                        style="border:1px solid #8B8000;border-left:none;border-right:none;border-bottom:none;height:120px">
+                        style="border:1px solid #8B8000;border-left:none;border-right:none;border-bottom:none;height:180px">
 
-                        <div class="p-3 d-flex align-items-center">
+                        <div class="p-3 d-flex align-items-center" style="min-width:80px">
                             {{ $vale->puntos }} puntos - {{ str_replace('_', ' ', ucfirst($vale->titulo)) }}
                         </div>
 

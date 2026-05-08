@@ -5,25 +5,30 @@
 .main {
     background-size: cover;
     background-position: center;
-    
+
 }
-.transparent-container{
+
+.transparent-container {
     height: 75vh;
 }
+
 @media (max-width: 650px) {
-  .transparent-container{
-    height: 85vh;
+    .transparent-container {
+        height: 85vh;
+    }
+
+    .boton-oferta {
+        height: 65px;
+        min-width: 110px;
+    }
 }
-.boton-oferta{
-    height: 65px;
-    min-width: 110px;
-}
-}
-.boton-oferta{
+
+.boton-oferta {
     height: 45px;
-    min-width:  125px;
+    min-width: 125px;
 }
-.tabs-cuenta{
+
+.tabs-cuenta {
     height: 300px;
 }
 
@@ -86,6 +91,7 @@ button {
 button:focus {
     outline: none;
 }
+
 .tiktok-wrapper {
     background: black;
     position: relative;
@@ -120,7 +126,8 @@ video {
     font-size: 20px;
     top: 50%;
 }
-#nextBtn:hover, #prevBtn:hover{
+
+#nextBtn:hover,
+#prevBtn:hover {
     background-color: #222322;
 }
-

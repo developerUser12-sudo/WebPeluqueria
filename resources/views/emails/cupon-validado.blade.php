@@ -18,7 +18,7 @@
                                     alt="LM Barber" width="140">
                             </a>
 
-                            <h2>Hola, {{ $movimiento->user->name }}. Tu cupón ha sido validado</h2>
+                            <h2>Tu cupón ha sido validado</h2>
                             <p>Recuerda que tienes un máximo de 20 días para usar el cupón en la peluquería.</p>
                             
 

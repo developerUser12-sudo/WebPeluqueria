@@ -45,5 +45,4 @@
         </div>
 
     </div>
-    <small>Las citas que se realicen dentro de dos horas o menos no podrán ser canceladas.</small>
 @endsection
