@@ -42,7 +42,7 @@ class ReservarCitaController extends Controller
             case 'arreglo_de_barba':
                 $precio = 7;
                 break;
-            case 'cafeitado_de_cabeza_o_numero':
+            case 'afeitado_de_cabeza_o_numero':
                 $precio = 8;
                 break;
             case 'corte_y_barba_ritual':
@@ -69,6 +69,9 @@ class ReservarCitaController extends Controller
             'telefono' => $request->telefono,
             'token' => $token,
             'completado' => false,
+            'cancelada' => false,
+            'recordatorio_enviado' => false,
+            'resenia_enviada' => false,
         ]);
         if (auth()->check()) {
             Mail::to(auth()->user()->email)->queue(new CitaReservada($cita));

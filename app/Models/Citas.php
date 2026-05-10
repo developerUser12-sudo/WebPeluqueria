@@ -19,6 +19,9 @@ class Citas extends Model
         'telefono',
         'token',
         'completado',
+        'cancelada',
+        'recordatorio_enviado',
+        'resenia_enviada',
     ];
     public function user()
     {

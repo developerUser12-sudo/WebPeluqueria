@@ -24,8 +24,8 @@
 
 
             <div class="form-group mt-3">
-                <label for="telefono" class="text-light">Teléfono (9 digitos y sin espacio)</label>
-                <input id="telefono" type="text" name="telefono" class="form-control">
+                <label for="telefono" class="text-light">Teléfono (sin espacio, prefijo obligatorio)</label>
+                <input id="telefono" type="text" name="telefono" class="form-control" value="+34">
                 <small class="text-danger mt-2 " id="telefono-error"></small>
             </div>
 
@@ -95,7 +95,7 @@
             </div>
             @guest
                 <div class="form-group mt-3">
-                    <label for="email" class="text-light">Correo electrónico (opcional, para poder cancelar tu cita
+                    <label for="email" class="text-light">Correo electrónico (opcionalmente para poder cancelar tu cita
                         fácilmente)</label>
                     <input id="email" type="email" name="email" class="form-control">
                 </div>
@@ -143,7 +143,7 @@
                 }
 
             }
-            const regex = /^\d{9}$/;
+            const regex = /^\+\d{11,15}$/;
             return regex.test(tel);
         }
         if (usuario != null) {

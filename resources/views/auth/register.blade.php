@@ -14,8 +14,8 @@
             <input id="surname" class="block mt-1 w-full rounded-2 text-dark" type="text" name="surname"  autofocus>
         </div>
         <div class="mt-4">
-            <label for="phone" class="text-light">Número de teléfono (9 digitos, sin espacios)</label>
-            <input id="phone" class="block mt-1 w-full rounded-2 text-dark" type="text" name="phone" required autofocus>
+            <label for="phone" class="text-light">Teléfono (sin espacios, prefijo obligatorio)</label>
+            <input id="phone" class="block mt-1 w-full rounded-2 text-dark" type="text" name="phone" required autofocus value="+34">
             <x-input-error :messages="$errors->get('phone')" class="mt-2 text-end" />
         </div>
 

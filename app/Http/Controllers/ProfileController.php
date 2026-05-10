@@ -104,7 +104,7 @@ class ProfileController extends Controller
 
         if ($request->filled('phone')) {
             $request->validate([
-                'phone' => ['required', 'string','regex:/^\d{9}$/','unique:'.User::class]
+                'phone' => ['required', 'string','regex:/^\+\d{11,15}$/','unique:'.User::class]
             ]);
             $user->phone = $request->phone;
         }

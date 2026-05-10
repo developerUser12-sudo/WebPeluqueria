@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('telefono')->nullable();
             $table->string('token')->nullable();
             $table->boolean('completado');
+            $table->boolean('cancelada');
+            $table->boolean('recordatorio_enviado');
+            $table->boolean('resenia_enviada');
             $table->timestamps();
         });
     }

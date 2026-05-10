@@ -19,7 +19,10 @@ class HistorialController extends Controller
     public function eliminarCita($id)
     {
         $cita = Citas::find($id);
-        $cita->delete();
+        $cita->update([
+            'cancelada' => true,
+        ]);
+        $cita->save();
         return redirect()->back();
     }
 }

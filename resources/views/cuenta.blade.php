@@ -85,7 +85,25 @@
         </div>
     </div>
 
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
 
+            let activeTab = localStorage.getItem('activeTab');
+
+            if (activeTab) {
+                let tabTrigger = document.querySelector('[data-bs-target="' + activeTab + '"]');
+                if (tabTrigger) {
+                    tabTrigger.click();
+                }
+            }
+            document.querySelectorAll('[data-bs-toggle="tab"]').forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    localStorage.setItem('activeTab', this.getAttribute('data-bs-target'));
+                });
+            });
+
+        });
+    </script>
 
 
 @endsection
