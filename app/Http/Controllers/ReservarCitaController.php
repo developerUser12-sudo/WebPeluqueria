@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BloqueosHorarios;
 use App\Models\Citas;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\CitaReservada;
 use Illuminate\Support\Str;
@@ -22,9 +23,25 @@ class ReservarCitaController extends Controller
             ->map(function ($bloqueo) {
                 return Carbon::parse($bloqueo->fecha_inicio)->format('Y-m-d');
             });
-        $citas = Citas::with('user')->get();
+        $citas = Citas::with('user')
+            ->where('cancelada', false)
+            ->where('dia', '>=', now()->toDateString())
+            ->where('dia', '<=', now()->addDays(30)->toDateString())
+            ->get()
+            ->filter(function ($cita) {
+
+                $fechaCita = Carbon::parse(
+                    $cita->dia . ' ' . $cita->hora
+                );
+
+                return $fechaCita->greaterThan(
+                    now()->addMinutes(5)
+                );
+            })
+            ->groupBy('peluquero');
         $usuario = auth()->id();
-        return view('reservar', compact('diasBloqueados', 'horasBloqueadas', 'usuario', 'citas'));
+        $telefonos=User::get();
+        return view('reservar', compact('diasBloqueados', 'horasBloqueadas', 'usuario', 'citas','telefonos'));
     }
     public function reservar(Request $request)
     {
@@ -53,9 +70,9 @@ class ReservarCitaController extends Controller
                 break;
 
         }
-        $token="";
+        $token = "";
         if (auth()->guest()) {
-            $token=Str::random(40);
+            $token = Str::random(40);
         }
         $cita = Citas::create([
             'id_usuario' => auth()->id(),
@@ -76,8 +93,8 @@ class ReservarCitaController extends Controller
         if (auth()->check()) {
             Mail::to(auth()->user()->email)->queue(new CitaReservada($cita));
         } else {
-            if ($request->email!=null) {
-                
+            if ($request->email != null) {
+
                 Mail::to($request->email)->queue(new CancelarCita($cita));
             }
         }

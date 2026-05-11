@@ -132,14 +132,14 @@
         const diasBloqueados = @json($diasBloqueados);
         const horasBloqueadas = @json($horasBloqueadas);
         const citas = @json($citas);
+        const telefonos = @json($telefonos);
 
         function telefonoValido(tel) {
-            for (let index = 0; index < citas.length; index++) {
-                if (citas[index].user && citas[index].user.phone) {
-                    if (citas[index].user.phone == tel) {
+            for (let index = 0; index < telefonos.length; index++) {
+                if (telefonos[index].phone == tel) {
 
-                        return false;
-                    }
+                    return false;
+
                 }
 
             }
@@ -211,118 +211,58 @@
 
         })
 
-        flatpickr("#dia", {
+        let fp = flatpickr("#dia", {
             dateFormat: "Y-m-d",
             locale: "es",
             minDate: "today",
             maxDate: new Date().fp_incr(30),
             disable: [
                 function (date) {
-                    const yyyy = date.getFullYear();
-                    const mm = String(date.getMonth() + 1).padStart(2, '0');
-                    const dd = String(date.getDate()).padStart(2, '0');
-                    const fechaLocal = `${yyyy}-${mm}-${dd}`;
-                    const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
-                    let limite;
-                    if (date.getDay() === 6) {
-                        limite = 13 * 60;
-                    }
-                    else {
-                        limite = 20 * 60 + 30;
-                    }
-                    const hoyFueraHorario = fechaLocal === fecha && minutosAhora > limite;
-                    return date.getDay() === 0 || diasBloqueados.includes(fechaLocal) || hoyFueraHorario;
+                    return date.getDay() === 0;
                 }
             ],
-            onChange: function (selectedDates, dateStr, instance) {
-
+            onChange: function (selectedDates, dateStr) {
                 generarHoras(dateStr);
             }
-
         });
-
-        function horaATotalMinutos(hora) {
-            const [h, m] = hora.split(':').map(Number);
-            return h * 60 + m;
-        }
-        function esMasDe5MinMayor(horaStr) {
-
-            const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
-
-            const [h, m] = horaStr.split(':');
-            const minutosParametro = parseInt(h) * 60 + parseInt(m);
-
-            return minutosParametro > minutosAhora + 5;
-        }
-        function limpiarHora(fechaISO) {
-            const date = new Date(fechaISO);
-            const h = String(date.getHours()).padStart(2, '0');
-            const m = String(date.getMinutes()).padStart(2, '0');
-            return `${h}:${m}`;
-        }
-        function generarHoras(params) {
-
+        document.getElementById('profesional').addEventListener('change', function () {
+            fp.clear();
             document.getElementById('hora').innerHTML = '';
-            let horas = new Array();
-            let horaParametro = new Date(params);
-            let yyyy = horaParametro.getFullYear();
-            let mm = String(horaParametro.getMonth() + 1).padStart(2, '0');
-            let dd = String(horaParametro.getDate()).padStart(2, '0');
+        });
+        function generarHoras(dia) {
+            const fecha = new Date(dia);
+            document.getElementById('hora').innerHTML='';
+            let horas = [];
 
-            let diaParametro = `${yyyy}-${mm}-${dd}`;
+            if (fecha.getDay() === 6) {
 
-            if (horaParametro.getDay() === 6) {
                 horas = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
+
             } else {
-                horas = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30'];
+
+                horas = [
+                    '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00',
+                    '13:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
+                    '20:00', '20:30'
+                ];
 
             }
-            for (let index = 0; index < citas.length; index++) {
+            let profesional = document.getElementById('profesional').value;
+            let citasOcupadas = citas[profesional];
 
-                if (citas[index].dia == diaParametro) {
-                    for (let index2 = 0; index2 < horas.length; index2++) {
-                        if (citas[index].hora == horas[index2]) {
-                            horas.splice(index2, 1);
-                        }
+            for (let index = 0; index < citasOcupadas.length; index++) {
+                for (let index2 = 0; index2 < horas.length; index2++) {
+
+                    if (citasOcupadas[index].hora == horas[index2]) {
+                        horas.splice(index2, 1);
+
 
                     }
 
                 }
 
-            }
-            if (horasBloqueadas.length > 0) {
-
-                for (let index = 0; index < horasBloqueadas.length; index++) {
-
-
-                    if (horasBloqueadas[index].fecha_inicio.split('T')[0] == params) {
-                        const inicio = limpiarHora(horasBloqueadas[index].fecha_inicio);
-                        const fin = limpiarHora(horasBloqueadas[index].fecha_fin);
-
-                        for (let index2 = horas.length - 1; index2 >= 0; index2--) {
-
-                            if (horaATotalMinutos(horas[index2]) >= horaATotalMinutos(inicio) &&
-                                horaATotalMinutos(horas[index2]) <= horaATotalMinutos(fin)) {
-                                horas.splice(index2, 1);
-
-                            }
-
-                        }
-
-                    }
-
-                }
 
             }
-            if (params === fecha) {
-                for (let i = horas.length - 1; i >= 0; i--) {
-                    if (!esMasDe5MinMayor(horas[i])) {
-                        horas.splice(i, 1);
-                    }
-                }
-            }
-
-
             for (let i = 0; i < horas.length; i++) {
                 let opt = document.createElement('option');
                 opt.value = horas[i];
@@ -333,6 +273,7 @@
 
 
         }
+
         document.getElementById("form-reserva").addEventListener("keydown", function (e) {
             if (e.key === "Enter") {
                 e.preventDefault();
