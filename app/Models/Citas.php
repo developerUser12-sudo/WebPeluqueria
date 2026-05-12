@@ -17,6 +17,7 @@ class Citas extends Model
         'nombre',
         'apellido',
         'telefono',
+        'correo',
         'token',
         'completado',
         'cancelada',

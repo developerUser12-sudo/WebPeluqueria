@@ -104,4 +104,6 @@ Route::middleware('auth:admin')->group(function () {
     Route::put('/cita/{id}', [CitasController::class, 'editarCita'])->name('citas.update');
     Route::delete('/citas/{id}', [CitasController::class, 'eliminarCita'])->name('citas.destroy');
     Route::delete('/horarioBloqueado/{id}', [BloqueosHorariosController::class, 'eliminarHorario'])->name('horarioBloqueado.destroy');
+    Route::post('/mensaje', [AdminController::class, 'mandarMensaje'])
+    ->name('mensaje');
 });

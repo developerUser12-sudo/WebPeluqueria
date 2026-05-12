@@ -23,6 +23,11 @@
             </button>
         </li>
         <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#aviso">
+                Aviso a clientes
+            </button>
+        </li>
+        <li class="nav-item">
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#canjeos">
                 Canjeos
             </button>
@@ -313,6 +318,20 @@
             </div>
 
         </div>
+        <div class="tab-pane fade" id="aviso">
+
+            <h4 class="text-light mb-4">Enviar aviso a todos los usuarios</h4>
+
+            <form class="row" action="{{ route('mensaje') }}" method="POST">
+                @csrf
+                <div class="col-3">
+                    <textarea cols="28" rows="4" class="text-black" class="form-control" type="textarea"
+                        name="cuerpo" ></textarea>
+                    <button type="submit" class="btn btn-secondary" style="background-color:#222322">Enviar</button>
+                </div>
+            </form>
+
+        </div>
         <div class="tab-pane fade" id="canjeos">
             <form method="GET" class="mb-3 d-flex gap-2 flex-column flex-md-row">
 
@@ -427,7 +446,7 @@
                     </tbody>
                 </table>
             </div>
-             {{ $movimientosValidados->links('pagination::bootstrap-5') }}
+            {{ $movimientosValidados->links('pagination::bootstrap-5') }}
 
         </div>
 

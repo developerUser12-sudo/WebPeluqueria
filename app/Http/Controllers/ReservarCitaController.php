@@ -40,8 +40,8 @@ class ReservarCitaController extends Controller
             })
             ->groupBy('peluquero');
         $usuario = auth()->id();
-        $telefonos=User::get();
-        return view('reservar', compact('diasBloqueados', 'horasBloqueadas', 'usuario', 'citas','telefonos'));
+        $usuarios=User::get();
+        return view('reservar', compact('diasBloqueados', 'horasBloqueadas', 'usuario', 'citas','usuarios'));
     }
     public function reservar(Request $request)
     {
@@ -84,6 +84,7 @@ class ReservarCitaController extends Controller
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
+            'correo' => $request->email,
             'token' => $token,
             'completado' => false,
             'cancelada' => false,

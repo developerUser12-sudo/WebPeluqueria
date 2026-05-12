@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Mail\CuponValidado;
+use App\Mail\Mensaje;
 use App\Models\CuponesGenerados;
 use App\Models\MovimientosPuntos;
 use Illuminate\Http\Request;
@@ -147,5 +148,26 @@ class AdminController extends Controller
         $usuario->save();
         Mail::to($usuario->email)->queue(new CuponValidado($movimiento));
         return redirect()->back()->with('success', 'Cupón validado');
+    }
+    public function mandarMensaje(Request $request)
+    {
+        $request->validate([
+            'cuerpo' => 'required|string'
+        ]);
+        $mensaje = $request->cuerpo;
+        $usuarios = User::all();
+        foreach ($usuarios as $usuario) {
+            Mail::to($usuario->email)
+                ->queue(new Mensaje($mensaje));
+                
+        }
+        $citas=Citas::all();
+        foreach ($citas as $cita) {
+            Mail::to($cita->correo)
+                ->queue(new Mensaje($mensaje));
+                
+        }
+        return redirect()->back()->with('success', 'Mensaje enviado');
+
     }
 }

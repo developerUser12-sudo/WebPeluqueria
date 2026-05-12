@@ -98,6 +98,7 @@
                     <label for="email" class="text-light">Correo electrónico (opcionalmente para poder cancelar tu cita
                         fácilmente)</label>
                     <input id="email" type="email" name="email" class="form-control">
+                    <small class="text-danger mt-2 " id="correo-error"></small>
                 </div>
             @endguest
 
@@ -124,6 +125,8 @@
         let profesionalError = document.getElementById('profesional-error');
         let diaError = document.getElementById('dia-error');
         let horaError = document.getElementById('hora-error');
+        let correoError = document.getElementById('correo-error');
+
         const ahora = new Date();
         const yyyy = ahora.getFullYear();
         const mm = String(ahora.getMonth() + 1).padStart(2, '0');
@@ -132,11 +135,12 @@
         const diasBloqueados = @json($diasBloqueados);
         const horasBloqueadas = @json($horasBloqueadas);
         const citas = @json($citas);
-        const telefonos = @json($telefonos);
-
+        const usuarios = @json($usuarios);
+        let emailInput = document.getElementById('email');
+        let emailValido = true;
         function telefonoValido(tel) {
-            for (let index = 0; index < telefonos.length; index++) {
-                if (telefonos[index].phone == tel) {
+            for (let index = 0; index < usuarios.length; index++) {
+                if (usuarios[index].phone == tel) {
 
                     return false;
 
@@ -146,6 +150,7 @@
             const regex = /^\+\d{11,15}$/;
             return regex.test(tel);
         }
+
         if (usuario != null) {
             fase2.style.display = 'block'
             fase1.style.display = 'none'
@@ -153,6 +158,7 @@
                 botonAtras1.remove();
             }
         }
+
         servicios.addEventListener('change', function () {
             servicioError.textContent = '';
             const texto = this.options[this.selectedIndex].dataset.info;
@@ -188,16 +194,31 @@
             fase2.style.display = 'none'
 
         })
-        document.getElementById('reservar').addEventListener('click', function () {
+        document.getElementById("form-reserva").addEventListener("submit", function (e) {
+
+            let errores = false;
+
             if (dia.value == '') {
                 diaError.textContent = 'Dato faltante';
-                return;
+                errores = true;
             }
+
             if (hora.value == '') {
                 horaError.textContent = 'Dato faltante';
-                return;
+                errores = true;
             }
-        })
+            for (let i = 0; i < usuarios.length; i++) {
+                if (usuarios[i].email == emailInput.value) {
+                    correoError.textContent = 'Correo existente';
+                    errores=true;
+                }
+            }
+
+            if (errores) {
+                e.preventDefault();
+            }
+
+        });
         if (botonAtras1) {
             botonAtras1.addEventListener('click', function () {
                 fase1.style.display = 'block'
@@ -231,7 +252,7 @@
         });
         function generarHoras(dia) {
             const fecha = new Date(dia);
-            document.getElementById('hora').innerHTML='';
+            document.getElementById('hora').innerHTML = '';
             let horas = [];
 
             if (fecha.getDay() === 6) {
@@ -248,20 +269,22 @@
 
             }
             let profesional = document.getElementById('profesional').value;
-            let citasOcupadas = citas[profesional];
+            if (citas[profesional] != null) {
+                let citasOcupadas = citas[profesional];
 
-            for (let index = 0; index < citasOcupadas.length; index++) {
-                for (let index2 = 0; index2 < horas.length; index2++) {
+                for (let index = 0; index < citasOcupadas.length; index++) {
+                    for (let index2 = 0; index2 < horas.length; index2++) {
 
-                    if (citasOcupadas[index].hora == horas[index2]) {
-                        horas.splice(index2, 1);
+                        if (citasOcupadas[index].hora == horas[index2] && citasOcupadas[index].dia == dia) {
+                            horas.splice(index2, 1);
 
+
+                        }
 
                     }
 
+
                 }
-
-
             }
             for (let i = 0; i < horas.length; i++) {
                 let opt = document.createElement('option');
