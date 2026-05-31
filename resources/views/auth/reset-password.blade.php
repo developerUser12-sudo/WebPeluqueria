@@ -11,7 +11,7 @@
     <!-- Email Address -->
     <div>
         <x-input-label class="text-light" for="email" :value="__('Correo electrónico')" />
-        <x-text-input  id="email" class="block mt-1 w-full text-dark" type="email" name="email" :value="old('email', $request->email)" readonly  autocomplete="username" />
+        <x-text-input  id="email" class="block mt-1 w-full text-dark" type="email" name="email"  required />
         <x-input-error :messages="$errors->get('email')" class="mt-2 text-end" />
     </div>
 

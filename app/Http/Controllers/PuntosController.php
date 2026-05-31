@@ -46,7 +46,7 @@ class PuntosController extends Controller
         $usuario->puntos += $puntos;
         $usuario->save();
         MovimientosPuntos::create([
-            'id_usuario' => auth()->id(),
+            'id_usuario' => $usuario->id,
             'motivo' => 'reserva',
             'puntos' => $puntos,
 

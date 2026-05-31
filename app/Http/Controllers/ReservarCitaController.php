@@ -84,7 +84,7 @@ class ReservarCitaController extends Controller
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
-            'correo' => $request->email,
+            'correo' => $request->email??'',
             'token' => $token,
             'completado' => false,
             'cancelada' => false,

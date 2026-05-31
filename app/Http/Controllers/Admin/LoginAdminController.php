@@ -26,15 +26,15 @@ class LoginAdminController extends Controller
     {
         $credentials = $request->only('email', 'password');
         Auth::guard('web')->logout();
-        if (Auth::guard('admin')->attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($credentials,true)) {
 
-            $request->session()->regenerate();
+            $request->session()->regenerate();  
 
             return redirect()->intended('/admin');
         }
 
         return back();
-    }
+    }   
 
     /**
      * Destroy an authenticated session.

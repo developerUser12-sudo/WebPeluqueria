@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Citas;
 use Illuminate\Support\Facades\Auth;
 
-class HistorialController extends Controller
+class HistorialCitasController extends Controller
 {
     public function show()
     {
         $citas = Citas::where('id_usuario', auth()->id())
             ->orderBy('dia', 'desc')
             ->paginate(5);
-        return view('historial', compact('citas'));
+        return view('historial-citas', compact('citas'));
     }
     public function eliminarCita($id)
     {

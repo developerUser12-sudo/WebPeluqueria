@@ -12,16 +12,16 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\BloqueosHorariosController;
-use App\Http\Controllers\HistorialController;
+use App\Http\Controllers\HistorialCitasController;
 use App\Http\Controllers\HistorialPuntosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PuntosController;
 use App\Http\Controllers\ReservarCitaController;
-use App\Http\Controllers\CitasController;
+use App\Http\Controllers\AdminCitasController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('/cancelar-cita-invitado/{token}', [CitasController::class, 'eliminarCitaInvitado'])->name('citas.cancelar');
+    Route::get('/cancelar-cita-invitado/{token}', [AdminCitasController::class, 'eliminarCitaInvitado'])->name('citas.cancelar');
 
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
@@ -49,7 +49,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::delete('/cita-cliente/{id}', [HistorialController::class, 'eliminarCita'])->name('citaCliente.destroy');
+    Route::delete('/cita-cliente/{id}', [HistorialCitasController::class, 'eliminarCita'])->name('citaCliente.destroy');
 
     Route::patch('/cambiar-contrasena', [ProfileController::class, 'updatePassword'])->name('cuenta.password');
     Route::patch('/cambiar-email', [ProfileController::class, 'updateEmail'])->name('cuenta.email');
@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 
     Route::get('cuenta', [ProfileController::class, 'updateProfile']);
-    Route::get('historial-citas', [HistorialController::class, 'show']);
+    Route::get('historial-citas', [HistorialCitasController::class, 'show']);
     Route::get('historial-canjeos', [HistorialPuntosController::class, 'show']);
     Route::get('mis-puntos', [PuntosController::class, 'show']);
     Route::post('canjear/{id}', [PuntosController::class, 'canjear'])->name('canjear');
@@ -100,9 +100,9 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::post('bloqueos', [BloqueosHorariosController::class, 'store'])
         ->name('bloqueos.store');
-    Route::get('/cita/{id}/editar', [CitasController::class, 'editarCitaView'])->name('citas.edit');
-    Route::put('/cita/{id}', [CitasController::class, 'editarCita'])->name('citas.update');
-    Route::delete('/citas/{id}', [CitasController::class, 'eliminarCita'])->name('citas.destroy');
+    Route::get('/cita/{id}/editar', [AdminCitasController::class, 'editarCitaView'])->name('citas.edit');
+    Route::put('/cita/{id}', [AdminCitasController::class, 'editarCita'])->name('citas.update');
+    Route::delete('/citas/{id}', [AdminCitasController::class, 'eliminarCita'])->name('citas.destroy');
     Route::delete('/horarioBloqueado/{id}', [BloqueosHorariosController::class, 'eliminarHorario'])->name('horarioBloqueado.destroy');
     Route::post('/mensaje', [AdminController::class, 'mandarMensaje'])
     ->name('mensaje');

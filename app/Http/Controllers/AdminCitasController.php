@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Citas;
 
-class CitasController extends Controller
+class AdminCitasController extends Controller
 {
     public function editarCitaView($id)
     {

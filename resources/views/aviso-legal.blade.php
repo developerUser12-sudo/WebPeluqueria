@@ -7,7 +7,7 @@
 
             <p><strong>Titular del sitio web:</strong> Luis Manuel Mayor Vega </p>
             <p><strong>NIF/DNI:</strong> 30218237D</p>
-            <p><strong>Dirección:</strong>  C. Santiago Apóstol, 1, 41710 Utrera, Sevilla</p>
+            <p><strong>Dirección:</strong>  C. San Vicente, 3, Local 8, 41710 Utrera, Sevilla</p>
             <p><strong>Correo electrónico:</strong> lmbarberestudio@gmail.com </p>
             <p><strong>Teléfono:</strong> +34623199913</p>
 

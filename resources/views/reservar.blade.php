@@ -25,7 +25,7 @@
 
             <div class="form-group mt-3">
                 <label for="telefono" class="text-light">Teléfono (sin espacio, prefijo obligatorio)</label>
-                <input id="telefono" type="text" name="telefono" class="form-control" value="+34">
+                <input id="telefono" type="text" name="telefono" class="form-control">
                 <small class="text-danger mt-2 " id="telefono-error"></small>
             </div>
 
@@ -210,7 +210,7 @@
             for (let i = 0; i < usuarios.length; i++) {
                 if (usuarios[i].email == emailInput.value) {
                     correoError.textContent = 'Correo existente';
-                    errores=true;
+                    errores = true;
                 }
             }
 
@@ -268,6 +268,17 @@
                 ];
 
             }
+            const hoy = new Date().toISOString().split('T')[0];
+            const ahora = new Date();
+
+            if (dia === hoy) {
+                horas = horas.filter(h => {
+                    const [hh, mm] = h.split(':');
+                    const horaComparar = new Date();
+                    horaComparar.setHours(hh, mm, 0, 0);
+                    return horaComparar > ahora;
+                });
+            }
             let profesional = document.getElementById('profesional').value;
             if (citas[profesional] != null) {
                 let citasOcupadas = citas[profesional];
@@ -280,6 +291,7 @@
 
 
                         }
+
 
                     }
 
