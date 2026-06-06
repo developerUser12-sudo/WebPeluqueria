@@ -45,10 +45,10 @@
                         Corte de pelo - 11€</option>
                     <option value="corte_y_barba_ritual"
                         data-info="El ritual es una experiencia de relajación en la que el cliente disfrutará de un arreglo de barba clásico con toalla. 45 min">
-                        Corte + barba ritual - 16€</option>
+                        Corte + barba ritual - 15€</option>
                     <option value="afeitado_de_cabeza_y_barba"
                         data-info="Afeitado a máquina más el ritual de barba con toalla caliente. 30 min">
-                        Afeitado de cabeza + barba - 14€</option>
+                        Afeitado de cabeza + barba - 12€</option>
                     <option value="afeitado_de_cabeza_o_numero"
                         data-info="Afeitado: Rasurado al límite con las máquinas más apuradas. Un solo número: corte clásico a un solo número con máquina (rapado) y contornos marcados. 15 min cada uno">
                         Afeitado de cabeza o un solo número - 8€</option>
