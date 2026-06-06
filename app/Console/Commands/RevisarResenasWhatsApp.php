@@ -34,10 +34,7 @@ class RevisarResenasWhatsApp extends Command
 
                 $fechaCita = \Carbon\Carbon::parse($cita->dia . ' ' . $cita->hora);
 
-                return $fechaCita->between(
-                    now()->subHours(2),
-                    now()->subHours(1)
-                );
+                 return $fechaCita->isPast();
             });
         $telefono = '';
         $nombre = '';

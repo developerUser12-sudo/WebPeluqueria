@@ -21,8 +21,8 @@ class RevisarCitasWhatsApp extends Command
                 $fechaCita = \Carbon\Carbon::parse($cita->dia . ' ' . $cita->hora);
 
                 return $fechaCita->between(
-                    now()->addHours(1)->addMinutes(55),
-                    now()->addHours(2)->addMinutes(5)
+                    now()->addMinutes(120),
+                    now()->addMinutes(150)
                 );
             });
         $telefono = '';

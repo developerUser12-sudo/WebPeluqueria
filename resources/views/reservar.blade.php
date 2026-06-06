@@ -110,34 +110,30 @@
 
 
     <script>
-        let fase1 = document.getElementById('phase1');
-        let fase2 = document.getElementById('phase2');
-        let fase3 = document.getElementById('phase3');
-        let servicios = document.getElementById('servicio');
-        let nombre = document.getElementById('nombre');
-        let telefono = document.getElementById('telefono');
-        let usuario = @json($usuario);
-        let botonAtras1 = document.getElementById('atras1');
-        let nombreError = document.getElementById('nombre-error');
-        let apellidoError = document.getElementById('apellido-error');
-        let telefonoError = document.getElementById('telefono-error');
-        let servicioError = document.getElementById('servicio-error');
-        let profesionalError = document.getElementById('profesional-error');
-        let diaError = document.getElementById('dia-error');
-        let horaError = document.getElementById('hora-error');
-        let correoError = document.getElementById('correo-error');
+        const fase1 = document.getElementById('phase1');
+        const fase2 = document.getElementById('phase2');
+        const fase3 = document.getElementById('phase3');
+        const servicios = document.getElementById('servicio');
+        const nombre = document.getElementById('nombre');
+        const telefono = document.getElementById('telefono');
+        const usuario = @json($usuario);
+        const botonAtras1 = document.getElementById('atras1');
+        const nombreError = document.getElementById('nombre-error');
+        const apellidoError = document.getElementById('apellido-error');
+        const telefonoError = document.getElementById('telefono-error');
+        const servicioError = document.getElementById('servicio-error');
+        const profesionalError = document.getElementById('profesional-error');
+        const diaError = document.getElementById('dia-error');
+        const horaError = document.getElementById('hora-error');
+        const correoError = document.getElementById('correo-error');
 
-        const ahora = new Date();
-        const yyyy = ahora.getFullYear();
-        const mm = String(ahora.getMonth() + 1).padStart(2, '0');
-        const dd = String(ahora.getDate()).padStart(2, '0');
-        const fecha = `${yyyy}-${mm}-${dd}`;
         const diasBloqueados = @json($diasBloqueados);
         const horasBloqueadas = @json($horasBloqueadas);
         const citas = @json($citas);
         const usuarios = @json($usuarios);
-        let emailInput = document.getElementById('email');
-        let emailValido = true;
+        const emailInput = document.getElementById('email');
+        const emailValido = true;
+        const ahora = new Date();
         function telefonoValido(tel) {
             for (let index = 0; index < usuarios.length; index++) {
                 if (usuarios[index].phone == tel) {
@@ -196,7 +192,7 @@
         })
         document.getElementById("form-reserva").addEventListener("submit", function (e) {
 
-            let errores = false;
+            const errores = false;
 
             if (dia.value == '') {
                 diaError.textContent = 'Dato faltante';
@@ -232,15 +228,25 @@
 
         })
 
-        let fp = flatpickr("#dia", {
+        const fp = flatpickr("#dia", {
             dateFormat: "Y-m-d",
             locale: "es",
             minDate: "today",
             maxDate: new Date().fp_incr(30),
             disable: [
                 function (date) {
-                    return date.getDay() === 0;
+                    const hoy = new Date();
+                    const esMismoDia = date.getMonth() === hoy.getMonth() && date.getDate() === hoy.getDate();
+                    const minutosAhora = hoy.getHours() * 60 + hoy.getMinutes();
+                    if (date.getDay() === 0) {
+                        return true;
+                    }
+                    if (date.getDay() === 6 && esMismoDia && minutosAhora >= 13 * 60) {
+                        return true;
+                    }
+                  
                 }
+
             ],
             onChange: function (selectedDates, dateStr) {
                 generarHoras(dateStr);
@@ -250,6 +256,7 @@
             fp.clear();
             document.getElementById('hora').innerHTML = '';
         });
+
         function generarHoras(dia) {
             const fecha = new Date(dia);
             document.getElementById('hora').innerHTML = '';
@@ -269,44 +276,39 @@
 
             }
             const hoy = new Date().toISOString().split('T')[0];
-            const ahora = new Date();
+
 
             if (dia === hoy) {
-                horas = horas.filter(h => {
-                    const [hh, mm] = h.split(':');
+                for (let index = horas.length - 1; index >= 0; index--) {
+                    const [hh, mm] = horas[index].split(':');
                     const horaComparar = new Date();
                     horaComparar.setHours(hh, mm, 0, 0);
-                    return horaComparar > ahora;
-                });
+                    if (horaComparar <= ahora) {
+                        horas.splice(index, 1);
+                    }
+
+                }
+
             }
-            let profesional = document.getElementById('profesional').value;
+            const profesional = document.getElementById('profesional').value;
             if (citas[profesional] != null) {
-                let citasOcupadas = citas[profesional];
+                const citasOcupadas = citas[profesional];
 
                 for (let index = 0; index < citasOcupadas.length; index++) {
                     for (let index2 = 0; index2 < horas.length; index2++) {
 
                         if (citasOcupadas[index].hora == horas[index2] && citasOcupadas[index].dia == dia) {
                             horas.splice(index2, 1);
-
-
                         }
-
-
                     }
-
-
                 }
             }
             for (let i = 0; i < horas.length; i++) {
-                let opt = document.createElement('option');
+                const opt = document.createElement('option');
                 opt.value = horas[i];
                 opt.innerHTML = horas[i];
                 document.getElementById('hora').appendChild(opt);
-
             }
-
-
         }
 
         document.getElementById("form-reserva").addEventListener("keydown", function (e) {
