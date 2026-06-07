@@ -244,7 +244,11 @@
                     if (date.getDay() === 6 && esMismoDia && minutosAhora >= 13 * 60) {
                         return true;
                     }
-                  
+                    if (esMismoDia && minutosAhora >= (20 * 60 + 30)) {
+                        return true;
+                    }
+
+
                 }
 
             ],
