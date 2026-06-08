@@ -215,7 +215,7 @@
         <div class="tab-pane fade" id="bloqueos">
 
             <h4 class="text-light">Bloquear franja horaria</h4>
-
+            <h5 class="mb-3">Importante: al bloquear una franja horaria, la fecha de inicio y de fin deben corresponder al mismo dia</h5>
             <form method="POST" action="{{ route('bloqueos.store') }}">
                 @csrf
 

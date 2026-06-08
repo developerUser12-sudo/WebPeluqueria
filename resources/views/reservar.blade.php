@@ -126,7 +126,6 @@
         const diaError = document.getElementById('dia-error');
         const horaError = document.getElementById('hora-error');
         const correoError = document.getElementById('correo-error');
-
         const diasBloqueados = @json($diasBloqueados);
         const horasBloqueadas = @json($horasBloqueadas);
         const citas = @json($citas);
@@ -247,6 +246,11 @@
                     if (esMismoDia && minutosAhora >= (20 * 60 + 30)) {
                         return true;
                     }
+                    const fechaFormateada = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+
+                    if (diasBloqueados.includes(fechaFormateada)) {
+                        return true;
+                    }
 
 
                 }
@@ -291,6 +295,23 @@
                         horas.splice(index, 1);
                     }
 
+                }
+
+            }
+            for (let index = 0; index < horasBloqueadas.length; index++) {
+
+                if (horasBloqueadas[index].fecha_inicio.split('T')[0] == dia) {
+                    const inicio = new Date(horasBloqueadas[index].fecha_inicio);
+                    const fin = new Date(horasBloqueadas[index].fecha_fin);
+                    for (let index2 = horas.length - 1; index2 >= 0; index2--) {
+                        const [hh, mm] = horas[index2].split(":");
+                        const horaComparar = new Date(dia);
+                        horaComparar.setHours(hh, mm, 0, 0);
+                        if (horaComparar >= inicio && horaComparar <= fin) {
+                            horas.splice(index2, 1);
+                        }
+
+                    }
                 }
 
             }
