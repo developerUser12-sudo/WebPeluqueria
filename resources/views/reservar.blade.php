@@ -25,7 +25,7 @@
 
             <div class="form-group mt-3">
                 <label for="telefono" class="text-light">Teléfono (sin espacio, prefijo obligatorio)</label>
-                <input id="telefono" type="text" name="telefono" class="form-control">
+                <input id="telefono" type="text" name="telefono" class="form-control" value="+34">
                 <small class="text-danger mt-2 " id="telefono-error"></small>
             </div>
 
@@ -63,12 +63,18 @@
             </div>
 
             <div class="form-group mt-3">
-                <label for="profesional" class="text-light">Profesional</label>
-                <select class="form-control" id="profesional" name="peluquero" required>
-                    <option value="" selected disabled hidden>Escoge profesional</option>
-                    <option value="luis">Luis</option>
-                    <option value="hugo">Hugo</option>
-                </select>
+                <label for="profesional" class="text-light">Escoge profesional</label>
+
+                <div class="mt-2">
+                    <label class="profesional" id="profesional">
+                        <input type="radio" name="peluquero" value="luis">
+                        <img src="/storage/logo-sin-fondo.png" alt="Luis">
+                    </label>
+                    <label class="profesional" id="profesional">
+                        <input type="radio" name="peluquero" value="hugo">
+                        <img src="/storage/logo-sin-fondo.png" alt="Hugo">
+                    </label>
+                </div>
                 <small class="text-danger mt-2 " id="profesional-error"></small>
             </div>
 
@@ -191,7 +197,7 @@
         })
         document.getElementById("form-reserva").addEventListener("submit", function (e) {
 
-            const errores = false;
+            let errores = false;
 
             if (dia.value == '') {
                 diaError.textContent = 'Dato faltante';
@@ -206,6 +212,7 @@
                 if (usuarios[i].email == emailInput.value) {
                     correoError.textContent = 'Correo existente';
                     errores = true;
+
                 }
             }
 

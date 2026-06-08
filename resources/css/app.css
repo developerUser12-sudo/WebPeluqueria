@@ -21,9 +21,19 @@
         height: 75px;
         min-width: 110px;
     }
-    
+
 }
 
+.profesional input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+.profesional input:checked + img {
+    border: 1px solid greenyellow;
+}
 .boton-oferta {
     height: 45px;
     min-width: 125px;
@@ -93,22 +103,16 @@ button:focus {
     outline: none;
 }
 
-.tiktok-wrapper {
-    background: black;
-    position: relative;
-    overflow: hidden;
+.video-wrapper {
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
 }
 
-video {
-    width: 60%;
-    height: 85%;
-    object-fit: cover;
-    touch-action: none;
+.video-wrapper video {
+    width: 500px;
+    max-width: 100%;
 }
-
 
 #prevBtn {
     position: absolute;
