@@ -65,14 +65,16 @@
             <div class="form-group mt-3">
                 <label for="profesional" class="text-light">Escoge profesional</label>
 
-                <div class="mt-2">
-                    <label class="profesional" id="profesional">
+                <div class="mt-1 row ">
+                    <label class="profesional col">
                         <input type="radio" name="peluquero" value="luis">
-                        <img src="/storage/logo-sin-fondo.png" alt="Luis">
+                        <img src="/storage/foto-luis.webp" alt="Luis">
+                        <i class="fw-bold">Luis</i>
                     </label>
-                    <label class="profesional" id="profesional">
+                    <label class="profesional col" id="profesional">
                         <input type="radio" name="peluquero" value="hugo">
-                        <img src="/storage/logo-sin-fondo.png" alt="Hugo">
+                        <img src="/storage/foto-hugo.webp" alt="Hugo">
+                        <i class="fw-bold">Hugo</i>
                     </label>
                 </div>
                 <small class="text-danger mt-2 " id="profesional-error"></small>
@@ -183,13 +185,16 @@
         })
         document.getElementById('continuar2').addEventListener('click', function () {
             servicioError.textContent = '';
+            profesionalError.textContent = '';
             if (servicios.value == '') {
                 servicioError.textContent = 'Debes escoger un servicio';
                 return;
-            } if (document.getElementById('profesional').value == '') {
+            }
+            const profesionalSeleccionado = document.querySelector('input[name="peluquero"]:checked');
+
+            if (!profesionalSeleccionado) {
                 profesionalError.textContent = 'Debes escoger un profesional';
                 return;
-
             }
             fase3.style.display = 'block'
             fase2.style.display = 'none'
@@ -322,7 +327,7 @@
                 }
 
             }
-            const profesional = document.getElementById('profesional').value;
+            const profesional = document.querySelector('input[name="peluquero"]:checked')?.value;
             if (citas[profesional] != null) {
                 const citasOcupadas = citas[profesional];
 
