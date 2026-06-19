@@ -66,12 +66,12 @@
                 <label for="profesional" class="text-light">Escoge profesional</label>
 
                 <div class="mt-1 row ">
-                    <label class="profesional col" id="profesional">
+                    <label class="profesional col" id="profesionalLuis">
                         <input type="radio" name="peluquero" value="luis">
                         <img src="/storage/foto-luis.webp" alt="Luis">
                         <i class="fw-bold">Luis</i>
                     </label>
-                    <label class="profesional col" id="profesional">
+                    <label class="profesional col" id="profesionalHugo">
                         <input type="radio" name="peluquero" value="hugo">
                         <img src="/storage/foto-hugo.webp" alt="Hugo">
                         <i class="fw-bold">Hugo</i>
@@ -272,7 +272,11 @@
                 generarHoras(dateStr);
             }
         });
-        document.getElementById('profesional').addEventListener('change', function () {
+        document.getElementById('profesionalLuis').addEventListener('change', function () {
+            fp.clear();
+            document.getElementById('hora').innerHTML = '';
+        });
+        document.getElementById('profesionalHugo').addEventListener('change', function () {
             fp.clear();
             document.getElementById('hora').innerHTML = '';
         });
