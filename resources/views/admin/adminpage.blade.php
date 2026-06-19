@@ -254,6 +254,7 @@
                     <thead>
                         <tr>
                             <th>Tipo</th>
+                            <th>Profesional</th>
                             <th>Fecha inicio</th>
                             <th>Fecha fin</th>
                             <th></th>
@@ -263,6 +264,8 @@
                         @foreach ($horariosBloqueados as $horarioBloqueado)
                             <tr>
                                 <td>{{ str_replace('_', ' ', ucfirst($horarioBloqueado->tipo)) }}</td>
+                                <td>{{ ucfirst($horarioBloqueado->profesional) ? ucfirst($horarioBloqueado->profesional) : 'Ambos' }}
+                                </td>
                                 <td>{{ $horarioBloqueado->fecha_inicio }}</td>
                                 <td>{{ $horarioBloqueado->fecha_fin }}</td>
                                 <td>

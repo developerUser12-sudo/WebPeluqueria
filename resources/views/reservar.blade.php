@@ -66,7 +66,7 @@
                 <label for="profesional" class="text-light">Escoge profesional</label>
 
                 <div class="mt-1 row ">
-                    <label class="profesional col">
+                    <label class="profesional col" id="profesional">
                         <input type="radio" name="peluquero" value="luis">
                         <img src="/storage/foto-luis.webp" alt="Luis">
                         <i class="fw-bold">Luis</i>
@@ -137,9 +137,6 @@
         const diasBloqueados = @json($diasBloqueados);
         const horasBloqueadas = @json($horasBloqueadas);
         const citas = @json($citas);
-
-
-
         const usuarios = @json($usuarios);
         const emailInput = document.getElementById('email');
         const emailValido = true;
