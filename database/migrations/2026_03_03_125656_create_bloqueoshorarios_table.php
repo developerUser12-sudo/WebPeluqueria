@@ -14,6 +14,7 @@ return new class extends Migration
        Schema::create('bloqueoshorarios', function (Blueprint $table) {
             $table->id();
             $table->string('tipo');
+            $table->string('profesional')->nullable();
             $table->dateTime('fecha_inicio'); 
             $table->dateTime('fecha_fin');   
             $table->timestamps();

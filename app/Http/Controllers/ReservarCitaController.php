@@ -17,11 +17,14 @@ class ReservarCitaController extends Controller
     {
 
         $horasBloqueadas = BloqueosHorarios::where('tipo', 'franja_horaria')
-            ->get(['fecha_inicio', 'fecha_fin']);
+            ->get(['profesional','fecha_inicio', 'fecha_fin'])->groupBy('profesional');
         $diasBloqueados = BloqueosHorarios::where('tipo', 'dia_entero')
             ->get()
-            ->map(function ($bloqueo) {
-                return Carbon::parse($bloqueo->fecha_inicio)->format('Y-m-d');
+            ->groupBy('profesional')
+            ->map(function ($grupo) {
+                return $grupo->map(function ($bloqueo) {
+                    return Carbon::parse($bloqueo->fecha_inicio)->format('Y-m-d');
+                });
             });
         $citas = Citas::with('user')
             ->where('cancelada', false)
@@ -40,8 +43,8 @@ class ReservarCitaController extends Controller
             })
             ->groupBy('peluquero');
         $usuario = auth()->id();
-        $usuarios=User::get();
-        return view('reservar', compact('diasBloqueados', 'horasBloqueadas', 'usuario', 'citas','usuarios'));
+        $usuarios = User::get();
+        return view('reservar', compact('diasBloqueados', 'horasBloqueadas', 'usuario', 'citas', 'usuarios'));
     }
     public function reservar(Request $request)
     {
@@ -84,7 +87,7 @@ class ReservarCitaController extends Controller
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
-            'correo' => $request->email??'',
+            'correo' => $request->email ?? '',
             'token' => $token,
             'completado' => false,
             'cancelada' => false,

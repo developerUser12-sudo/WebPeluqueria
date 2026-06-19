@@ -9,6 +9,7 @@ class BloqueosHorarios extends Model
     protected $table = 'bloqueoshorarios';
      protected $fillable = [
         'tipo',
+        'profesional',
         'fecha_inicio',
         'fecha_fin',
     ];

@@ -137,6 +137,9 @@
         const diasBloqueados = @json($diasBloqueados);
         const horasBloqueadas = @json($horasBloqueadas);
         const citas = @json($citas);
+
+
+
         const usuarios = @json($usuarios);
         const emailInput = document.getElementById('email');
         const emailValido = true;
@@ -259,8 +262,8 @@
                         return true;
                     }
                     const fechaFormateada = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
-
-                    if (diasBloqueados.includes(fechaFormateada)) {
+                    const profesional = document.querySelector('input[name="peluquero"]:checked')?.value;
+                    if (diasBloqueados[profesional]?.includes(fechaFormateada) || diasBloqueados[""]?.includes(fechaFormateada)) {
                         return true;
                     }
 
@@ -310,24 +313,45 @@
                 }
 
             }
-            for (let index = 0; index < horasBloqueadas.length; index++) {
-
-                if (horasBloqueadas[index].fecha_inicio.split('T')[0] == dia) {
-                    const inicio = new Date(horasBloqueadas[index].fecha_inicio);
-                    const fin = new Date(horasBloqueadas[index].fecha_fin);
-                    for (let index2 = horas.length - 1; index2 >= 0; index2--) {
-                        const [hh, mm] = horas[index2].split(":");
-                        const horaComparar = new Date(dia);
-                        horaComparar.setHours(hh, mm, 0, 0);
-                        if (horaComparar >= inicio && horaComparar <= fin) {
-                            horas.splice(index2, 1);
-                        }
-
-                    }
-                }
-
-            }
             const profesional = document.querySelector('input[name="peluquero"]:checked')?.value;
+            if (horasBloqueadas[profesional] != null) {
+                for (let index = 0; index < horasBloqueadas[profesional].length; index++) {
+                    if (horasBloqueadas[profesional][index].fecha_inicio.split('T')[0] == dia) {
+                        const inicio = new Date(horasBloqueadas[profesional][index].fecha_inicio);
+                        const fin = new Date(horasBloqueadas[profesional][index].fecha_fin);
+                        for (let index2 = horas.length - 1; index2 >= 0; index2--) {
+                            const [hh, mm] = horas[index2].split(":");
+                            const horaComparar = new Date(dia);
+                            horaComparar.setHours(hh, mm, 0, 0);
+                            if (horaComparar >= inicio && horaComparar <= fin) {
+                                horas.splice(index2, 1);
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            
+            if (horasBloqueadas[""] != null) {
+                for (let index = 0; index < horasBloqueadas[""].length; index++) {
+                    if (horasBloqueadas[""][index].fecha_inicio.split('T')[0] == dia) {
+                        const inicio = new Date(horasBloqueadas[""][index].fecha_inicio);
+                        const fin = new Date(horasBloqueadas[""][index].fecha_fin);
+                        for (let index2 = horas.length - 1; index2 >= 0; index2--) {
+                            const [hh, mm] = horas[index2].split(":");
+                            const horaComparar = new Date(dia);
+                            horaComparar.setHours(hh, mm, 0, 0);
+                            if (horaComparar >= inicio && horaComparar <= fin) {
+                                horas.splice(index2, 1);
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            
             if (citas[profesional] != null) {
                 const citasOcupadas = citas[profesional];
 
@@ -340,6 +364,8 @@
                     }
                 }
             }
+
+
             for (let i = 0; i < horas.length; i++) {
                 const opt = document.createElement('option');
                 opt.value = horas[i];

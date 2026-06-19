@@ -215,7 +215,8 @@
         <div class="tab-pane fade" id="bloqueos">
 
             <h4 class="text-light">Bloquear franja horaria</h4>
-            <h5 class="mb-3">Importante: al bloquear una franja horaria, la fecha de inicio y de fin deben corresponder al mismo dia</h5>
+            <h5 class="mb-3">Importante: al bloquear una franja horaria, la fecha de inicio y de fin deben corresponder al
+                mismo dia</h5>
             <form method="POST" action="{{ route('bloqueos.store') }}">
                 @csrf
 
@@ -235,6 +236,13 @@
 
                 <div id="diaEntero">
                     <input class="form-control" type="date" id="dia" name="dia">
+                </div>
+                <div class="mt-3  text-black">
+                    <select name="profesional" class="form-select" id="">
+                        <option value="" selected disabled hidden>Aplicar a un profesional</option>
+                        <option value="luis">Luis</option>
+                        <option value="hugo">Hugo</option>
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-primary mt-3">Crear bloqueo</button>
@@ -326,7 +334,7 @@
                 @csrf
                 <div class="col-3">
                     <textarea cols="28" rows="4" class="text-black" class="form-control" type="textarea"
-                        name="cuerpo" ></textarea>
+                        name="cuerpo"></textarea>
                     <button type="submit" class="btn btn-secondary" style="background-color:#222322">Enviar</button>
                 </div>
             </form>

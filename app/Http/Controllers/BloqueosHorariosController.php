@@ -36,6 +36,7 @@ class BloqueosHorariosController extends Controller
 
         BloqueosHorarios::create([
             'tipo' => $request->tipo,
+            'profesional' => $request->profesional,
             'fecha_inicio' => $inicio,
             'fecha_fin' => $fin,
         ]);
