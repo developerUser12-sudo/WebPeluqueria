@@ -21,7 +21,7 @@ class WhatsAppService
     return $this->client->messages->create(
         "whatsapp:$to",
         [
-            "from" => config('services.twilio.from'),
+            "messagingServiceSid" => config('services.twilio.messaging_service_sid'),
             "contentSid" => $contentSid,
             "contentVariables" => json_encode($variables, JSON_UNESCAPED_UNICODE),
         ]
