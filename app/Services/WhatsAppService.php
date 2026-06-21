@@ -11,8 +11,8 @@ class WhatsAppService
     public function __construct()
     {
         $this->client = new Client(
-            env('TWILIO_SID'),
-            env('TWILIO_TOKEN')
+            config('services.twilio.sid'),
+            config('services.twilio.token')
         );
     }
 
@@ -21,7 +21,7 @@ class WhatsAppService
     return $this->client->messages->create(
         "whatsapp:$to",
         [
-            "from" => env('TWILIO_WHATSAPP_FROM'),
+            "from" => config('services.twilio.from'),
             "contentSid" => $contentSid,
             "contentVariables" => json_encode($variables, JSON_UNESCAPED_UNICODE),
         ]

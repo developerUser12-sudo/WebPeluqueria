@@ -40,7 +40,7 @@ class RevisarCitasWhatsApp extends Command
             }
             $wa->sendTemplate(
                 $telefono,
-                env('TWILIO_TEMPLATE_REMINDER'),
+                config('services.twilio.template_reminder'),
                 [
                     "1" => $nombre,
                     "2" => $cita->hora,

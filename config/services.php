@@ -38,6 +38,8 @@ return [
         'sid' => env('TWILIO_SID'),
         'token' => env('TWILIO_AUTH_TOKEN'),
         'from' => env('TWILIO_WHATSAPP_FROM'),
+        'template_review' => env('TWILIO_TEMPLATE_REVIEW'),
+        'template_reminder' => env('TWILIO_TEMPLATE_REMINDER'),
     ],
 
 ];

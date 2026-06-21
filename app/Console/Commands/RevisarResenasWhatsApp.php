@@ -49,7 +49,7 @@ class RevisarResenasWhatsApp extends Command
             }
             $wa->sendTemplate(
                 $telefono,
-                env('TWILIO_TEMPLATE_REVIEW'),
+                config('services.twilio.template_review'),
                 [
                     "1" => $nombre,
 
