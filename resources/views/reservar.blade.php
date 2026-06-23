@@ -34,33 +34,9 @@
 
 
         <div id="phase2" style="display:none;">
-            <h5 class="text-light mb-3">Servicio y profesional</h5>
+            <h5 class="text-light mb-3">Profesional</h5>
 
-            <div class="form-group">
-                <label for="servicio" class="text-light">Servicio</label>
-                <select class="form-control" name="servicio" id="servicio" required>
-                    <option value="" selected disabled hidden>Escoge servicio</option>
-                    <option value="corte_de_pelo"
-                        data-info="Desde corte clásico totalmente a tijera hasta un degradado pulido desde afeitadora, además de un asesoramiento personal. 30 min">
-                        Corte de pelo - 11€</option>
-                    <option value="corte_y_barba_ritual"
-                        data-info="El ritual es una experiencia de relajación en la que el cliente disfrutará de un arreglo de barba clásico con toalla. 45 min">
-                        Corte + barba ritual - 15€</option>
-                    <option value="afeitado_de_cabeza_y_barba"
-                        data-info="Afeitado a máquina más el ritual de barba con toalla caliente. 30 min">
-                        Afeitado de cabeza + barba - 12€</option>
-                    <option value="afeitado_de_cabeza_o_numero"
-                        data-info="Afeitado: Rasurado al límite con las máquinas más apuradas. Un solo número: corte clásico a un solo número con máquina (rapado) y contornos marcados. 15 min cada uno">
-                        Afeitado de cabeza o un solo número - 8€</option>
-                    <option value="arreglo_de_barba"
-                        data-info="Un servicio para los que su barba le importa, corte a máquina, tijeras, navaja y por supuesto toalla cálida. 15 min">
-                        Arreglo de barba - 7€</option>
-                </select>
 
-                <small class="text-danger mt-2 " id="servicio-error"></small>
-                <small class="text-light mt-2 d-block" id="detalles"></small>
-
-            </div>
 
             <div class="form-group mt-3">
                 <label for="profesional" class="text-light">Escoge profesional</label>
@@ -86,7 +62,7 @@
 
 
         <div id="phase3" style="display:none;">
-            <h5 class="text-light mb-3">Fecha y hora</h5>
+            <h5 class="text-light mb-3">Servicio, fecha y hora</h5>
 
             <div class="form-group">
                 <label for="dia" class="text-light">Día</label>
@@ -97,8 +73,34 @@
 
             <div class="form-group mt-3">
                 <label for="hora" class="text-light">Hora</label>
-                <select class="form-control" name="hora" id="hora" required></select>
+                <select class="form-control" name="hora" id="hora" required>
+                </select>
                 <small class="text-danger mt-2 " id="hora-error"></small>
+
+            </div>
+            <div class="form-group mt-3">
+                <label for="servicio" class="text-light">Servicio</label>
+                <select class="form-control" name="servicio" id="servicio" required>
+                    <option value="" selected disabled hidden>Escoge servicio</option>
+                    <option value="corte_de_pelo"
+                        data-info="Desde corte clásico totalmente a tijera hasta un degradado pulido desde afeitadora, además de un asesoramiento personal. 30 min">
+                        Corte de pelo - 11€</option>
+                    <option value="corte_y_barba_ritual"
+                        data-info="El ritual es una experiencia de relajación en la que el cliente disfrutará de un arreglo de barba clásico con toalla. 45 min">
+                        Corte + barba ritual - 15€</option>
+                    <option value="afeitado_de_cabeza_y_barba"
+                        data-info="Afeitado a máquina más el ritual de barba con toalla caliente. 30 min">
+                        Afeitado de cabeza + barba - 12€</option>
+                    <option value="afeitado_de_cabeza_o_numero"
+                        data-info="Afeitado: Rasurado al límite con las máquinas más apuradas. Un solo número: corte clásico a un solo número con máquina (rapado) y contornos marcados. 15 min cada uno">
+                        Afeitado de cabeza o un solo número - 8€</option>
+                    <option value="arreglo_de_barba"
+                        data-info="Un servicio para los que su barba le importa, corte a máquina, tijeras, navaja y por supuesto toalla cálida. 15 min">
+                        Arreglo de barba - 7€</option>
+                </select>
+
+                <small class="text-danger mt-2 " id="servicio-error"></small>
+                <small class="text-light mt-2 d-block" id="detalles"></small>
 
             </div>
             @guest
@@ -184,12 +186,8 @@
             fase1.style.display = 'none'
         })
         document.getElementById('continuar2').addEventListener('click', function () {
-            servicioError.textContent = '';
             profesionalError.textContent = '';
-            if (servicios.value == '') {
-                servicioError.textContent = 'Debes escoger un servicio';
-                return;
-            }
+
             const profesionalSeleccionado = document.querySelector('input[name="peluquero"]:checked');
 
             if (!profesionalSeleccionado) {
@@ -201,7 +199,11 @@
 
         })
         document.getElementById("form-reserva").addEventListener("submit", function (e) {
-
+            servicioError.textContent = '';
+            if (servicios.value == '') {
+                servicioError.textContent = 'Debes escoger un servicio';
+                return;
+            }
             let errores = false;
 
             if (dia.value == '') {
@@ -281,21 +283,70 @@
             document.getElementById('hora').innerHTML = '';
         });
 
+        document.getElementById('hora').addEventListener('change', function () {
+            servicios.value = '';
+            for (let i = 0; i < servicios.options.length; i++) {
+                const opcion = servicios.options[i];
+
+                opcion.disabled = false;
+
+            }
+            if (this.value.includes(':15') || this.value.includes(':45')) {
+                for (let i = 0; i < servicios.options.length; i++) {
+                    const opcion = servicios.options[i];
+
+                    if (!opcion.dataset.info?.includes('15 min')) {
+                        opcion.disabled = true;
+                    }
+                }
+
+            }
+            const select = this;
+            const index = select.selectedIndex;
+
+            const nextOption = select.options[index + 1];
+            const [h, m] = nextOption.value.split(':');
+            const fecha = new Date();
+            fecha.setHours(h, m, 0, 0);
+            const [h2, m2] = this.value.split(':');
+            const fechaActual = new Date();
+            fechaActual.setHours(h2, m2, 0, 0);
+            const diferencia = (fecha - fechaActual) / (1000 * 60);
+
+            if (diferencia > 45 && this.value != '13:00') {
+                for (let i = 0; i < servicios.options.length; i++) {
+                    const opcion = servicios.options[i];
+
+                    if (opcion.dataset.info?.includes('45 min')) {
+                        opcion.disabled = true;
+                    }
+                }
+            }
+        });
         function generarHoras(dia) {
+
             const fecha = new Date(dia);
-            document.getElementById('hora').innerHTML = '';
+            const horaSelect = document.getElementById('hora');
+            horaSelect.innerHTML = '';
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.textContent = 'Escoge hora';
+            placeholder.disabled = true;
+            placeholder.selected = true;
+            placeholder.hidden = true;
+            horaSelect.appendChild(placeholder);
             let horas = [];
 
             if (fecha.getDay() === 6) {
 
-                horas = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00'];
+                horas = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30'];
 
             } else {
 
                 horas = [
                     '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00',
-                    '13:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
-                    '20:00', '20:30'
+                    '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
+                    '20:00'
                 ];
 
             }
@@ -314,7 +365,49 @@
                 }
 
             }
+
             const profesional = document.querySelector('input[name="peluquero"]:checked')?.value;
+
+            if (citas[profesional] != null) {
+
+                const citasOcupadas = citas[profesional];
+                for (let index = 0; index < citasOcupadas.length; index++) {
+                    if (citasOcupadas[index].dia == dia) {
+
+                        if (citasOcupadas[index].servicio == 'arreglo_de_barba' || citasOcupadas[index].servicio == 'afeitado_de_cabeza_o_numero') {
+                            for (let index2 = 0; index2 < horas.length; index2++) {
+                                if (horas[index2] == citasOcupadas[index].hora) {
+                                    const [h, m] = horas[index2].split(':');
+                                    const fecha = new Date();
+                                    fecha.setHours(h, m, 0, 0);
+                                    fecha.setMinutes(fecha.getMinutes() + 15);
+                                    const nuevaHora = String(fecha.getHours()).padStart(2, '0') + ':' + String(fecha.getMinutes()).padStart(2, '0');
+                                    horas.splice(index2 + 1, 0, nuevaHora);
+                                }
+
+                            }
+                        }
+                        if (citasOcupadas[index].servicio == 'corte_y_barba_ritual') {
+                            for (let index2 = 0; index2 < horas.length; index2++) {
+                                if (horas[index2] == citasOcupadas[index].hora) {
+                                    horas.splice(index2 + 1, 1);
+                                    const [h, m] = horas[index2].split(':');
+                                    const fecha = new Date();
+                                    fecha.setHours(h, m, 0, 0);
+                                    fecha.setMinutes(fecha.getMinutes() + 45);
+                                    const nuevaHora = String(fecha.getHours()).padStart(2, '0') + ':' + String(fecha.getMinutes()).padStart(2, '0');
+                                    horas.splice(index2 + 1, 0, nuevaHora);
+
+
+                                }
+
+                            }
+                        }
+
+                    }
+
+                }
+            }
             if (horasBloqueadas[profesional] != null) {
                 for (let index = 0; index < horasBloqueadas[profesional].length; index++) {
                     if (horasBloqueadas[profesional][index].fecha_inicio.split('T')[0] == dia) {
@@ -333,7 +426,7 @@
 
                 }
             }
-            
+
             if (horasBloqueadas[""] != null) {
                 for (let index = 0; index < horasBloqueadas[""].length; index++) {
                     if (horasBloqueadas[""][index].fecha_inicio.split('T')[0] == dia) {
@@ -352,7 +445,7 @@
 
                 }
             }
-            
+
             if (citas[profesional] != null) {
                 const citasOcupadas = citas[profesional];
 
@@ -365,9 +458,21 @@
                     }
                 }
             }
+            for (let i = horas.length - 1; i >= 0; i--) {
+                const [h, m] = horas[i].split(':');
+                const fecha = new Date();
+                fecha.setHours(h, m, 0, 0);
+                const limite = new Date();
+                limite.setHours(17, 0, 0, 0);
+                const limite2 = new Date();
+                limite2.setHours(13, 0, 0, 0);
+                if (fecha < limite && fecha > limite2) {
+                    horas.splice(i, 1);
+                }
 
-
+            }
             for (let i = 0; i < horas.length; i++) {
+
                 const opt = document.createElement('option');
                 opt.value = horas[i];
                 opt.innerHTML = horas[i];
