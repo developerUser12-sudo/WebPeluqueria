@@ -466,7 +466,9 @@
                 limite.setHours(17, 0, 0, 0);
                 const limite2 = new Date();
                 limite2.setHours(13, 0, 0, 0);
-                if (fecha < limite && fecha > limite2) {
+                const limite3 = new Date();
+                limite3.setHours(20, 0, 0, 0);
+                if ((fecha < limite && fecha > limite2 )||fecha>limite3) {
                     horas.splice(i, 1);
                 }
 
