@@ -285,6 +285,7 @@
 
         document.getElementById('hora').addEventListener('change', function () {
             servicios.value = '';
+            document.getElementById('detalles').textContent='';
             for (let i = 0; i < servicios.options.length; i++) {
                 const opcion = servicios.options[i];
 
@@ -312,8 +313,8 @@
             const fechaActual = new Date();
             fechaActual.setHours(h2, m2, 0, 0);
             const diferencia = (fecha - fechaActual) / (1000 * 60);
-
-            if (diferencia > 45 && this.value != '13:00') {
+            
+            if (diferencia >= 45 && this.value != '13:00') {
                 for (let i = 0; i < servicios.options.length; i++) {
                     const opcion = servicios.options[i];
 
