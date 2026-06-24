@@ -86,7 +86,7 @@ class ReservarCitaController extends Controller
             'precio' => $precio,
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
-            'telefono' => $request->telefono,
+            'telefono' => $request->telefono=='+34'?'':$request->telefono,
             'correo' => $request->email ?? '',
             'token' => $token,
             'completado' => false,
