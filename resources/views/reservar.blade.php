@@ -110,7 +110,8 @@
                     <input id="email" type="email" name="email" class="form-control">
                     <small class="text-danger mt-2 " id="correo-error"></small>
                 </div>
-            @endguest
+                @endguest
+                <input type="hidden" name="return" value="{{ request('return') }}">
 
             <button type="button" id="atras2" class="btn btn-secondary mt-4">Atrás</button>
             <button id="reservar" type="submit" class="btn btn-success mt-4">Reservar</button>

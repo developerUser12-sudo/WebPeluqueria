@@ -40,12 +40,16 @@ class AdminController extends Controller
             }),
             $request
         );
-
+        $queryCalendario = clone $queryFuturas;
         $citasFuturas = $queryFuturas
             ->orderBy('dia')
             ->orderBy('hora')
             ->paginate(5, ['*'], 'futuras_page')
             ->withQueryString();
+        $citasCalendario = $queryCalendario
+            ->orderBy('dia')
+            ->orderBy('hora')
+            ->get();
 
         $citasPasadas = $queryPasadas
             ->orderBy('dia', 'desc')
@@ -77,6 +81,7 @@ class AdminController extends Controller
             ->paginate(5, ['*'], 'validados_page');
         return view('admin.adminpage', compact(
             'citasFuturas',
+            'citasCalendario',
             'citasPasadas',
             'citasHoy',
             'totalHoy',
@@ -159,13 +164,13 @@ class AdminController extends Controller
         foreach ($usuarios as $usuario) {
             Mail::to($usuario->email)
                 ->queue(new Mensaje($mensaje));
-                
+
         }
-        $citas=Citas::all();
+        $citas = Citas::all();
         foreach ($citas as $cita) {
             Mail::to($cita->correo)
                 ->queue(new Mensaje($mensaje));
-                
+
         }
         return redirect()->back()->with('success', 'Mensaje enviado');
 

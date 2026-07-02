@@ -3,6 +3,7 @@
 @section('card-style', 'max-width:750px')
 
 @section('content')
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js"></script>
 
     <ul class="nav nav-tabs mb-4 d-flex align-items-center flex-column flex-md-row justify-content-md-start" id="adminTabs"
         role="tablist">
@@ -13,8 +14,18 @@
         </li>
 
         <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#agendarcita">
+                Agendar cita
+            </button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#calendario">
+                Calendario
+            </button>
+        </li>
+        <li class="nav-item">
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#bloqueos">
-                Bloqueos horarios
+                Bloqueo horario
             </button>
         </li>
         <li class="nav-item">
@@ -24,7 +35,7 @@
         </li>
         <li class="nav-item">
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#aviso">
-                Aviso a clientes
+                Aviso clientes
             </button>
         </li>
         <li class="nav-item">
@@ -53,6 +64,8 @@
                 </a>
 
             </form>
+
+
             <h4 class="text-light">Citas futuras</h4>
 
             <div class="table-responsive">
@@ -211,7 +224,65 @@
             {{ $citasPasadas->links('pagination::bootstrap-5') }}
 
         </div>
+        <div class="tab-pane fade" id="agendarcita">
+            <a href="/reservar?return=admin" class="btn btn-primary">Nueva reserva</a>
+        </div>
+        <div class="tab-pane fade" id="calendario">
 
+            <div id="calendar" class="mb-4 mt-5">
+            </div>
+            <script>
+                const citas = @json($citasCalendario);
+                const eventos = [];
+                
+                citas.forEach(cita => {
+
+                    let minutos = 30;
+                    switch (cita.servicio) {
+                        case 'corte_y_barba_ritual':
+                            minutos = 45;
+                            break;
+                        case 'afeitado_de_cabeza_o_numero':
+                        case 'arreglo_de_barba':
+                            minutos = 15;
+                            break;
+
+                    }
+                    const inicio = new Date(`${cita.dia}T${cita.hora}`);
+                    const fin = new Date(inicio);
+                    fin.setMinutes(fin.getMinutes() + minutos);
+                    eventos.push({
+                        title: cita.peluquero.charAt(0).toUpperCase() + cita.peluquero.slice(1),
+                        start: inicio,
+                        end: fin,
+                    })
+
+                });
+                let calendar;
+                document.addEventListener('DOMContentLoaded', function () {
+                    calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+                        initialView: 'timeGridDay',
+                        height: 1000,
+                        locale: 'es',
+                        allDaySlot: false,
+
+                        slotMinTime: '10:00:00',
+                        slotMaxTime: '20:45:00',
+                        expandRows: true,
+                        slotEventOverlap: false,
+                        events: eventos
+                    });
+
+                    calendar.render();
+
+                })
+                document.querySelector('[data-bs-target="#calendario"]')
+                    .addEventListener('shown.bs.tab', function () {
+                        calendar.updateSize();
+                    });
+
+            </script>
+        </div>
         <div class="tab-pane fade" id="bloqueos">
 
             <h4 class="text-light">Bloquear franja horaria</h4>

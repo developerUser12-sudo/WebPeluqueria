@@ -16,10 +16,7 @@ class Kernel extends ConsoleKernel
             ->everyMinute()
             ->withoutOverlapping()
             ->runInBackground();
-        $schedule->command('whatsapp:resenas')
-            ->everyMinute()
-            ->withoutOverlapping()
-            ->runInBackground();
+        
     }
 
     /**

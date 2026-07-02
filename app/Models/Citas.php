@@ -22,7 +22,6 @@ class Citas extends Model
         'completado',
         'cancelada',
         'recordatorio_enviado',
-        'resenia_enviada',
     ];
     public function user()
     {

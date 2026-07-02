@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\AvisoCitaReservada;
 use App\Mail\CancelarCita;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
@@ -17,7 +18,7 @@ class ReservarCitaController extends Controller
     {
 
         $horasBloqueadas = BloqueosHorarios::where('tipo', 'franja_horaria')
-            ->get(['profesional','fecha_inicio', 'fecha_fin'])->groupBy('profesional');
+            ->get(['profesional', 'fecha_inicio', 'fecha_fin'])->groupBy('profesional');
         $diasBloqueados = BloqueosHorarios::where('tipo', 'dia_entero')
             ->get()
             ->groupBy('profesional')
@@ -86,7 +87,7 @@ class ReservarCitaController extends Controller
             'precio' => $precio,
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
-            'telefono' => $request->telefono=='+34'?'':$request->telefono,
+            'telefono' => $request->telefono == '+34' ? '' : $request->telefono,
             'correo' => $request->email ?? '',
             'token' => $token,
             'completado' => false,
@@ -102,7 +103,11 @@ class ReservarCitaController extends Controller
                 Mail::to($request->email)->queue(new CancelarCita($cita));
             }
         }
-
+        Mail::to('lmbarberestudio@gmail.com')->queue(new AvisoCitaReservada($cita));
+        
+        if ($request->return === 'admin') {
+            return redirect('/admin')->with('success', 'Cita reservada');
+        }
         return redirect()->route('cita-confirmada', $cita->id);
     }
 
