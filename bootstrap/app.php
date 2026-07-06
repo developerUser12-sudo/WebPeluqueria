@@ -29,10 +29,6 @@ return Application::configure(basePath: dirname(__DIR__))
             ->withoutOverlapping()
             ->runInBackground();
 
-        $schedule->command('whatsapp:resenas')
-            ->everyMinute()
-            ->withoutOverlapping()
-            ->runInBackground();
     })  
     ->withExceptions(function (Exceptions $exceptions): void {
         //
