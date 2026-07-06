@@ -19,15 +19,11 @@ class RevisarCitasWhatsApp extends Command
             ->filter(function ($cita) {
 
                 $fechaCita = \Carbon\Carbon::parse($cita->dia . ' ' . $cita->hora);
-\Log::info('Enviando recordatorio', [
-    'ahora' => now()->toDateTimeString(),
-    'cita' => $fechaCita->toDateTimeString(),
-]);
+
                 return $fechaCita->between(
                     now()->addMinutes(120),
                     now()->addMinutes(150)
                 );
-                
             });
         $telefono = '';
         $nombre = '';
