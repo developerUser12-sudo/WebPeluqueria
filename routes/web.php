@@ -3,7 +3,6 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservarCitaController;
-use App\Http\Controllers\WhatsappController;
 Route::get('/', function () {
     return view('homepage');
 })->name('dashboard');
@@ -22,7 +21,6 @@ Route::post('reservar', [ReservarCitaController::class, 'reservar']);
 Route::get('cita-confirmada/{id}', [ReservarCitaController::class, 'confirmada'])->name('cita-confirmada');
 Route::get('cita-confirmada/{id}/calendar', [ReservarCitaController::class, 'calendar'])->name('calendario');
 
-Route::post('/webhook/whatsapp', [WhatsappController::class, 'recibir']);
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
