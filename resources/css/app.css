@@ -22,11 +22,7 @@
         min-width: 110px;
     }
 
-    .fc-header-toolbar {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-    }
+    
 
 
 }
@@ -156,4 +152,8 @@ button:focus {
     color: white;
     text-decoration: none;
     text-transform: uppercase;
-}
+}.fc-header-toolbar {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }

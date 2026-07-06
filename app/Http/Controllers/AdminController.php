@@ -47,6 +47,7 @@ class AdminController extends Controller
             ->paginate(5, ['*'], 'futuras_page')
             ->withQueryString();
         $citasCalendario = $queryCalendario
+            ->with('user')
             ->orderBy('dia')
             ->orderBy('hora')
             ->get();

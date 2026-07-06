@@ -229,60 +229,104 @@
         </div>
         <div class="tab-pane fade" id="calendario">
 
-            <div id="calendar" class="mb-4 mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="text-center">Luis</h4>
+                    <div class="calendarLuis" id="calendarLuis"></div>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="text-center">Hugo</h4>
+                    <div class="calendarHugo" id="calendarHugo"></div>
+                </div>
             </div>
-            <script>
-                const citas = @json($citasCalendario);
-                const eventos = [];
-                
-                citas.forEach(cita => {
+        </div>
+        <script>
+            const citas = @json($citasCalendario);
+            const eventosLuis = [];
+            const eventosHugo = [];
 
-                    let minutos = 30;
-                    switch (cita.servicio) {
-                        case 'corte_y_barba_ritual':
-                            minutos = 45;
-                            break;
-                        case 'afeitado_de_cabeza_o_numero':
-                        case 'arreglo_de_barba':
-                            minutos = 15;
-                            break;
 
-                    }
-                    const inicio = new Date(`${cita.dia}T${cita.hora}`);
-                    const fin = new Date(inicio);
-                    fin.setMinutes(fin.getMinutes() + minutos);
-                    eventos.push({
-                        title: cita.peluquero.charAt(0).toUpperCase() + cita.peluquero.slice(1),
+            citas.forEach(cita => {
+
+                let minutos = 30;
+                switch (cita.servicio) {
+                    case 'corte_y_barba_ritual':
+                        minutos = 45;
+                        break;
+                    case 'afeitado_de_cabeza_o_numero':
+                    case 'arreglo_de_barba':
+                        minutos = 15;
+                        break;
+
+                }
+                const inicio = new Date(`${cita.dia}T${cita.hora}`);
+                const fin = new Date(inicio);
+                fin.setMinutes(fin.getMinutes() + minutos);
+
+                if (cita.peluquero == 'luis') {
+
+                    eventosLuis.push({
+                        title: cita.user?.name ?? cita.nombre,
                         start: inicio,
                         end: fin,
-                    })
+                    });
+                } else {
+                    eventosHugo.push({
+                        title: cita.user?.name ?? cita.nombre,
+                        start: inicio,
+                        end: fin,
+                    });
 
+                }
+
+            });
+            console.log(eventosLuis);
+
+            let calendarLuis;
+            document.addEventListener('DOMContentLoaded', function () {
+                calendarLuis = new FullCalendar.Calendar(document.getElementById('calendarLuis'), {
+                    initialView: 'timeGridDay',
+                    height: 1000,
+                    locale: 'es',
+                    allDaySlot: false,
+
+                    slotMinTime: '10:00:00',
+                    slotMaxTime: '20:45:00',
+                    expandRows: true,
+                    slotEventOverlap: false,
+                    events: eventosLuis
                 });
-                let calendar;
-                document.addEventListener('DOMContentLoaded', function () {
-                    calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
-                        initialView: 'timeGridDay',
-                        height: 1000,
-                        locale: 'es',
-                        allDaySlot: false,
 
-                        slotMinTime: '10:00:00',
-                        slotMaxTime: '20:45:00',
-                        expandRows: true,
-                        slotEventOverlap: false,
-                        events: eventos
-                    });
+                calendarLuis.render();
 
-                    calendar.render();
+            });
+            let calendarHugo;
+            document.addEventListener('DOMContentLoaded', function () {
+                calendarHugo = new FullCalendar.Calendar(document.getElementById('calendarHugo'), {
+                    initialView: 'timeGridDay',
+                    height: 1000,
+                    locale: 'es',
+                    allDaySlot: false,
 
-                })
-                document.querySelector('[data-bs-target="#calendario"]')
-                    .addEventListener('shown.bs.tab', function () {
-                        calendar.updateSize();
-                    });
+                    slotMinTime: '10:00:00',
+                    slotMaxTime: '20:45:00',
+                    expandRows: true,
+                    slotEventOverlap: false,
+                    events: eventosHugo
+                });
 
-            </script>
-        </div>
+                calendarHugo.render();
+
+            })
+            document.querySelector('[data-bs-target="#calendario"]')
+                .addEventListener('shown.bs.tab', function () {
+                    calendarHugo.updateSize();
+                    calendarLuis.updateSize();
+                });
+
+
+        </script>
+
         <div class="tab-pane fade" id="bloqueos">
 
             <h4 class="text-light">Bloquear franja horaria</h4>
@@ -531,13 +575,13 @@
             {{ $movimientosValidados->links('pagination::bootstrap-5') }}
 
         </div>
-
-
     </div>
-    <form method="POST" action="{{ route('admin.logout') }}">
-        @csrf
-        <button type="submit" class="btn btn-danger mt-3">Cerrar sesión</button>
-    </form>
+    <div>
+        <form method="POST" action="{{ route('admin.logout') }}">
+            @csrf
+            <button type="submit" class="btn btn-danger mt-3">Cerrar sesión</button>
+        </form>
+    </div>
     <script>
         const diaInput = document.getElementById('dia');
         const inicioInput = document.getElementById('fecha_inicio');

@@ -110,8 +110,8 @@
                     <input id="email" type="email" name="email" class="form-control">
                     <small class="text-danger mt-2 " id="correo-error"></small>
                 </div>
-                @endguest
-                <input type="hidden" name="return" value="{{ request('return') }}">
+            @endguest
+            <input type="hidden" name="return" value="{{ request('return') }}">
 
             <button type="button" id="atras2" class="btn btn-secondary mt-4">Atrás</button>
             <button id="reservar" type="submit" class="btn btn-success mt-4">Reservar</button>
@@ -286,7 +286,7 @@
 
         document.getElementById('hora').addEventListener('change', function () {
             servicios.value = '';
-            document.getElementById('detalles').textContent='';
+            document.getElementById('detalles').textContent = '';
             for (let i = 0; i < servicios.options.length; i++) {
                 const opcion = servicios.options[i];
 
@@ -314,7 +314,7 @@
             const fechaActual = new Date();
             fechaActual.setHours(h2, m2, 0, 0);
             const diferencia = (fecha - fechaActual) / (1000 * 60);
-            
+
             if (diferencia >= 45 && this.value != '13:00') {
                 for (let i = 0; i < servicios.options.length; i++) {
                     const opcion = servicios.options[i];
@@ -343,7 +343,14 @@
 
                 horas = ['10:00', '10:30', '11:00', '11:30', '12:00', '12:30'];
 
-            } else {
+            }
+            else if (fecha.getDay() === 1) {
+                horas = [
+                    '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
+                    '20:00'
+                ];
+            }
+            else {
 
                 horas = [
                     '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00',
@@ -470,7 +477,7 @@
                 limite2.setHours(13, 0, 0, 0);
                 const limite3 = new Date();
                 limite3.setHours(20, 0, 0, 0);
-                if ((fecha < limite && fecha > limite2 )||fecha>limite3) {
+                if ((fecha < limite && fecha > limite2) || fecha > limite3) {
                     horas.splice(i, 1);
                 }
 
