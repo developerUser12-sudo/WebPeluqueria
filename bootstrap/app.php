@@ -29,6 +29,10 @@ return Application::configure(basePath: dirname(__DIR__))
             ->everyMinute()
             ->withoutOverlapping()
             ->runInBackground();
+        $schedule->command('app:revisar-lista-espera')
+            ->everyMinute()
+            ->withoutOverlapping()
+            ->runInBackground();
 
     })  
     ->withExceptions(function (Exceptions $exceptions): void {

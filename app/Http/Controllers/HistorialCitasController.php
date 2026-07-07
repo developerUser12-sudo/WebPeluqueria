@@ -23,6 +23,6 @@ class HistorialCitasController extends Controller
             'cancelada' => true,
         ]);
         $cita->save();
-        return redirect()->back();
+        return redirect()->back()->with('success','Cita cancelada');
     }
 }

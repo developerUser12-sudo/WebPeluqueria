@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservarCitaController;
+use App\Http\Controllers\ListaEsperaController;
 Route::get('/', function () {
     return view('homepage');
 })->name('dashboard');
@@ -20,6 +21,8 @@ Route::get('reservar', [ReservarCitaController::class, 'create'])->name('reserva
 Route::post('reservar', [ReservarCitaController::class, 'reservar']);
 Route::get('cita-confirmada/{id}', [ReservarCitaController::class, 'confirmada'])->name('cita-confirmada');
 Route::get('cita-confirmada/{id}/calendar', [ReservarCitaController::class, 'calendar'])->name('calendario');
+Route::get('lista-espera', [ListaEsperaController::class, 'show'])->name('lista-espera');
+Route::post('lista-espera', [ListaEsperaController::class, 'create'])->name('lista-espera.create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -24,6 +24,7 @@ class RevisarCitasWhatsApp extends Command
                     now()->addMinutes(120),
                     now()->addMinutes(150)
                 );
+                
             });
         $telefono = '';
         $nombre = '';

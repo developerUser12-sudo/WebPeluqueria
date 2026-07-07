@@ -32,16 +32,6 @@ class ReservarCitaController extends Controller
             ->where('dia', '>=', now()->toDateString())
             ->where('dia', '<=', now()->addDays(30)->toDateString())
             ->get()
-            ->filter(function ($cita) {
-
-                $fechaCita = Carbon::parse(
-                    $cita->dia . ' ' . $cita->hora
-                );
-
-                return $fechaCita->greaterThan(
-                    now()->addMinutes(5)
-                );
-            })
             ->groupBy('peluquero');
         $usuario = auth()->id();
         $usuarios = User::get();

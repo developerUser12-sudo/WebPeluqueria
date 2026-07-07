@@ -117,7 +117,16 @@
             <button id="reservar" type="submit" class="btn btn-success mt-4">Reservar</button>
         </div>
     </form>
-
+    <form action="{{ route('lista-espera') }}" method="get">
+        <input type="hidden" name="dia" id="lista-dia">
+        <input type="hidden" name="peluquero" id="lista-peluquero">
+        <input type="hidden" name="nombre" id="lista-nombre">
+        <input type="hidden" name="apellido" id="lista-apellido">
+        <input type="hidden" name="telefono" id="lista-telefono">
+        <button type="submit" id="lista-espera-boton" class="btn btn-info mt-3" style="display:none;" disabled>
+            Lista de espera
+        </button>
+    </form>
 
 
     <script>
@@ -140,10 +149,12 @@
         const diasBloqueados = @json($diasBloqueados);
         const horasBloqueadas = @json($horasBloqueadas);
         const citas = @json($citas);
+
         const usuarios = @json($usuarios);
         const emailInput = document.getElementById('email');
         const emailValido = true;
         const ahora = new Date();
+        let botonListaEspera = document.getElementById('lista-espera-boton');
         function telefonoValido(tel) {
             for (let index = 0; index < usuarios.length; index++) {
                 if (usuarios[index].phone == tel) {
@@ -197,7 +208,7 @@
             }
             fase3.style.display = 'block'
             fase2.style.display = 'none'
-
+            botonListaEspera.style.display = 'block';
         })
         document.getElementById("form-reserva").addEventListener("submit", function (e) {
             servicioError.textContent = '';
@@ -233,13 +244,14 @@
             botonAtras1.addEventListener('click', function () {
                 fase1.style.display = 'block'
                 fase2.style.display = 'none'
+
             })
         }
         document.getElementById('atras2').addEventListener('click', function () {
 
             fase2.style.display = 'block'
             fase3.style.display = 'none'
-
+            botonListaEspera.style.display = 'none';
         })
 
         const fp = flatpickr("#dia", {
@@ -273,6 +285,15 @@
             ],
             onChange: function (selectedDates, dateStr) {
                 generarHoras(dateStr);
+                document.getElementById('lista-dia').value = dateStr;
+                const profesional = document.querySelector('input[name="peluquero"]:checked')?.value;
+
+                document.getElementById('lista-nombre').value = nombre.value;
+                document.getElementById('lista-apellido').value = apellido.value;
+                document.getElementById('lista-telefono').value = telefono.value;
+
+                document.getElementById('lista-peluquero').value = profesional;
+
             }
         });
         document.getElementById('profesionalLuis').addEventListener('change', function () {
@@ -326,7 +347,7 @@
             }
         });
         function generarHoras(dia) {
-
+            document.getElementById('reservar').disabled = false;
             const fecha = new Date(dia);
             const horaSelect = document.getElementById('hora');
             horaSelect.innerHTML = '';
@@ -338,6 +359,7 @@
             placeholder.hidden = true;
             horaSelect.appendChild(placeholder);
             let horas = [];
+            botonListaEspera.disabled = true;
 
             if (fecha.getDay() === 6) {
 
@@ -482,13 +504,24 @@
                 }
 
             }
-            for (let i = 0; i < horas.length; i++) {
-
+            if (horas.length == 0) {
                 const opt = document.createElement('option');
-                opt.value = horas[i];
-                opt.innerHTML = horas[i];
-                document.getElementById('hora').appendChild(opt);
+                opt.innerHTML = 'No hay citas disponibles';
+                opt.disabled = true;
+                horaSelect.appendChild(opt);
+                document.getElementById('reservar').disabled = true;
+                botonListaEspera.disabled = false;
             }
+            else {
+
+                for (let i = 0; i < horas.length; i++) {
+                    const opt = document.createElement('option');
+                    opt.value = horas[i];
+                    opt.innerHTML = horas[i];
+                    horaSelect.appendChild(opt);
+                }
+            }
+
         }
 
         document.getElementById("form-reserva").addEventListener("keydown", function (e) {

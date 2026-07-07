@@ -40,17 +40,21 @@ class AdminController extends Controller
             }),
             $request
         );
-        $queryCalendario = clone $queryFuturas;
-        $citasFuturas = $queryFuturas
-            ->orderBy('dia')
-            ->orderBy('hora')
-            ->paginate(5, ['*'], 'futuras_page')
-            ->withQueryString();
+        $queryCalendario = $this->aplicarFiltrosCitas(
+            Citas::query(),
+            $request
+        );
         $citasCalendario = $queryCalendario
             ->with('user')
             ->orderBy('dia')
             ->orderBy('hora')
             ->get();
+        $citasFuturas = $queryFuturas
+            ->orderBy('dia')
+            ->orderBy('hora')
+            ->paginate(5, ['*'], 'futuras_page')
+            ->withQueryString();
+       
 
         $citasPasadas = $queryPasadas
             ->orderBy('dia', 'desc')
