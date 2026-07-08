@@ -54,7 +54,7 @@ class AdminController extends Controller
             ->orderBy('hora')
             ->paginate(5, ['*'], 'futuras_page')
             ->withQueryString();
-       
+
 
         $citasPasadas = $queryPasadas
             ->orderBy('dia', 'desc')
@@ -171,11 +171,9 @@ class AdminController extends Controller
                 ->queue(new Mensaje($mensaje));
 
         }
-        $citas = Citas::all();
-        foreach ($citas as $cita) {
-            Mail::to($cita->correo)
-                ->queue(new Mensaje($mensaje));
-
+        $correos = Citas::distinct()->pluck('correo');
+        foreach ($correos as $correo) {
+            Mail::to($correo)->queue(new Mensaje($mensaje));
         }
         return redirect()->back()->with('success', 'Mensaje enviado');
 

@@ -229,7 +229,7 @@
 
                                                 <div class="modal-body">
                                                     ¿Estás seguro de que quieres canjear esta recompensa?
-                                                    {{ str_replace('_', ' ', ucfirst($vale->titulo)) }}. Recuerda que el cupón tiene una validez de 20 días
+                                                    {{ str_replace('_', ' ', ucfirst($vale->titulo)) }}.
                                                 </div>
 
                                                 <div class="modal-footer">

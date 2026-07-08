@@ -105,7 +105,7 @@
             </div>
             @guest
                 <div class="form-group mt-3">
-                    <label for="email" class="text-light">Correo electrónico (opcionalmente para poder cancelar tu cita
+                    <label for="email" class="text-light">Correo electrónico (opcional para poder cancelar tu cita
                         fácilmente)</label>
                     <input id="email" type="email" name="email" class="form-control">
                     <small class="text-danger mt-2 " id="correo-error"></small>

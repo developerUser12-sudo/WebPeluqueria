@@ -19,7 +19,7 @@
                             </a>
 
                             <h2>Tu cupón ha sido validado</h2>
-                            <p>Recuerda que tienes un máximo de 20 días para usar el cupón en la peluquería.</p>
+                            <p>Recuerda usarlo la próxima vez que visites la peluquería.</p>
                             
 
                             <h2>Tu cupón: {{ $movimiento->cupongenerado->cupon }}</h2>
