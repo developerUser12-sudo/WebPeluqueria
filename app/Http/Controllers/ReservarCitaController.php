@@ -77,8 +77,8 @@ class ReservarCitaController extends Controller
             'precio' => $precio,
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
-            'telefono' => $request->telefono == '+34' ? '' : $request->telefono,
-            'correo' => $request->email ?? '',
+            'telefono' => $request->telefono == '+34' ? null : $request->telefono,
+            'correo' => $request->email,
             'token' => $token,
             'completado' => false,
             'cancelada' => false,
@@ -103,7 +103,7 @@ class ReservarCitaController extends Controller
 
     public function confirmada($id)
     {
-        $cita = Citas::find($id);
+        $cita = Citas::findOrFail($id);
         if ($cita->id_usuario !== auth()->id()) {
             return redirect('/');
         }
@@ -112,7 +112,7 @@ class ReservarCitaController extends Controller
     }
     public function calendar($id)
     {
-        $cita = Citas::find($id);
+        $cita = Citas::findOrFail($id);
 
         $inicio = Carbon::parse($cita->dia . ' ' . $cita->hora);
         $fin = $inicio->copy()->addMinutes(30);

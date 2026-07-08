@@ -35,7 +35,7 @@ class RevisarListaEspera extends Command
         foreach ($citas as $cita) {
             foreach ($listas as $lista) {
                 if ($cita->dia == $lista->dia && $cita->peluquero == $lista->profesional) {
-                    $hora = Carbon::createFromFormat('H:i', $cita->hora);
+                    $hora = Carbon::parse($cita->hora);
                     $inicio = Carbon::parse($lista->hora_inicio);
                     $fin = Carbon::parse($lista->hora_fin);
                     if ($hora->between($inicio,$fin)) {

@@ -44,7 +44,7 @@ class RevisarCitasWhatsApp extends Command
                 config('services.twilio.template_reminder'),
                 [
                     "1" => $nombre,
-                    "2" => $cita->hora,
+                    "2" => \Carbon\Carbon::parse($cita->hora)->format('H:i'),
                 ]
             );
 

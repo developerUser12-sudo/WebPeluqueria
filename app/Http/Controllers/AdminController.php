@@ -171,7 +171,7 @@ class AdminController extends Controller
                 ->queue(new Mensaje($mensaje));
 
         }
-        $correos = Citas::distinct()->pluck('correo');
+        $correos = Citas::whereNotNull('correo')->distinct()->pluck('correo');
         foreach ($correos as $correo) {
             Mail::to($correo)->queue(new Mensaje($mensaje));
         }
