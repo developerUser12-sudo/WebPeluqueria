@@ -53,6 +53,7 @@ class AdminController extends Controller
             ->orderBy('dia')
             ->orderBy('hora')
             ->paginate(5, ['*'], 'futuras_page')
+            
             ->withQueryString();
 
 

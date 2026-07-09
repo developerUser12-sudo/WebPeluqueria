@@ -103,31 +103,11 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="{{ route('citas.destroy', $citaFutura->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#eliminarCita{{ $citaFutura->id }}">Eliminar</button>
-                                        <div class="modal fade " id="eliminarCita{{ $citaFutura->id }}" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog ">
-                                                <div class="modal-content text-white" style="background-color:#222322">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
 
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        ¿Seguro que quieres eliminar esta cita?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Cerrar</button>
-                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <button type="button" class="btn btn-danger btn-eliminar" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminar"
+                                        data-action="{{ route('citas.destroy', $citaFutura->id) }}">Eliminar</button>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -168,40 +148,17 @@
                                 {{ $citaPasada->telefono }} @else {{ $citaPasada->user->phone }}
                                     @endif
                                 </td>
-
-
-
                                 <td>
                                     <form action="{{ route('citas.edit', $citaPasada->id) }}" method="GET">
                                         <button type="submit" class="btn btn-warning">Editar</button>
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="{{ route('citas.destroy', $citaPasada->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#eliminarCita{{ $citaPasada->id }}">Eliminar</button>
-                                        <div class="modal fade " id="eliminarCita{{ $citaPasada->id }}" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog ">
-                                                <div class="modal-content text-white" style="background-color:#222322">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
 
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        ¿Seguro que quieres eliminar esta cita?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Cerrar</button>
-                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <button type="button" class="btn btn-danger btn-eliminar" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminar"
+                                        data-action="{{ route('citas.destroy', $citaPasada->id) }}">Eliminar</button>
+
                                 </td>
                                 <td>
                                     @if ($citaPasada->nombre == null)
@@ -604,9 +561,13 @@
             }
 
         });
+        document.querySelectorAll('.btn-eliminar').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.getElementById('formEliminar').action = this.dataset.action;
+            });
+        });
 
-    </script>
-    <script>
+   
         document.addEventListener("DOMContentLoaded", function () {
 
             let activeTab = localStorage.getItem('activeTab');
@@ -625,4 +586,28 @@
 
         });
     </script>
+    <div class="modal fade " id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content text-white" style="background-color:#222322">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
+
+                </div>
+                <div class="modal-body">
+                    ¿Seguro que quieres eliminar esta cita?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <form id="formEliminar" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="btn btn-danger">
+                            Eliminar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
