@@ -33,13 +33,13 @@ class PuntosController extends Controller
                 $puntos = 15;
                 break;
             case 'afeitado_de_cabeza_y_barba':
-                $puntos = 13;
+                $puntos = 10;
                 break;
             case 'arreglo_de_barba':
-                $puntos = 6;
+                $puntos = 5;
                 break;
             case 'afeitado_de_cabeza_o_numero':
-                $puntos = 7;
+                $puntos = 5;
                 break;
 
         }

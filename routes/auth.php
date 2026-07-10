@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminPuntosController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -106,4 +107,6 @@ Route::middleware('auth:admin')->group(function () {
     Route::delete('/horarioBloqueado/{id}', [BloqueosHorariosController::class, 'eliminarHorario'])->name('horarioBloqueado.destroy');
     Route::post('/mensaje', [AdminController::class, 'mandarMensaje'])
     ->name('mensaje');
-});
+    Route::get('/puntos/{id}/editar', [AdminPuntosController::class, 'editarPuntosView'])->name('puntos.edit');
+    Route::put('/puntos/{id}', [AdminPuntosController::class, 'editarPuntos'])->name('puntos.update');
+    });

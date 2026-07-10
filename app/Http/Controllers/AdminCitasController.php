@@ -13,6 +13,7 @@ class AdminCitasController extends Controller
         $cita = Citas::find($id);
         return view('admin.editarCita', compact('cita'));
     }
+    
     public function editarCita(Request $request, $id)
     {
         $cita = Citas::find($id);
@@ -38,6 +39,7 @@ class AdminCitasController extends Controller
 
         return redirect('admin')->with('success', 'Cita editada');
     }
+    
     public function eliminarCita($id)
     {
         $cita = Citas::find($id);

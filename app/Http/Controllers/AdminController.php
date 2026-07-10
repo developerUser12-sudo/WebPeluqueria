@@ -68,7 +68,7 @@ class AdminController extends Controller
         $citasHoy = $citasHoyQuery->count();
         $totalHoy = $citasHoyQuery->sum('precio');
 
-        $horariosBloqueados = BloqueosHorarios::all();
+        $horariosBloqueados = BloqueosHorarios::paginate(5, ['*'], 'bloqueos');
         $movimientosPendientes = $this->aplicarFiltrosCupones(
             MovimientosPuntos::with(['user', 'cupon', 'cupongenerado'])
                 ->where('motivo', 'canjeo')
@@ -85,6 +85,7 @@ class AdminController extends Controller
             $request
         )->orderBy('created_at', 'desc')
             ->paginate(5, ['*'], 'validados_page');
+       $usuarios = User::paginate(5, ['*'], 'usuarios');
         return view('admin.adminpage', compact(
             'citasFuturas',
             'citasCalendario',
@@ -94,6 +95,7 @@ class AdminController extends Controller
             'movimientosValidados',
             'movimientosPendientes',
             'horariosBloqueados',
+            'usuarios',
         ));
     }
 

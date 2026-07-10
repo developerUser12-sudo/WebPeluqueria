@@ -11,7 +11,6 @@
     <nav>
         <ul class="pagination">
 
-            {{-- Anterior --}}
             @if ($paginator->onFirstPage())
                 <li class="page-item disabled">
                     <span class="page-link">&laquo;</span>
@@ -22,7 +21,6 @@
                 </li>
             @endif
 
-            {{-- Números --}}
             @for ($page = $start; $page <= $end; $page++)
                 @if ($page == $paginator->currentPage())
                     <li class="page-item active">
@@ -35,7 +33,6 @@
                 @endif
             @endfor
 
-            {{-- Siguiente --}}
             @if ($paginator->hasMorePages())
                 <li class="page-item">
                     <a class="page-link" href="{{ $paginator->nextPageUrl() }}">&raquo;</a>

@@ -43,6 +43,11 @@
                 Canjeos
             </button>
         </li>
+        <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#usuarios">
+                Usuarios
+            </button>
+        </li>
     </ul>
 
     <div class="tab-content">
@@ -187,11 +192,11 @@
         <div class="tab-pane fade" id="calendario">
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-6 mt-3">
                     <h4 class="text-center">Luis</h4>
                     <div class="calendarLuis" id="calendarLuis"></div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 mt-3">
                     <h4 class="text-center">Hugo</h4>
                     <div class="calendarHugo" id="calendarHugo"></div>
                 </div>
@@ -373,7 +378,9 @@
                 </table>
             </div>
 
+            {{ $horariosBloqueados->links('pagination::bootstrap-5') }}
         </div>
+
         <div class="tab-pane fade" id="estadisticas">
 
             <h4 class="text-light mb-4">Estadísticas de hoy</h4>
@@ -460,8 +467,8 @@
                                         <form action="{{ route('validar', $movimiento->id) }}" method="POST">
                                             @csrf
                                             <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                                data-bs-target="#eliminarHorario{{ $movimiento->id }}">Validar</button>
-                                            <div class="modal fade " id="eliminarHorario{{ $movimiento->id }}" tabindex="-1"
+                                                data-bs-target="#validarCanjeo{{ $movimiento->id }}">Validar</button>
+                                            <div class="modal fade " id="validarCanjeo{{ $movimiento->id }}" tabindex="-1"
                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog ">
                                                     <div class="modal-content text-white" style="background-color:#222322">
@@ -532,6 +539,46 @@
             {{ $movimientosValidados->links('pagination::bootstrap-5') }}
 
         </div>
+        <div class="tab-pane fade" id="usuarios">
+            <div class="table-responsive mt-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Puntos</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($usuarios as $usuario)
+                            <tr>
+                                <td>
+                                    {{ $usuario->name}}
+                                </td>
+                                <td>
+                                    {{ $usuario->email}}
+                                </td>
+                                <td>
+                                    {{ $usuario->phone}}
+                                </td>
+
+                                <td>{{ $usuario->puntos}}</td>
+                                <td>
+                                    <form action="{{ route('puntos.edit', $usuario->id) }}" method="GET">
+                                        <button type="submit" class="btn btn-warning">Editar</button>
+                                    </form>
+                                </td>
+
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            {{ $usuarios->links('pagination::bootstrap-5') }}
+        </div>
     </div>
     <div>
         <form method="POST" action="{{ route('admin.logout') }}">
@@ -567,7 +614,7 @@
             });
         });
 
-   
+
         document.addEventListener("DOMContentLoaded", function () {
 
             let activeTab = localStorage.getItem('activeTab');
