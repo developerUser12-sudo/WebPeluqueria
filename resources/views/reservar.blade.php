@@ -84,19 +84,19 @@
                     <option value="" selected disabled hidden>Escoge servicio</option>
                     <option value="corte_de_pelo"
                         data-info="Desde corte clásico totalmente a tijera hasta un degradado pulido desde afeitadora, además de un asesoramiento personal. 30 min">
-                        Corte de pelo - 11€</option>
+                        Corte de pelo - 10€</option>
                     <option value="corte_y_barba_ritual"
                         data-info="El ritual es una experiencia de relajación en la que el cliente disfrutará de un arreglo de barba clásico con toalla. 45 min">
-                        Corte + barba ritual - 15€</option>
+                        Corte + barba ritual - 14€</option>
                     <option value="afeitado_de_cabeza_y_barba"
                         data-info="Afeitado a máquina más el ritual de barba con toalla caliente. 30 min">
-                        Afeitado de cabeza + barba - 12€</option>
+                        Afeitado de cabeza + barba - 11€</option>
                     <option value="afeitado_de_cabeza_o_numero"
                         data-info="Afeitado: Rasurado al límite con las máquinas más apuradas. Un solo número: corte clásico a un solo número con máquina (rapado) y contornos marcados. 15 min cada uno">
-                        Afeitado de cabeza o un solo número - 8€</option>
+                        Afeitado de cabeza o un solo número - 7€</option>
                     <option value="arreglo_de_barba"
                         data-info="Un servicio para los que su barba le importa, corte a máquina, tijeras, navaja y por supuesto toalla cálida. 15 min">
-                        Arreglo de barba - 7€</option>
+                        Arreglo de barba - 6€</option>
                 </select>
 
                 <small class="text-danger mt-2 " id="servicio-error"></small>
@@ -299,12 +299,32 @@
         document.getElementById('profesionalLuis').addEventListener('change', function () {
             fp.clear();
             document.getElementById('hora').innerHTML = '';
+            for (let index = 0; index < servicios.length; index++) {
+                if (servicios[index].value=='corte_de_pelo'&&servicios[index].innerHTML.includes('8€')) {
+                    servicios[index].innerHTML='Corte de pelo - 10€';
+                }
+                if (servicios[index].value=='corte_y_barba_ritual'&&servicios[index].innerHTML.includes('13€')) {
+                    servicios[index].innerHTML='Corte + barba ritual - 14€';
+                }
+                
+                
+            }
         });
         document.getElementById('profesionalHugo').addEventListener('change', function () {
             fp.clear();
             document.getElementById('hora').innerHTML = '';
+            for (let index = 0; index < servicios.length; index++) {
+                if (servicios[index].value=='corte_de_pelo') {
+                    servicios[index].innerHTML='Corte de pelo - 8€';
+                }
+                if (servicios[index].value=='corte_y_barba_ritual') {
+                    servicios[index].innerHTML='Corte + barba ritual - 13€';
+                }
+                
+                
+            }
         });
-
+        
         document.getElementById('hora').addEventListener('change', function () {
             servicios.value = '';
             document.getElementById('detalles').textContent = '';
