@@ -67,7 +67,7 @@ class ReservarCitaController extends Controller
                 if ($request->peluquero == 'hugo') {
                     $precio = 8;
                 } else {
-                    $precio = 13;
+                    $precio = 10;
                 }
                 break;
 
