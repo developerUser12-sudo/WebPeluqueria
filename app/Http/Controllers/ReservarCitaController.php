@@ -48,19 +48,27 @@ class ReservarCitaController extends Controller
         $precio = 0;
         switch ($request->servicio) {
             case 'afeitado_de_cabeza_y_barba':
-                $precio = 12;
+                $precio = 11;
                 break;
             case 'arreglo_de_barba':
-                $precio = 7;
+                $precio = 6;
                 break;
             case 'afeitado_de_cabeza_o_numero':
-                $precio = 8;
+                $precio = 7;
                 break;
             case 'corte_y_barba_ritual':
-                $precio = 15;
+                if ($request->peluquero == 'hugo') {
+                    $precio = 13;
+                } else {
+                    $precio = 14;
+                }
                 break;
             case 'corte_de_pelo':
-                $precio = 11;
+                if ($request->peluquero == 'hugo') {
+                    $precio = 8;
+                } else {
+                    $precio = 13;
+                }
                 break;
 
         }
@@ -94,7 +102,7 @@ class ReservarCitaController extends Controller
             }
         }
         Mail::to('lmbarberestudio@gmail.com')->queue(new AvisoCitaReservada($cita));
-        
+
         if ($request->return === 'admin') {
             return redirect('/admin')->with('success', 'Cita reservada');
         }
