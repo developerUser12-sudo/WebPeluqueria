@@ -5,11 +5,11 @@
     <div class="main text-light d-flex justify-content-center align-items-center p-3 transparent-container" >
 
         <div class="p-5 d-flex flex-column align-items-center gap-4 glass">
-            <img src="/storage/logo-sin-fondo.png" alt="Logo">
+            <img src="/storage/logo-sin-fondo.png" alt="Logo de LM Barber">
             <h1>LM Barber</h1>
             <p class="text-center fs-5"><b>Estudio especializado en peluquería masculina y asesoramiento de imagen
                     profesional con tijera</b></p>
-            <a class="btn btn-secondary" type="button" href="{{ route('reservar') }}"
+            <a class="btn btn-secondary"  href="{{ route('reservar') }}"
                 style="border-radius: 12px;background-color:#222322">Reservar</a>
         </div>
     </div>
@@ -21,11 +21,11 @@
             <div class="d-flex flex-row gap-5">
                 <div>
                     <a href="https://www.instagram.com/lmbarberestudio/" class="text-decoration-none text-light"><i
-                            class="bi bi-instagram fs-2"></i></a>
+                            class="bi bi-instagram fs-2" aria-label="Instagram de LM Barber"></i></i></a>
                 </div>
                 <div>
                     <a href="https://wa.link/gcqpdd" class="text-decoration-none text-light fs-2"><i
-                            class="bi bi-whatsapp"></i></a>
+                            class="bi bi-whatsapp" aria-label="WhatsApp de LM Barber"></i></i></a>
 
                 </div>
             </div>

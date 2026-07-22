@@ -22,7 +22,7 @@
         min-width: 110px;
     }
 
-    
+
 
 
 }
@@ -115,14 +115,12 @@ button:focus {
 }
 
 .video-wrapper {
-    width: 100%;
     display: flex;
     justify-content: center;
 }
 
 .video-wrapper video {
-    width: 500px;
-    max-width: 100%;
+    width: 400px;
 }
 
 #prevBtn {
@@ -152,8 +150,14 @@ button:focus {
     color: white;
     text-decoration: none;
     text-transform: uppercase;
-}.fc-header-toolbar {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
-    }
+}
+
+.fc-header-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+.img-galeria{
+    width: 100%;
+    max-width: 400px;
+}

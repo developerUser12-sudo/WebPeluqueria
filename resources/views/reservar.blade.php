@@ -24,7 +24,7 @@
 
 
             <div class="form-group mt-3">
-                <label for="telefono" class="text-light">Teléfono (sin espacio, prefijo obligatorio)</label>
+                <label for="telefono" class="text-light">Teléfono (+34XXXXXXXXX)</label>
                 <input id="telefono" type="text" name="telefono" class="form-control" value="+34">
                 <small class="text-danger mt-2 " id="telefono-error"></small>
             </div>
@@ -44,12 +44,12 @@
                 <div class="mt-1 row ">
                     <label class="profesional col" id="profesionalLuis">
                         <input type="radio" name="peluquero" value="luis">
-                        <img src="/storage/foto-luis.webp" alt="Luis">
+                        <img src="/storage/foto-luis.webp" alt="Profesional Luis">
                         <i class="fw-bold">Luis</i>
                     </label>
                     <label class="profesional col" id="profesionalHugo">
                         <input type="radio" name="peluquero" value="hugo">
-                        <img src="/storage/foto-hugo.webp" alt="Hugo">
+                        <img src="/storage/foto-hugo.webp" alt="Profesional Hugo">
                         <i class="fw-bold">Hugo</i>
                     </label>
                 </div>

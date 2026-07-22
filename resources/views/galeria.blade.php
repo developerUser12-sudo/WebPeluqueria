@@ -5,47 +5,54 @@
     <h2 class="mb-4">Galería</h2>
 
     <div class="d-flex flex-column justify-content-center align-items-center gap-5">
-        <div class="d-flex flex-column flex-sm-row gap-3">
-            <div >
-                <img src="/storage/foto-galeria-1.webp" alt="Foto galeria 1">
+        <div class="d-flex flex-column gap-3  flex-sm-row ">
+            <div>
+                <img class="img-galeria" src="/storage/foto-galeria-1.webp" alt="Corte de pelo realizado en LM Barber"
+                    loading="lazy">
             </div>
-            <div >
-                <img src="/storage/foto-galeria-2.webp" alt="Foto galeria 2">
+            <div>
+                <img class="img-galeria" src="/storage/foto-galeria-2.webp" alt="Corte de pelo realizado en LM Barber"
+                    loading="lazy">
             </div>
 
         </div>
-        <div class="d-flex align-items-center flex-column gap-3">
+        <div class="d-flex align-items-center flex-wrap gap-3 justify-content-center">
             <div class="video-wrapper">
 
-                <video autoplay muted loop playsinline webkit-playsinline>
+                <video autoplay muted loop playsinline>
                     <source src="https://res.cloudinary.com/dajh0uyig/video/upload/v1777566117/video-galeria-1_hw5jj9.mp4"
                         type="video/mp4">
+                    Tu navegador no soporta la reproducción de vídeo.
                 </video>
             </div>
             <div class="video-wrapper">
 
-                <video autoplay muted loop playsinline webkit-playsinline>
+                <video autoplay muted loop playsinline>
                     <source src="https://res.cloudinary.com/dajh0uyig/video/upload/v1777566117/video-galeria-2_ri5rgw.mp4"
                         type="video/mp4">
+                    Tu navegador no soporta la reproducción de vídeo.
                 </video>
             </div>
             <div class="video-wrapper">
 
-                <video autoplay muted loop playsinline webkit-playsinline>
+                <video autoplay muted loop playsinline>
                     <source src="https://res.cloudinary.com/dajh0uyig/video/upload/v1777566117/video-galeria-3_rl1sp6.mp4"
                         type="video/mp4">
+                    Tu navegador no soporta la reproducción de vídeo.
                 </video>
             </div>
             <div class="video-wrapper">
 
-                <video autoplay muted loop playsinline webkit-playsinline>
+                <video autoplay muted loop playsinline>
                     <source src="https://res.cloudinary.com/dajh0uyig/video/upload/v1777566118/video-galeria-4_npd1al.mp4"
                         type="video/mp4">
+                    Tu navegador no soporta la reproducción de vídeo.
                 </video>
             </div>
 
         </div>
     </div>
     
+
 
 @endsection

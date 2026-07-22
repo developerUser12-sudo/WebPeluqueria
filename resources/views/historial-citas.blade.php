@@ -33,7 +33,6 @@
                         @php
                             $citaDT = \Carbon\Carbon::parse($cita->dia . ' ' . $cita->hora);
                             $puedeCancelar = $citaDT->greaterThan($limite);
-                            $citaCancelada=$cita->cancelada;
                         @endphp
 
 
@@ -44,7 +43,7 @@
 
                                 <input type="button" class="btn btn-secondary" data-bs-toggle="modal"
                                     data-bs-target="#eliminarCita{{ $cita->id }}" style="background-color:#222322"
-                                    value="Cancelar" {{ (!$puedeCancelar || $citaCancelada) ? 'disabled' : ''}}>
+                                    value="Cancelar" {{ (!$puedeCancelar || $cita->cancelada) ? 'disabled' : ''}}>
 
                                 <div class="modal fade " id="eliminarCita{{ $cita->id }}" tabindex="-1"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
