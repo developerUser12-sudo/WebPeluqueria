@@ -3,8 +3,12 @@
 @section('class-style', 'my-0 my-lg-5')
 @section('content')
     <h2 class="mb-4">Galería</h2>
-
-    <div class="d-flex flex-column justify-content-center align-items-center gap-5">
+    <div class="mt-5">
+        <hr>
+    <h4>Fotos</h4>
+    <hr>
+    </div>
+    <div class="d-flex  justify-content-center align-items-center">
         <div class="d-flex flex-column gap-3  flex-sm-row ">
             <div>
                 <img class="img-galeria" src="/storage/foto-galeria-1.webp" alt="Corte de pelo realizado en LM Barber"
@@ -16,6 +20,14 @@
             </div>
 
         </div>
+    </div>
+    <div class="mt-5">
+        <hr>
+        <h4>Vídeos</h4>
+        <hr>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+
         <div class="d-flex align-items-center flex-wrap gap-3 justify-content-center">
             <div class="video-wrapper">
 
@@ -52,7 +64,7 @@
 
         </div>
     </div>
-    
+
 
 
 @endsection

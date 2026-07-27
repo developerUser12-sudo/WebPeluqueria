@@ -30,7 +30,7 @@
 
             <h3>Derechos del usuario</h3>
             <p>El usuario puede ejercer sus derechos de acceso, rectificación, cancelación o supresión de sus datos enviando
-                un correo electrónico a <strong>contacto@barberiaxyz.com</strong>.</p>
+                un correo electrónico a <strong>lmbarberestudio@gmail.com</strong>.</p>
 
             <h3>Seguridad</h3>
             <p>Se adoptan las medidas necesarias para proteger la información personal de los usuarios.</p>
