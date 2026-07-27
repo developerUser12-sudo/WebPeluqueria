@@ -33,6 +33,10 @@ return Application::configure(basePath: dirname(__DIR__))
             ->everyMinute()
             ->withoutOverlapping()
             ->runInBackground();
+        $schedule->command('app:revisar-resena-enviada')
+            ->everyMinute()
+            ->withoutOverlapping()
+            ->runInBackground();
 
     })  
     ->withExceptions(function (Exceptions $exceptions): void {

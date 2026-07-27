@@ -28,7 +28,7 @@
                                 Cancelar cita
                             </a>
 
-                            <p>Estos son los detalles de tu cita 💈</p>
+                            <p>Tu cita:</p>
                             <div style="margin-top:20px;text-align:left;">
                                 <p><strong>Servicio:</strong> {{ str_replace('_', ' ', $cita->servicio) }}</p>
                                 <p><strong>Profesional:</strong> {{ ucfirst($cita->peluquero) }}</p>
