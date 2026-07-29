@@ -23,7 +23,7 @@
     </div>
     <div class="mt-5">
         <hr>
-        <h4>Vídeos</h4>
+        <h4>Videos</h4>
         <hr>
     </div>
     <div class="d-flex justify-content-center align-items-center">

@@ -62,12 +62,18 @@ class ReservarCitaController extends Controller
                 } else {
                     $precio = 14;
                 }
+                if ($request->dia=='2026-09-04'||$request->dia=='2026-09-05') {
+                    $precio=20;
+                }
                 break;
             case 'corte_de_pelo':
                 if ($request->peluquero == 'hugo') {
                     $precio = 8;
                 } else {
                     $precio = 10;
+                }
+                if ($request->dia=='2026-09-04'||$request->dia=='2026-09-05') {
+                    $precio=15;
                 }
                 break;
 

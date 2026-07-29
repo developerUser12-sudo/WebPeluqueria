@@ -258,7 +258,7 @@
             dateFormat: "Y-m-d",
             locale: "es",
             minDate: "today",
-            maxDate: new Date().fp_incr(30),
+            maxDate: new Date().fp_incr(40),
             disable: [
                 function (date) {
                     const hoy = new Date();
@@ -270,7 +270,7 @@
                     if (date.getDay() === 6 && esMismoDia && minutosAhora >= 13 * 60) {
                         return true;
                     }
-                    if (esMismoDia && minutosAhora >= (20 * 60 + 30)) {
+                    if (esMismoDia && minutosAhora >= (20 * 60)) {
                         return true;
                     }
                     const fechaFormateada = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
@@ -300,31 +300,31 @@
             fp.clear();
             document.getElementById('hora').innerHTML = '';
             for (let index = 0; index < servicios.length; index++) {
-                if (servicios[index].value=='corte_de_pelo'&&servicios[index].innerHTML.includes('8€')) {
-                    servicios[index].innerHTML='Corte de pelo - 10€';
+                if (servicios[index].value == 'corte_de_pelo' && servicios[index].innerHTML.includes('8€')) {
+                    servicios[index].innerHTML = 'Corte de pelo - 10€';
                 }
-                if (servicios[index].value=='corte_y_barba_ritual'&&servicios[index].innerHTML.includes('13€')) {
-                    servicios[index].innerHTML='Corte + barba ritual - 14€';
+                if (servicios[index].value == 'corte_y_barba_ritual' && servicios[index].innerHTML.includes('13€')) {
+                    servicios[index].innerHTML = 'Corte + barba ritual - 14€';
                 }
-                
-                
+
+
             }
         });
         document.getElementById('profesionalHugo').addEventListener('change', function () {
             fp.clear();
             document.getElementById('hora').innerHTML = '';
             for (let index = 0; index < servicios.length; index++) {
-                if (servicios[index].value=='corte_de_pelo') {
-                    servicios[index].innerHTML='Corte de pelo - 8€';
+                if (servicios[index].value == 'corte_de_pelo') {
+                    servicios[index].innerHTML = 'Corte de pelo - 8€';
                 }
-                if (servicios[index].value=='corte_y_barba_ritual') {
-                    servicios[index].innerHTML='Corte + barba ritual - 13€';
+                if (servicios[index].value == 'corte_y_barba_ritual') {
+                    servicios[index].innerHTML = 'Corte + barba ritual - 13€';
                 }
-                
-                
+
+
             }
         });
-        
+
         document.getElementById('hora').addEventListener('change', function () {
             servicios.value = '';
             document.getElementById('detalles').textContent = '';
@@ -367,6 +367,19 @@
             }
         });
         function generarHoras(dia) {
+            if (dia == '2026-09-04' || dia == '2026-09-05') {
+                for (let i = 0; i < servicios.length; i++) {
+                    if (servicios[i].value == 'corte_de_pelo') {
+                        servicios[i].innerHTML = 'Corte de pelo - 15€';
+                    }
+                    if (servicios[i].value == 'corte_y_barba_ritual') {
+                        servicios[i].innerHTML = 'Corte + barba ritual - 20€';
+                    }
+
+                }
+
+            }
+
             document.getElementById('reservar').disabled = false;
             const fecha = new Date(dia);
             const horaSelect = document.getElementById('hora');
@@ -399,6 +412,19 @@
                     '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
                     '20:00'
                 ];
+
+            }
+            if (dia == '2026-09-04') {
+                const limite = new Date();
+                limite.setHours(19, 0, 0, 0);
+                for (let i = horas.length-1; i>=0; i--) {
+                    const [hh, mm] = horas[i].split(':');
+                    const horaComparar = new Date();
+                    horaComparar.setHours(hh, mm, 0, 0);
+                    if (horaComparar >limite) {
+                        horas.splice(i,1);   
+                    }
+                }
 
             }
             const hoy = new Date().toISOString().split('T')[0];
