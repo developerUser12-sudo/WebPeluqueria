@@ -45,6 +45,27 @@ class ReservarCitaController extends Controller
             'dia' => 'required',
             'hora' => 'required',
         ]);
+        $citas=Citas::where('cancelada',false)->where('dia',$request->dia)->where('peluquero',$request->peluquero)->get();
+        $fechaComparar=Carbon::parse($request->dia . ' ' . $request->hora);
+        foreach ($citas as $cita) {
+            $fechaCitaComparar=Carbon::parse($cita->dia.' '.$cita->hora);
+            if ($cita->hora==$request->hora) {
+                return redirect('/')->with('error','Esta cita ya está ocupada');
+                
+            }
+            if ($cita->servicio=='corte_de_pelo') {
+                if ($fechaComparar->between($fechaCitaComparar,$fechaCitaComparar->copy()->addMinutes(29))) {
+                    return redirect('/')->with('error','Esta cita ya está ocupada');
+                }
+            }
+            if ($cita->servicio=='corte_y_barba_ritual') {
+                if ($fechaComparar->between($fechaCitaComparar,$fechaCitaComparar->copy()->addMinutes(44))) {
+                    return redirect('/')->with('error','Esta cita ya está ocupada');
+                }
+            }
+
+        }
+        
         $precio = 0;
         switch ($request->servicio) {
             case 'afeitado_de_cabeza_y_barba':
