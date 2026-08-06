@@ -14,6 +14,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use function Illuminate\Support\now;
 
 class AdminController extends Controller
 {
@@ -68,7 +69,7 @@ class AdminController extends Controller
         $citasHoy = $citasHoyQuery->count();
         $totalHoy = $citasHoyQuery->sum('precio');
 
-        $horariosBloqueados = BloqueosHorarios::paginate(5, ['*'], 'bloqueos');
+        $horariosBloqueados = BloqueosHorarios::where('fecha_fin','>',now())->orderBy('fecha_fin','asc')->paginate(5, ['*'], 'bloqueos');
         $movimientosPendientes = $this->aplicarFiltrosCupones(
             MovimientosPuntos::with(['user', 'cupon', 'cupongenerado'])
                 ->where('motivo', 'canjeo')

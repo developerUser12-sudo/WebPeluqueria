@@ -15,7 +15,7 @@ class WhatsappController extends Controller
         $twiml->message(
             "👋 Hola.\n\n" .
             "Si desea reservar una cita, hagalo a través de nuestra página lmbarber.es.\n\n" .
-            "Si desea contactar con nosotros, escriba al siguiente número: +34623199913"
+            "Por favor, no escriba a este número. Si desea contactar con nosotros, escriba al siguiente número: +34623199913"
         );
         return response($twiml, 200)
             ->header('Content-Type', 'text/xml');

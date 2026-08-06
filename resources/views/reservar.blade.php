@@ -156,14 +156,6 @@
         const ahora = new Date();
         let botonListaEspera = document.getElementById('lista-espera-boton');
         function telefonoValido(tel) {
-            for (let index = 0; index < usuarios.length; index++) {
-                if (usuarios[index].phone == tel) {
-
-                    return false;
-
-                }
-
-            }
             const regex = /^\+\d{11,15}$/;
             return regex.test(tel);
         }
@@ -189,8 +181,8 @@
                 return;
             }
 
-            if (!telefonoValido(telefono.value) || telefono.value == '') {
-                telefonoError.textContent = 'Formato incorrecto o teléfono ya existente';
+            if (!telefonoValido(telefono.value)) {
+                telefonoError.textContent = 'Formato incorrecto';
                 return;
             }
 
