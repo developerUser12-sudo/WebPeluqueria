@@ -359,6 +359,7 @@
             }
         });
         function generarHoras(dia) {
+            const profesional = document.querySelector('input[name="peluquero"]:checked')?.value;
             if (dia == '2026-09-04' || dia == '2026-09-05') {
                 for (let i = 0; i < servicios.length; i++) {
                     if (servicios[i].value == 'corte_de_pelo') {
@@ -370,6 +371,31 @@
 
                 }
 
+            }else{
+                if (profesional=='luis') {
+                    for (let i = 0; i < servicios.length; i++) {
+                        if (servicios[i].value == 'corte_de_pelo') {
+                            servicios[i].innerHTML = 'Corte de pelo - 10€';
+                        }
+                        if (servicios[i].value == 'corte_y_barba_ritual') {
+                            servicios[i].innerHTML = 'Corte + barba ritual - 14€';
+                        }
+    
+                    }
+                    
+                }
+                else{
+                    for (let i = 0; i < servicios.length; i++) {
+                        if (servicios[i].value == 'corte_de_pelo') {
+                            servicios[i].innerHTML = 'Corte de pelo - 8€';
+                        }
+                        if (servicios[i].value == 'corte_y_barba_ritual') {
+                            servicios[i].innerHTML = 'Corte + barba ritual - 13€';
+                        }
+    
+                    }
+
+                }
             }
 
             document.getElementById('reservar').disabled = false;
@@ -435,7 +461,6 @@
 
             }
 
-            const profesional = document.querySelector('input[name="peluquero"]:checked')?.value;
 
             if (citas[profesional] != null) {
 
