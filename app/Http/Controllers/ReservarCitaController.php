@@ -69,19 +69,19 @@ class ReservarCitaController extends Controller
         $precio = 0;
         switch ($request->servicio) {
             case 'afeitado_de_cabeza_y_barba':
-                $precio = 11;
+                $precio = 12;
                 break;
             case 'arreglo_de_barba':
-                $precio = 6;
+                $precio = 7;
                 break;
             case 'afeitado_de_cabeza_o_numero':
-                $precio = 7;
+                $precio = 8;
                 break;
             case 'corte_y_barba_ritual':
                 if ($request->peluquero == 'hugo') {
                     $precio = 13;
                 } else {
-                    $precio = 14;
+                    $precio = 15;
                 }
                 if ($request->dia=='2026-09-04'||$request->dia=='2026-09-05') {
                     $precio=20;
@@ -91,7 +91,7 @@ class ReservarCitaController extends Controller
                 if ($request->peluquero == 'hugo') {
                     $precio = 8;
                 } else {
-                    $precio = 10;
+                    $precio = 11;
                 }
                 if ($request->dia=='2026-09-04'||$request->dia=='2026-09-05') {
                     $precio=15;

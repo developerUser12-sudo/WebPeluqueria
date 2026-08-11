@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="text-light ">
-                <h3>⭐⭐⭐⭐⭐ | 29 reseñas</h3>
+                <h3>⭐⭐⭐⭐⭐ | 30 reseñas</h3>
             </div>
         </div>
         <div class="d-flex flex-row justify-content-center gap-5">
