@@ -242,7 +242,6 @@
                 }
 
             });
-            console.log(eventosLuis);
 
             let calendarLuis;
             document.addEventListener('DOMContentLoaded', function () {
@@ -296,14 +295,16 @@
                 mismo dia</h5>
             <form method="POST" action="{{ route('bloqueos.store') }}">
                 @csrf
+                <div>
+                    <label for="tipo">Formato</label>
+                    <select name="tipo" id="tipo" class="form-select " required>
+                        <option value="" selected disabled hidden>Escoge formato</option>
+                        <option value="dia_entero">Día completo</option>
+                        <option value="franja_horaria">Franja horaria</option>
+                    </select>
+                </div>
 
-                <select name="tipo" id="tipo" class="form-select mb-3" required>
-                    <option value="" selected disabled hidden>Escoge formato</option>
-                    <option value="dia_entero">Día completo</option>
-                    <option value="franja_horaria">Franja horaria</option>
-                </select>
-
-                <div id="franjaHoraria" style="display:none;">
+                <div id="franjaHoraria" style="display:none;" class="mt-3">
                     <label class="text-light">Inicio</label>
                     <input class="form-control" name="fecha_inicio" id="fecha_inicio" type="datetime-local">
 
@@ -311,16 +312,21 @@
                     <input class="form-control" name="fecha_fin" id="fecha_fin" type="datetime-local">
                 </div>
 
-                <div id="diaEntero">
+                <div id="diaEntero" class="mt-3">
+                    <label for="dia">Dia</label>
                     <input class="form-control" type="date" id="dia" name="dia">
                 </div>
-                <div class="mt-3  text-black">
-                    <select name="profesional" class="form-select" id="">
+
+                <div class="mt-3 ">
+                    <label for="profesional">Profesional</label>
+                    <select name="profesional" class="form-select" id="profesional">
                         <option value="" selected disabled hidden>Aplicar a un profesional</option>
                         <option value="luis">Luis</option>
                         <option value="hugo">Hugo</option>
                     </select>
                 </div>
+                <div class="mt-3">Nota: no es necesario marcar profesional si aplica a ambos</div>
+
 
                 <button type="submit" class="btn btn-primary mt-3">Crear bloqueo</button>
             </form>
