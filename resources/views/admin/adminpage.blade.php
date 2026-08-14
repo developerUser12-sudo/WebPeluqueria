@@ -109,8 +109,8 @@
                                 </td>
                                 <td>
 
-                                    <button type="button" class="btn btn-danger btn-eliminar" data-bs-toggle="modal"
-                                        data-bs-target="#modalEliminar"
+                                    <button type="button" class="btn btn-danger btn-eliminar-cita" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarCita"
                                         data-action="{{ route('citas.destroy', $citaFutura->id) }}">Eliminar</button>
 
                                 </td>
@@ -160,8 +160,8 @@
                                 </td>
                                 <td>
 
-                                    <button type="button" class="btn btn-danger btn-eliminar" data-bs-toggle="modal"
-                                        data-bs-target="#modalEliminar"
+                                    <button type="button" class="btn btn-danger btn-eliminar-cita" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarCita"
                                         data-action="{{ route('citas.destroy', $citaPasada->id) }}">Eliminar</button>
 
                                 </td>
@@ -352,31 +352,9 @@
                                 <td>{{ $horarioBloqueado->fecha_inicio }}</td>
                                 <td>{{ $horarioBloqueado->fecha_fin }}</td>
                                 <td>
-                                    <form action="{{ route('horarioBloqueado.destroy', $horarioBloqueado->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#eliminarHorario{{ $horarioBloqueado->id }}">Eliminar</button>
-                                        <div class="modal fade " id="eliminarHorario{{ $horarioBloqueado->id }}" tabindex="-1"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog ">
-                                                <div class="modal-content text-white" style="background-color:#222322">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar cita</h1>
-
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        ¿Seguro que quieres eliminar este horario?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Cerrar</button>
-                                                        <button type="submit" class="btn btn-primary">Eliminar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    <button type="button" class="btn btn-danger btn-eliminar-horario" data-bs-toggle="modal"
+                                        data-bs-target="#modalEliminarHorario"
+                                        data-action="{{ route('horarioBloqueado.destroy', $horarioBloqueado->id) }}">Eliminar</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -614,9 +592,14 @@
             }
 
         });
-        document.querySelectorAll('.btn-eliminar').forEach(btn => {
+        document.querySelectorAll('.btn-eliminar-cita').forEach(btn => {
             btn.addEventListener('click', function () {
-                document.getElementById('formEliminar').action = this.dataset.action;
+                document.getElementById('formEliminarCita').action = this.dataset.action;
+            });
+        });
+        document.querySelectorAll('.btn-eliminar-horario').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.getElementById('formEliminarHorario').action = this.dataset.action;
             });
         });
 
@@ -639,7 +622,7 @@
 
         });
     </script>
-    <div class="modal fade " id="modalEliminar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade " id="modalEliminarCita" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog ">
             <div class="modal-content text-white" style="background-color:#222322">
                 <div class="modal-header">
@@ -651,7 +634,31 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <form id="formEliminar" method="POST">
+                    <form id="formEliminarCita" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="btn btn-danger">
+                            Eliminar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade " id="modalEliminarHorario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content text-white" style="background-color:#222322">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar horario bloqueado</h1>
+
+                </div>
+                <div class="modal-body">
+                    ¿Seguro que quieres eliminar este horario?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <form id="formEliminarHorario" method="post">
                         @csrf
                         @method('DELETE')
 
