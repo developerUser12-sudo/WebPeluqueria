@@ -27,7 +27,7 @@ class AdminController extends Controller
                         $q2->whereDate('dia', Carbon::today())
                             ->where('hora', '>=', Carbon::now()->format('H:i'));
                     });
-            }),
+            })->where('cancelada',false),
             $request
         );
 
@@ -38,7 +38,7 @@ class AdminController extends Controller
                         $q2->whereDate('dia', Carbon::today())
                             ->where('hora', '<', Carbon::now()->format('H:i'));
                     });
-            }),
+            })->where('cancelada',false),
             $request
         );
         $queryCalendario = $this->aplicarFiltrosCitas(

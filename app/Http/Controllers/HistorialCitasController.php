@@ -12,6 +12,7 @@ class HistorialCitasController extends Controller
     public function show()
     {
         $citas = Citas::where('id_usuario', auth()->id())
+            ->where('cancelada', false)
             ->orderBy('dia', 'desc')
             ->paginate(5);
         return view('historial-citas', compact('citas'));
@@ -23,6 +24,6 @@ class HistorialCitasController extends Controller
             'cancelada' => true,
         ]);
         $cita->save();
-        return redirect()->back()->with('success','Cita cancelada');
+        return redirect()->back()->with('success', 'Cita cancelada');
     }
 }
