@@ -42,7 +42,7 @@ class AdminController extends Controller
             $request
         );
         $queryCalendario = $this->aplicarFiltrosCitas(
-            Citas::query(),
+            Citas::query()->where('cancelada',false),
             $request
         );
         $citasCalendario = $queryCalendario
