@@ -28,22 +28,22 @@
                 Bloqueo horario
             </button>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" @if (Auth::user()->email == 'hugoadmin@gmail.com') hidden @endif>
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#estadisticas">
                 Estadisticas
             </button>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" @if (Auth::user()->email == 'hugoadmin@gmail.com') hidden @endif>
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#aviso">
                 Aviso clientes
             </button>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" @if (Auth::user()->email == 'hugoadmin@gmail.com') hidden @endif>
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#canjeos">
                 Canjeos
             </button>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" @if (Auth::user()->email == 'hugoadmin@gmail.com') hidden @endif>
             <button class="nav-link" data-bs-toggle="tab" data-bs-target="#usuarios">
                 Usuarios
             </button>
@@ -367,30 +367,50 @@
 
         <div class="tab-pane fade" id="estadisticas">
 
-            <h4 class="text-light mb-4">Estadísticas de hoy</h4>
+            <h4 class="text-light mb-4">Estadísticas</h4>
+            <form method="GET" class="mb-3 d-flex gap-2 flex-column ">
+                <label for="diaInicio">Dia de inicio</label>
+                <input type="date" id="diaInicio" name="diaInicio" class="form-control" value="{{ request('diaInicio') }}"
+                    required>
+                <label for="diaFin">Dia de fin</label>
+                <input type="date" id="diaFin" name="diaFin" class="form-control" value="{{ request('diaFin') }}" required>
 
-            <div class="row g-3">
+                <div class="d-flex flex-row gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        Buscar
+                    </button>
 
-                <div class="col-md-6">
-                    <div class="card shadow border-0 bg-dark text-light">
-                        <div class="card-body text-center">
-                            <h6 class="text-secondary">Citas hoy</h6>
-                            <h2 class="fw-bold">{{ $citasHoy }}</h2>
-                        </div>
-                    </div>
+                    <a href="{{ url()->current() }}" class="btn btn-secondary">
+                        Borrar
+                    </a>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="card shadow border-0 bg-dark text-light">
-                        <div class="card-body text-center">
-                            <h6 class="text-secondary">Ingresos hoy</h6>
-                            <h2 class="fw-bold text-success">{{ $totalHoy }}€</h2>
+            </form>
+            @if (request('diaInicio'))
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <div class="card shadow border-0 bg-dark text-light">
+                            <div class="card-body text-center">
+                                <h6 class="text-secondary">Citas totales</h6>
+                                <h2 class="fw-bold">{{ count($citasEstadisticas) }}</h2>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="card shadow border-0 bg-dark text-light">
+                            <div class="card-body text-center">
+                                <h6 class="text-secondary">Ingresos totales</h6>
+                                <h2 class="fw-bold text-success">{{ $precioEstadisticas }}€</h2>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-            </div>
-
+            @endif
         </div>
         <div class="tab-pane fade" id="aviso">
 

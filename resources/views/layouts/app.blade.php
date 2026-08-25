@@ -95,7 +95,7 @@
 
     </div>
     <main class="@yield('main-class') flex-grow-1 main d-flex justify-content-center flex-column"
-        style="background-image:url('{{ asset('storage/imagen-fondo.webp') }}')">
+        style="background-image:url('{{ asset('storage/fondo.webp') }}')">
 
         @hasSection('homepage')
 

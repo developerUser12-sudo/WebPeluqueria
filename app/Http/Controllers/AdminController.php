@@ -27,7 +27,7 @@ class AdminController extends Controller
                         $q2->whereDate('dia', Carbon::today())
                             ->where('hora', '>=', Carbon::now()->format('H:i'));
                     });
-            })->where('cancelada',false),
+            })->where('cancelada', false),
             $request
         );
 
@@ -38,11 +38,11 @@ class AdminController extends Controller
                         $q2->whereDate('dia', Carbon::today())
                             ->where('hora', '<', Carbon::now()->format('H:i'));
                     });
-            })->where('cancelada',false),
+            })->where('cancelada', false),
             $request
         );
         $queryCalendario = $this->aplicarFiltrosCitas(
-            Citas::query()->where('cancelada',false),
+            Citas::query()->where('cancelada', false),
             $request
         );
         $citasCalendario = $queryCalendario
@@ -54,7 +54,7 @@ class AdminController extends Controller
             ->orderBy('dia')
             ->orderBy('hora')
             ->paginate(5, ['*'], 'futuras_page')
-            
+
             ->withQueryString();
 
 
@@ -64,12 +64,12 @@ class AdminController extends Controller
             ->paginate(5, ['*'], 'pasadas_page')
             ->withQueryString();
 
-        $citasHoyQuery = Citas::whereDate('dia', Carbon::today());
-
-        $citasHoy = $citasHoyQuery->count();
-        $totalHoy = $citasHoyQuery->sum('precio');
-
-        $horariosBloqueados = BloqueosHorarios::where('fecha_fin','>',now())->orderBy('fecha_fin','asc')->paginate(5, ['*'], 'bloqueos');
+        $citasEstadisticas = $this->aplicarFiltrosEstadisticas(Citas::query()->where('cancelada', false), $request)->get();
+        $precioEstadisticas=0;
+        foreach ($citasEstadisticas as $cita) {
+            $precioEstadisticas+=$cita->precio;
+        }
+        $horariosBloqueados = BloqueosHorarios::where('fecha_fin', '>', now())->orderBy('fecha_fin', 'asc')->paginate(5, ['*'], 'bloqueos');
         $movimientosPendientes = $this->aplicarFiltrosCupones(
             MovimientosPuntos::with(['user', 'cupon', 'cupongenerado'])
                 ->where('motivo', 'canjeo')
@@ -86,13 +86,13 @@ class AdminController extends Controller
             $request
         )->orderBy('created_at', 'desc')
             ->paginate(5, ['*'], 'validados_page');
-       $usuarios = User::paginate(5, ['*'], 'usuarios');
+        $usuarios = User::paginate(5, ['*'], 'usuarios');
         return view('admin.adminpage', compact(
             'citasFuturas',
             'citasCalendario',
             'citasPasadas',
-            'citasHoy',
-            'totalHoy',
+            'citasEstadisticas',
+            'precioEstadisticas',
             'movimientosValidados',
             'movimientosPendientes',
             'horariosBloqueados',
@@ -141,7 +141,14 @@ class AdminController extends Controller
                 });
             })
             ->when($request->filled('fecha'), function ($q) use ($request) {
-                $q->whereDate('created_at', $request->fecha);
+                $q->whereDate('dia', $request->fecha);
+            });
+    }
+    private function aplicarFiltrosEstadisticas($query, $request)
+    {
+        return $query
+            ->when($request->filled('diaInicio'), function ($q) use ($request) {
+                $q->whereBetween('dia', [$request->diaInicio, $request->diaFin]);
             });
     }
     public function validarCupon($id)

@@ -17,7 +17,7 @@
                                 <img src="https://res.cloudinary.com/dajh0uyig/image/upload/v1774349669/logo-sin-fondo_xb5st8.png">
                             </a>
 
-                            <p>Alguien ha reservado una cita</p>
+                            <p>{{ $cita->nombre ?? $cita->user->name }} ha reservado una cita</p>
                             <div style="margin-top:20px;text-align:left;">
                                 <p><strong>Servicio:</strong> {{ str_replace('_', ' ', $cita->servicio) }}</p>
                                 <p><strong>Profesional:</strong> {{ ucfirst($cita->peluquero) }}</p>

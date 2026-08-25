@@ -128,6 +128,7 @@ class ReservarCitaController extends Controller
                 Mail::to($request->email)->queue(new CancelarCita($cita));
             }
         }
+        $cita->load('user');
         Mail::to('lmbarberestudio@gmail.com')->queue(new AvisoCitaReservada($cita));
 
         if ($request->return === 'admin') {
