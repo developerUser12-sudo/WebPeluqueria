@@ -351,22 +351,22 @@
                     if (diferencia == 15) {
                         for (let x = 0; x < servicios.options.length; x++) {
                             const opcion = servicios.options[x];
-    
+
                             if (!opcion.dataset.info?.includes('15 min')) {
                                 opcion.disabled = true;
                             }
                         }
-    
+
                     }
                     if (diferencia > 0 && diferencia < 45) {
                         for (let x = 0; x < servicios.options.length; x++) {
                             const opcion = servicios.options[x];
-    
+
                             if (opcion.dataset.info?.includes('45 min')) {
                                 opcion.disabled = true;
                             }
                         }
-    
+
                     }
                 }
             }
@@ -448,6 +448,29 @@
 
                         if (!horas.includes(nuevaHora)) {
                             horas.push(nuevaHora);
+                        }
+
+
+                    }
+                    if ((citasOcupadas[i].servicio == 'corte_de_pelo' || citasOcupadas[i].servicio == 'afeitado_de_cabeza_y_barba') && (citasOcupadas[i].hora.includes(':15') || citasOcupadas[i].hora.includes(':45'))) {
+                        const [hh, mm] = citasOcupadas[i].hora.split(':');
+                        const fecha = new Date();
+                        fecha.setHours(hh, mm, 0, 0);
+                        fecha.setMinutes(fecha.getMinutes() + 30);
+                        const nuevaHora = String(fecha.getHours()).padStart(2, '0') + ':' + String(fecha.getMinutes()).padStart(2, '0');
+                        
+                        if (!horas.includes(nuevaHora)) {
+                            horas.push(nuevaHora);
+                        }
+                        fecha.setMinutes(fecha.getMinutes()-15);
+                        const nuevaHoraComparar = String(fecha.getHours()).padStart(2, '0') + ':' + String(fecha.getMinutes()).padStart(2, '0');
+                        for (let x = horas.length - 1; x >= 0; x--) {                            
+                            if (horas[x] == nuevaHoraComparar) {
+                                console.log(horas[x]);
+                                
+                                horas.splice(x, 1);
+                            }
+
                         }
 
 
