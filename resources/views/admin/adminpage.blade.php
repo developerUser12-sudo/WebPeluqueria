@@ -56,9 +56,9 @@
 
             <form method="GET" class="mb-3 d-flex gap-2 flex-column flex-md-row">
 
-                <input type="text" name="search" class="form-control" placeholder="Busca por nombre o teléfono..."
-                    value="{{ request('search') }}">
-                <input type="date" name="fecha" class="form-control" value="{{ request('fecha') }}">
+                <input type="text" name="searchCitas" class="form-control" placeholder="Busca por nombre o teléfono..."
+                    value="{{ request('searchCitas') }}">
+                <input type="date" name="fechaCitas" class="form-control" value="{{ request('fechaCitas') }}">
 
                 <button type="submit" class="btn btn-primary">
                     Buscar
@@ -429,9 +429,9 @@
         <div class="tab-pane fade" id="canjeos">
             <form method="GET" class="mb-3 d-flex gap-2 flex-column flex-md-row">
 
-                <input type="text" name="search" class="form-control" placeholder="Busca cupón..."
-                    value="{{ request('search') }}">
-                <input type="date" name="fecha" class="form-control" value="{{ request('fecha') }}">
+                <input type="text" name="searchCupones" class="form-control" placeholder="Busca cupón..."
+                    value="{{ request('searchCupones') }}">
+                <input type="date" name="fechaCupones" class="form-control" value="{{ request('fechaCupones') }}">
 
                 <button type="submit" class="btn btn-primary">
                     Buscar

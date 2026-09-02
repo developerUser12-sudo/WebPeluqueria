@@ -103,8 +103,8 @@ class AdminController extends Controller
     private function aplicarFiltrosCitas($query, $request)
     {
         return $query
-            ->when($request->filled('search'), function ($q) use ($request) {
-                $search = $request->search;
+            ->when($request->filled('searchCitas'), function ($q) use ($request) {
+                $search = $request->searchCitas;
 
                 $q->where(function ($q2) use ($search) {
                     $q2->where('nombre', 'like', "%$search%")
@@ -115,15 +115,15 @@ class AdminController extends Controller
                         });
                 });
             })
-            ->when($request->filled('fecha'), function ($q) use ($request) {
-                $q->whereDate('dia', $request->fecha);
+            ->when($request->filled('fechaCitas'), function ($q) use ($request) {
+                $q->whereDate('dia', $request->fechaCitas);
             });
     }
     private function aplicarFiltrosCupones($query, $request)
     {
         return $query
-            ->when($request->filled('search'), function ($q) use ($request) {
-                $search = $request->search;
+            ->when($request->filled('searchCupones'), function ($q) use ($request) {
+                $search = $request->searchCupones;
 
                 $q->where(function ($q2) use ($search) {
 
@@ -140,8 +140,8 @@ class AdminController extends Controller
                         });
                 });
             })
-            ->when($request->filled('fecha'), function ($q) use ($request) {
-                $q->whereDate('dia', $request->fecha);
+            ->when($request->filled('fechaCupones'), function ($q) use ($request) {
+                $q->whereDate('created_at', $request->fechaCupones);
             });
     }
     private function aplicarFiltrosEstadisticas($query, $request)
