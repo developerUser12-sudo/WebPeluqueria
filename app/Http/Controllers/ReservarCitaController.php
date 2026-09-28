@@ -45,60 +45,66 @@ class ReservarCitaController extends Controller
             'dia' => 'required',
             'hora' => 'required',
         ]);
-        $citas=Citas::where('cancelada',false)->where('dia',$request->dia)->where('peluquero',$request->peluquero)->get();
-        $fechaComparar=Carbon::parse($request->dia . ' ' . $request->hora);
-        foreach ($citas as $cita) {
-            $fechaCitaComparar=Carbon::parse($cita->dia.' '.$cita->hora);
-            if ($cita->hora==$request->hora) {
-                return redirect('/')->with('error','Esta cita ya está ocupada');
-                
-            }
-            if ($cita->servicio=='corte_de_pelo') {
-                if ($fechaComparar->between($fechaCitaComparar,$fechaCitaComparar->copy()->addMinutes(29))) {
-                    return redirect('/')->with('error','Esta cita ya está ocupada');
-                }
-            }
-            if ($cita->servicio=='corte_y_barba_ritual') {
-                if ($fechaComparar->between($fechaCitaComparar,$fechaCitaComparar->copy()->addMinutes(44))) {
-                    return redirect('/')->with('error','Esta cita ya está ocupada');
-                }
-            }
-
-        }
-        
+        $citas = Citas::where('cancelada', false)->where('dia', $request->dia)->where('peluquero', $request->peluquero)->get();
+        $fechaComparar = Carbon::parse($request->dia . ' ' . $request->hora);
         $precio = 0;
+        $horaFinalizacion = 0;
         switch ($request->servicio) {
             case 'afeitado_de_cabeza_y_barba':
                 $precio = 12;
+                $horaFinalizacion = 29;
                 break;
             case 'arreglo_de_barba':
                 $precio = 7;
+                $horaFinalizacion = 14;
                 break;
             case 'afeitado_de_cabeza_o_numero':
                 $precio = 8;
+                $horaFinalizacion = 14;
                 break;
             case 'corte_y_barba_ritual':
+                $horaFinalizacion = 44;
                 if ($request->peluquero == 'hugo') {
                     $precio = 13;
                 } else {
                     $precio = 15;
                 }
-                if ($request->dia=='2026-09-04'||$request->dia=='2026-09-05') {
-                    $precio=20;
-                }
+               
                 break;
             case 'corte_de_pelo':
+                $horaFinalizacion = 29;
                 if ($request->peluquero == 'hugo') {
                     $precio = 8;
                 } else {
                     $precio = 11;
                 }
-                if ($request->dia=='2026-09-04'||$request->dia=='2026-09-05') {
-                    $precio=15;
-                }
+               
                 break;
 
         }
+
+        foreach ($citas as $cita) {
+            $fechaCitaComparar = Carbon::parse($cita->dia . ' ' . $cita->hora);
+            if ($cita->servicio == 'corte_de_pelo' || $cita->servicio == 'afeitado_de_cabeza_y_barba') {
+                if ($fechaComparar->copy()->addMinutes($horaFinalizacion)->betweenIncluded($fechaCitaComparar, $fechaCitaComparar->copy()->addMinutes(29))) {
+                    return redirect('/')->with('error', 'Esta cita ya está ocupada');
+
+                }
+            }
+            if ($cita->servicio == 'corte_y_barba_ritual') {
+                if ($fechaComparar->copy()->addMinutes($horaFinalizacion)->betweenIncluded($fechaCitaComparar, $fechaCitaComparar->copy()->addMinutes(44))) {
+                    return redirect('/')->with('error', 'Esta cita ya está ocupada');
+
+                }
+            }
+            if ($fechaCitaComparar->betweenIncluded($fechaComparar, $fechaComparar->copy()->addMinutes($horaFinalizacion))) {
+                return redirect('/')->with('error', 'Esta cita ya está ocupada');
+
+            }
+
+        }
+
+
         $token = "";
         if (auth()->guest()) {
             $token = Str::random(40);

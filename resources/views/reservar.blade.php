@@ -374,21 +374,13 @@
         })
         function generarHoras(dia) {
             const profesional = document.querySelector('input[name="peluquero"]:checked')?.value;
-            if (dia == '2026-09-04' || dia == '2026-09-05') {
-                cambiarPrecio('15', '20');
 
-            } else {
-                if (profesional == 'luis') {
-                    cambiarPrecio('11', '15');
-
-
-                }
-                else {
-                    cambiarPrecio('8', '13');
-
-                }
+            if (profesional == 'luis') {
+                cambiarPrecio('11', '15');
             }
-
+            else {
+                cambiarPrecio('8', '13');
+            }
             document.getElementById('reservar').disabled = false;
             const fecha = new Date(dia);
             const horaSelect = document.getElementById('hora');
@@ -423,7 +415,7 @@
                 ];
 
             }
-            let citasOcupadas = citas[profesional];
+            let citasOcupadas = citas[profesional] ?? [];
 
             for (let i = 0; i < citasOcupadas.length; i++) {
 
@@ -458,16 +450,16 @@
                         fecha.setHours(hh, mm, 0, 0);
                         fecha.setMinutes(fecha.getMinutes() + 30);
                         const nuevaHora = String(fecha.getHours()).padStart(2, '0') + ':' + String(fecha.getMinutes()).padStart(2, '0');
-                        
+
                         if (!horas.includes(nuevaHora)) {
                             horas.push(nuevaHora);
                         }
-                        fecha.setMinutes(fecha.getMinutes()-15);
+                        fecha.setMinutes(fecha.getMinutes() - 15);
                         const nuevaHoraComparar = String(fecha.getHours()).padStart(2, '0') + ':' + String(fecha.getMinutes()).padStart(2, '0');
-                        for (let x = horas.length - 1; x >= 0; x--) {                            
+                        for (let x = horas.length - 1; x >= 0; x--) {
                             if (horas[x] == nuevaHoraComparar) {
                                 console.log(horas[x]);
-                                
+
                                 horas.splice(x, 1);
                             }
 
@@ -480,19 +472,7 @@
             }
 
             horas.sort();
-            if (dia == '2026-09-04') {
-                const limite = new Date();
-                limite.setHours(19, 0, 0, 0);
-                for (let i = horas.length - 1; i >= 0; i--) {
-                    const [hh, mm] = horas[i].split(':');
-                    const horaComparar = new Date();
-                    horaComparar.setHours(hh, mm, 0, 0);
-                    if (horaComparar > limite) {
-                        horas.splice(i, 1);
-                    }
-                }
-
-            }
+            
             const hoy = new Date().toISOString().split('T')[0];
 
 
