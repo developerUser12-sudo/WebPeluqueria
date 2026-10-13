@@ -1,6 +1,6 @@
 # LMBarber
 
-Aplicación web desarrollada para la gestión de una barbería, orientada a facilitar la administración de citas, clientes y servicios. Este proyecto está siendo utilizado y mantenido para un negocio real, por lo que continúa evolucionando con nuevas funcionalidades y mejoras.
+Aplicación web desarrollada para la gestión de una barbería, orientada a facilitar la administración de citas, clientes y servicios. Este proyecto está siendo utilizado y mantenido para un negocio real, por lo que continúa evolucionando con nuevas funcionalidades y mejoras. Link: lmbarber.es
 
 ## Tecnologías utilizadas
 
@@ -35,12 +35,6 @@ Aplicación web desarrollada para la gestión de una barbería, orientada a faci
 
 ## Estado del proyecto
 
-🟢 **En desarrollo**
+🟢 **Finalizado y bajo mantenimiento**
 
 La aplicación se encuentra en uso y continúa evolucionando con nuevas funcionalidades, mejoras de rendimiento y corrección de incidencias.
-
-## Objetivos
-
-El objetivo del proyecto es ofrecer una solución sencilla y eficiente para la gestión diaria de una barbería, automatizando tareas administrativas y facilitando la organización del negocio.
-
-Además, este proyecto me permite seguir ampliando mis conocimientos en Laravel, JavaScript y desarrollo web mediante el mantenimiento y evolución de una aplicación utilizada en un entorno real.

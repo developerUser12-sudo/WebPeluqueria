@@ -293,7 +293,7 @@
             <h4 class="text-light">Bloquear franja horaria</h4>
             <h5 class="mb-3">Importante: al bloquear una franja horaria, la fecha de inicio y de fin deben corresponder al
                 mismo dia</h5>
-            <form method="POST" action="{{ route('bloqueos.store') }}">
+            <form method="POST" action="{{ route('bloqueos.bloquearHorario') }}">
                 @csrf
                 <div>
                     <label for="tipo">Formato</label>
@@ -301,6 +301,7 @@
                         <option value="" selected disabled hidden>Escoge formato</option>
                         <option value="dia_entero">Día completo</option>
                         <option value="franja_horaria">Franja horaria</option>
+                        <option value="rango_de_dias">Rango de dias</option>
                     </select>
                 </div>
 
@@ -310,6 +311,13 @@
 
                     <label class="text-light mt-3">Fin</label>
                     <input class="form-control" name="fecha_fin" id="fecha_fin" type="datetime-local">
+                </div>
+                <div id="rangoDeDias" style="display:none;" class="mt-3">
+                    <label class="text-light">Inicio</label>
+                    <input class="form-control" name="dia_inicio" id="dia_inicio" type="date">
+
+                    <label class="text-light mt-3">Fin</label>
+                    <input class="form-control" name="dia_fin" id="dia_fin" type="date">
                 </div>
 
                 <div id="diaEntero" class="mt-3">
@@ -594,20 +602,40 @@
         const diaInput = document.getElementById('dia');
         const inicioInput = document.getElementById('fecha_inicio');
         const finInput = document.getElementById('fecha_fin');
+        const diaInicioInput = document.getElementById('dia_inicio');
+        const diaFinInput = document.getElementById('dia_fin');
         document.getElementById('tipo').addEventListener('change', function () {
 
             if (this.value == 'dia_entero') {
                 document.getElementById('diaEntero').style.display = 'block';
                 document.getElementById('franjaHoraria').style.display = 'none';
+                document.getElementById('rangoDeDias').style.display = 'none';
+
                 diaInput.setAttribute('required', true);
                 inicioInput.removeAttribute('required');
                 finInput.removeAttribute('required');
-            } else {
+                diaFinInput.removeAttribute('required');
+                diaInicioInput.removeAttribute('required');
+            }
+            else if (this.value == 'rango_de_dias') {
+                document.getElementById('diaEntero').style.display = 'none';
+                document.getElementById('franjaHoraria').style.display = 'none';
+                document.getElementById('rangoDeDias').style.display = 'block';
+                inicioInput.removeAttribute('required');
+                finInput.removeAttribute('required');
+                diaFinInput.setAttribute('required', true);
+                diaInicioInput.setAttribute('required', true);
+                diaInput.removeAttribute('required');
+            }
+            else {
                 document.getElementById('diaEntero').style.display = 'none';
                 document.getElementById('franjaHoraria').style.display = 'block';
+                document.getElementById('rangoDeDias').style.display = 'none';
+
                 inicioInput.setAttribute('required', true);
                 finInput.setAttribute('required', true);
-
+                diaFinInput.removeAttribute('required');
+                diaInicioInput.removeAttribute('required');
                 diaInput.removeAttribute('required');
             }
 

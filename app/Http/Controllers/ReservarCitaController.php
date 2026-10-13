@@ -19,7 +19,7 @@ class ReservarCitaController extends Controller
 
         $horasBloqueadas = BloqueosHorarios::where('tipo', 'franja_horaria')
             ->get(['profesional', 'fecha_inicio', 'fecha_fin'])->groupBy('profesional');
-        $diasBloqueados = BloqueosHorarios::where('tipo', 'dia_entero')
+        $diasBloqueados = BloqueosHorarios::whereIn('tipo', ['dia_entero','rango_de_dias'])
             ->get()
             ->groupBy('profesional')
             ->map(function ($grupo) {

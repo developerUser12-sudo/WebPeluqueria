@@ -99,8 +99,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('servicio-completado/{id}', [PuntosController::class, 'servicioCompletado'])
         ->name('admin.servicio-completado');
 
-    Route::post('bloqueos', [BloqueosHorariosController::class, 'store'])
-        ->name('bloqueos.store');
+    Route::post('bloqueos', [BloqueosHorariosController::class, 'bloquearHorario'])
+        ->name('bloqueos.bloquearHorario');
     Route::get('/cita/{id}/editar', [AdminCitasController::class, 'editarCitaView'])->name('citas.edit');
     Route::put('/cita/{id}', [AdminCitasController::class, 'editarCita'])->name('citas.update');
     Route::delete('/citas/{id}', [AdminCitasController::class, 'eliminarCita'])->name('citas.destroy');
