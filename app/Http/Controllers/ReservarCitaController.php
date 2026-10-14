@@ -62,6 +62,10 @@ class ReservarCitaController extends Controller
                 $precio = 8;
                 $horaFinalizacion = 14;
                 break;
+            case 'corte_y_barba_simple':
+                $precio = 13;
+                $horaFinalizacion = 29;
+                break;
             case 'corte_y_barba_ritual':
                 $horaFinalizacion = 44;
                 if ($request->peluquero == 'hugo') {
@@ -74,7 +78,7 @@ class ReservarCitaController extends Controller
             case 'corte_de_pelo':
                 $horaFinalizacion = 29;
                 if ($request->peluquero == 'hugo') {
-                    $precio = 8;
+                    $precio = 10;
                 } else {
                     $precio = 11;
                 }
@@ -85,7 +89,7 @@ class ReservarCitaController extends Controller
 
         foreach ($citas as $cita) {
             $fechaCitaComparar = Carbon::parse($cita->dia . ' ' . $cita->hora);
-            if ($cita->servicio == 'corte_de_pelo' || $cita->servicio == 'afeitado_de_cabeza_y_barba') {
+            if ($cita->servicio == 'corte_de_pelo' || $cita->servicio == 'afeitado_de_cabeza_y_barba'||$cita->servicio=='corte_y_barba_simple') {
                 if ($fechaComparar->copy()->addMinutes($horaFinalizacion)->betweenIncluded($fechaCitaComparar, $fechaCitaComparar->copy()->addMinutes(29))) {
                     return redirect('/')->with('error', 'Esta cita ya está ocupada');
 

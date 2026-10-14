@@ -85,6 +85,9 @@
                     <option value="corte_de_pelo"
                         data-info="Desde corte clásico totalmente a tijera hasta un degradado pulido desde afeitadora, además de un asesoramiento personal. 30 min">
                         Corte de pelo - 11€</option>
+                    <option value="corte_y_barba_simple"
+                        data-info="Corte más barba con máquina y perfilado a navaja para el que busca rapidez y eficacia. 30 min">
+                        Corte + barba simple - 13€</option>
                     <option value="corte_y_barba_ritual"
                         data-info="El ritual es una experiencia de relajación en la que el cliente disfrutará de un arreglo de barba clásico con toalla. 45 min">
                         Corte + barba ritual - 15€</option>
@@ -318,7 +321,7 @@
             document.getElementById('hora').innerHTML = '';
             for (let index = 0; index < servicios.length; index++) {
                 if (servicios[index].value == 'corte_de_pelo') {
-                    servicios[index].innerHTML = 'Corte de pelo - 8€';
+                    servicios[index].innerHTML = 'Corte de pelo - 10€';
                 }
                 if (servicios[index].value == 'corte_y_barba_ritual') {
                     servicios[index].innerHTML = 'Corte + barba ritual - 13€';
@@ -379,7 +382,7 @@
                 cambiarPrecio('11', '15');
             }
             else {
-                cambiarPrecio('8', '13');
+                cambiarPrecio('10', '13');
             }
             document.getElementById('reservar').disabled = false;
             const fecha = new Date(dia);
